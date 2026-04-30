@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Alım-Satım KDV Hesaplayıcı | Noter</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #c0c0c0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.1);
+        }
+        h1 {
+            color: #e0e0e0;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .input-group { margin-bottom: 20px; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            background: #0f0f0f;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus { border-color: #c0c0c0; }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #c0c0c0;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #e0e0e0;
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.3);
+        }
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.show { display: block; }
+        .result-title {
+            color: #e0e0e0;
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+        }
+        .result-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .result-label { color: #888; }
+        .result-value { color: #e0e0e0; font-weight: bold; }
+        .highlight {
+            background: #1a1a1a;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: #c0c0c0;
+        }
+        .noter-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .noter-label {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .noter-value {
+            color: #e0e0e0;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .ad-space {
+            margin-top: 30px;
+            padding: 20px;
+            background: #151515;
+            border: 1px dashed #444;
+            border-radius: 8px;
+            text-align: center;
+            color: #555;
+            font-size: 12px;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            .noter-value { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Araç Alım-Satım KDV Hesaplayıcı</h1>
+        <p class="subtitle">Noter satışları için KDV hariç net bedel hesaplama</p>
+
+        <div class="input-group">
+            <label>🔹 Araç Alım Bedeli (Maliyet) (TL)</label>
+            <input type="number" id="alimBedeli" placeholder="Örn: 1000000" min="0">
+        </div>
+
+        <div class="input-group">
+            <label>🔹 Araç Satış Bedeli (İstenen Fiyat) (TL)</label>
+            <input type="number" id="satisBedeli" placeholder="Örn: 1100000" min="0">
+        </div>
+
+        <div class="input-group">
+            <label>KDV Oranı (Kar üzerinden)</label>
+            <select id="kdvOrani">
+                <option value="1">%1</option>
+                <option value="20" selected>%20</option>
+            </select>
+        </div>
+
+        <button onclick="hesapla()">HESAPLA</button>
+
+        <div class="result" id="sonuc">
+            <div class="result-title">📊 Detaylı Hesaplama</div>
+            
+            <div class="result-row">
+                <span class="result-label">Araç Alım Bedeli</span>
+                <span class="result-value" id="resAlim">-</span>
+            </div>
+            
+            <div class="result-row">
+                <span class="result-label">Araç Satış Bedeli</span>
+                <span class="result-value" id="resSatis">-</span>
+            </div>
+            
+            <div class="result-row">
+                <span class="result-label">Elde Edilen Kar</span>
+                <span class="result-value highlight" id="resKar">-</span>
+            </div>
+            
+            <div class="result-row">
+                <span class="result-label">KDV Oranı</span>
+                <span class="result-value" id="resKdvOrani">-</span>
+            </div>
+            
+            <div class="result-row">
+                <span class="result-label">Karın KDV Tutarı</span>
+                <span class="result-value" id="resKdvTutari">-</span>
+            </div>
+            
+            <div class="result-row">
+                <span class="result-label">Satış Bedeli - KDV</span>
+                <span class="result-value" id="resSatisEksiKdv">-</span>
+            </div>
+
+            <div class="noter-box">
+                <div class="noter-label">📋 NOTERE KDV HARİÇ</div>
+                <div class="noter-value" id="resNoter">-</div>
+            </div>
+        </div>
+
+        <div class="ad-space">
+            REKLAM ALANI<br>
+            Google AdSense kodu buraya eklenecek
+        </div>
+    </div>
+
+    <script>
+        function formatPara(tutar) {
+            return new Intl.NumberFormat('tr-TR', {
+                style: 'currency',
+                currency: 'TRY',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(tutar);
+        }
+
+        function hesapla() {
+            const alimBedeli = parseFloat(document.getElementById('alimBedeli').value);
+            const satisBedeli = parseFloat(document.getElementById('satisBedeli').value);
+            const kdvOrani = parseFloat(document.getElementById('kdvOrani').value);
+
+            if (!alimBedeli || alimBedeli <= 0) {
+                alert('Lütfen geçerli bir alım bedeli girin!');
+                return;
+            }
+
+            if (!satisBedeli || satisBedeli <= 0) {
+                alert('Lütfen geçerli bir satış bedeli girin!');
+                return;
+            }
+
+            if (satisBedeli <= alimBedeli) {
+                alert('Satış bedeli, alım bedelinden büyük olmalıdır!');
+                return;
+            }
+
+            const kar = satisBedeli - alimBedeli;
+            const kdvTutari = kar * (kdvOrani / 100);
+            const noterBedeli = satisBedeli - kdvTutari;
+
+            document.getElementById('resAlim').textContent = formatPara(alimBedeli);
+            document.getElementById('resSatis').textContent = formatPara(satisBedeli);
+            document.getElementById('resKar').textContent = formatPara(kar);
+            document.getElementById('resKdvOrani').textContent = '%' + kdvOrani;
+            document.getElementById('resKdvTutari').textContent = formatPara(kdvTutari);
+            document.getElementById('resSatisEksiKdv').textContent = formatPara(noterBedeli);
+            document.getElementById('resNoter').textContent = formatPara(noterBedeli);
+
+            document.getElementById('sonuc').classList.add('show');
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') hesapla();
+            });
+        });
+    </script>
+</body>
+</html>
