@@ -96,7 +96,8 @@
             box-shadow: 0 0 12px rgba(192, 192, 192, 0.25);
         }
 
-        button {
+        button,
+        .share-button {
             width: 100%;
             padding: 15px;
             background: #c0c0c0;
@@ -108,11 +109,26 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
         }
 
-        button:hover {
+        button:hover,
+        .share-button:hover {
             background: #e0e0e0;
             box-shadow: 0 0 20px rgba(192, 192, 192, 0.35);
+        }
+
+        .whatsapp-button {
+            background: #25D366;
+            color: #061b0d;
+            margin-top: 16px;
+        }
+
+        .whatsapp-button:hover {
+            background: #35e275;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.35);
         }
 
         .result {
@@ -303,7 +319,8 @@
                 padding: 14px;
             }
 
-            button {
+            button,
+            .share-button {
                 padding: 15px;
             }
 
@@ -366,6 +383,11 @@
             <p class="subtitle">Noter satışları için KDV hariç net bedel hesaplama</p>
 
             <div class="input-group">
+                <label for="aracNotu">🚘 Araç / Plaka Notu</label>
+                <input type="text" id="aracNotu" placeholder="Örn: 34 ABC 123 - BMW 320i">
+            </div>
+
+            <div class="input-group">
                 <label for="alimBedeli">🔹 Araç Alım Bedeli (Maliyet) (TL)</label>
                 <input type="number" id="alimBedeli" placeholder="Örn: 1000000" min="0">
             </div>
@@ -386,6 +408,11 @@
 
             <div class="result" id="sonuc">
                 <div class="result-title">📊 Detaylı Hesaplama</div>
+
+                <div class="result-row" id="aracNotuSatiri" style="display: none;">
+                    <span class="result-label">Araç / Plaka Notu</span>
+                    <span class="result-value" id="resAracNotu">-</span>
+                </div>
 
                 <div class="result-row">
                     <span class="result-label">Araç Alım Bedeli</span>
@@ -423,6 +450,10 @@
                     </div>
                     <div class="noter-value" id="resNoter">-</div>
                 </div>
+
+                <a href="#" id="whatsappPaylas" class="share-button whatsapp-button" target="_blank">
+                    📲 WHATSAPP'TA PAYLAŞ
+                </a>
             </div>
 
             <div class="ad-space">
@@ -452,10 +483,11 @@
         }
 
         function hesapla() {
+            const aracNotu = document.getElementById('aracNotu').value.trim();
             const alimBedeli = parseFloat(document.getElementById('alimBedeli').value);
             const satisBedeli = parseFloat(document.getElementById('satisBedeli').value);
 
-            // KDV artık sabit %20
+            // KDV sabit %20
             const kdvOrani = 20;
 
             if (!alimBedeli || alimBedeli <= 0) {
@@ -484,6 +516,27 @@
             document.getElementById('resKdvTutari').textContent = formatPara(kdvTutari);
             document.getElementById('resSatisEksiKdv').textContent = formatPara(noterBedeli);
             document.getElementById('resNoter').textContent = formatPara(noterBedeli);
+
+            if (aracNotu) {
+                document.getElementById('resAracNotu').textContent = aracNotu;
+                document.getElementById('aracNotuSatiri').style.display = 'flex';
+            } else {
+                document.getElementById('resAracNotu').textContent = '-';
+                document.getElementById('aracNotuSatiri').style.display = 'none';
+            }
+
+            const mesaj =
+                'Araç Alım-Satım KDV Hesaplama%0A%0A' +
+                (aracNotu ? 'Araç / Plaka: ' + encodeURIComponent(aracNotu) + '%0A' : '') +
+                'Araç Alım Bedeli: ' + encodeURIComponent(formatPara(alimBedeli)) + '%0A' +
+                'Araç Satış Bedeli: ' + encodeURIComponent(formatPara(satisBedeli)) + '%0A' +
+                'Elde Edilen Kar: ' + encodeURIComponent(formatPara(kar)) + '%0A' +
+                'KDV Oranı: %20%0A' +
+                'Karın KDV Tutarı: ' + encodeURIComponent(formatPara(kdvTutari)) + '%0A%0A' +
+                'NOTERE KDV HARİÇ YAZILMASI GEREKİLEN RAKAM:%0A' +
+                encodeURIComponent(formatPara(noterBedeli));
+
+            document.getElementById('whatsappPaylas').href = '[wa.me](https://wa.me/?text=)' + mesaj;
 
             document.getElementById('sonuc').classList.add('show');
 
