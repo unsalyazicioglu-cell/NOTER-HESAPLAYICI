@@ -342,6 +342,7 @@
         }
     </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
     <div class="page">
@@ -594,71 +595,6 @@
                 hesapla();
             }
         });
-    </script>
-</body>
-</html>ncodeURIComponent(formatPara(RUHSAT_UCRET)) + '%0A';
-            mesaj += 'Yazı Ücreti: ' + encodeURIComponent(formatPara(yaziUcret)) + '%0A';
-            if (plakaCheck) {
-                mesaj += 'Plaka (Çift): ' + encodeURIComponent(formatPara(PLAKA_UCRET)) + '%0A';
-            }
-            mesaj += '%0AToplam Noter Masrafı: ' + encodeURIComponent(formatPara(toplam));
-
-            document.getElementById('whatsappPaylas').href = 'https://wa.me/?text=' + mesaj;
-
-            // Kaydır
-            setTimeout(function() {
-                sonucBolumu.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                });
-            }, 200);
-        }
-
-        // KOPYALA FONKSİYONU
-        function sonucKopyala() {
-            var satisBedeli = document.getElementById('satisBedeli').value;
-            var nispiHarac = document.getElementById('nispiHarac').textContent;
-            var noterUcret = document.getElementById('noterUcret').textContent;
-            var ruhsatUcret = document.getElementById('ruhsatUcret').textContent;
-            var yaziUcret = document.getElementById('yaziUcret').textContent;
-            var plakaUcret = document.getElementById('plakaUcret').textContent;
-            var toplamMasraf = document.getElementById('toplamMasraf').textContent;
-            var plakaCheck = document.getElementById('plakaCheck').checked;
-
-            var metin = "2026 Noter Masraf Hesaplama
-
-";
-            metin += "Araç Satış Bedeli: " + formatPara(parseFloat(satisBedeli)) + "\n";
-            metin += "Nispi Harç: " + nispiHarac + "\n";
-            metin += "Noter Ücreti: " + noterUcret + "\n";
-            metin += "Ruhsat/Tescil: " + ruhsatUcret + "\n";
-            metin += "Yazı Ücreti: " + yaziUcret + "\n";
-            if (plakaCheck) {
-                metin += "Plaka (Çift): " + plakaUcret + "\n";
-            }
-            metin += "\nTOPLAM NOTER MASRAFI: " + toplamMasraf;
-
-            navigator.clipboard.writeText(metin).then(function() {
-                alert('Sonuç panoya kopyalandı!');
-            }).catch(function(err) {
-                var textArea = document.createElement('textarea');
-                textArea.value = metin;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('Sonuç panoya kopyalandı!');
-            });
-        }
-
-        // ENTER TUŞU
-        document.getElementById('satisBedeli').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                hesapla();
-            }
-        });
-
-        console.log("Script yüklendi - hazır");
     </script>
 </body>
 </html>
