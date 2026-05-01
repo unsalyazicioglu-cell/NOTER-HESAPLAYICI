@@ -338,6 +338,7 @@
             .footer { font-size: 11px; }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="page">
@@ -481,7 +482,9 @@
 
             // Kontrol
             if (!satisBedeli || satisBedeli <= 0 || isNaN(satisBedeli)) {
-                alert('Lütfen geçerli bir satış bedeli girin!\n\nÖrnek: 500000');
+                alert('Lütfen geçerli bir satış bedeli girin!
+
+Örnek: 500000');
                 satisBedeliInput.focus();
                 return;
             }
@@ -555,7 +558,7 @@
             if (asgariKural) {
                 nispiAciklamaElem.textContent = 'Asgari harç uygulandı (Hesaplanan: ' + formatPara(satisBedeli * NISPI_ORAN) + ')';
             } else {
-                nispiAciklamaElem.textContent = 'Satış bedelinin binde 2\'si (%0,2)';
+                nispiAciklamaElem.textContent = 'Satış bedelinin binde 2'si (%0,2)';
             }
 
             noterUcretElem.textContent = formatPara(noterUcret);
@@ -614,7 +617,9 @@
             var toplamMasraf = document.getElementById('toplamMasraf').textContent;
             var plakaCheck = document.getElementById('plakaCheck').checked;
 
-            var metin = "2026 Noter Masraf Hesaplama\n\n";
+            var metin = "2026 Noter Masraf Hesaplama
+
+";
             metin += "Araç Satış Bedeli: " + formatPara(parseFloat(satisBedeli)) + "\n";
             metin += "Nispi Harç: " + nispiHarac + "\n";
             metin += "Noter Ücreti: " + noterUcret + "\n";
