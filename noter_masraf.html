@@ -73,44 +73,71 @@
             box-shadow: 0 0 12px rgba(192, 192, 192, 0.25);
         }
 
-        /* EVET/HAYIR SEÇENEKLERİ */
-        .evet-hayir-group { margin-bottom: 20px; }
-        .evet-hayir-label {
-            display: block;
+        /* PLAKA SORU BÖLÜMÜ */
+        .plaka-soru-bolumu {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #151515;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+        .plaka-soru-baslik {
+            color: #e0e0e0;
+            font-size: 15px;
+            font-weight: bold;
             margin-bottom: 10px;
-            color: #a0a0a0;
-            font-size: 14px;
-        }
-        .evet-hayir-buttons {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 8px;
         }
-        .evet-hayir-btn {
-            flex: 1;
+        .plaka-soru-aciklama {
+            color: #888;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            padding-left: 5px;
+        }
+        .plaka-soru-aciklama strong {
+            color: #c0c0c0;
+        }
+
+        /* CHECKBOX STİLİ */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             padding: 12px;
             background: #0f0f0f;
-            border: 2px solid #444;
-            border-radius: 9px;
-            color: #888;
-            font-size: 14px;
-            font-weight: bold;
+            border: 1px solid #444;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            text-align: center;
         }
-        .evet-hayir-btn:hover {
-            border-color: #666;
+        .checkbox-wrapper:hover {
+            border-color: #c0c0c0;
+            background: #1a1a1a;
+        }
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #c0c0c0;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checkbox-wrapper label {
+            margin-bottom: 0;
+            font-size: 14px;
             color: #a0a0a0;
+            cursor: pointer;
+            line-height: 1.4;
         }
-        .evet-hayir-btn.active-evet {
-            background: #1a3a1a;
-            border-color: #4CAF50;
-            color: #4CAF50;
+        .checkbox-wrapper label strong {
+            color: #e0e0e0;
         }
-        .evet-hayir-btn.active-hayir {
-            background: #3a1a1a;
-            border-color: #f44336;
-            color: #f44336;
+        .checkbox-wrapper .fiyat-bilgisi {
+            color: #ffcc00;
+            font-size: 12px;
+            margin-top: 2px;
         }
 
         .hesapla-btn {
@@ -314,7 +341,8 @@
             input { padding: 14px; }
             .hesapla-btn { padding: 15px; }
             .toplam-tutar { font-size: 24px; }
-            .evet-hayir-btn { padding: 10px; font-size: 13px; }
+            .plaka-soru-baslik { font-size: 14px; }
+            .checkbox-wrapper { padding: 10px; }
             .footer { font-size: 11px; }
         }
     </style>
@@ -345,12 +373,22 @@
                 <input type="number" id="satisBedeli" placeholder="Örn: 500000" min="0">
             </div>
 
-            <!-- EVET/HAYIR SEÇENEĞİ -->
-            <div class="evet-hayir-group">
-                <label class="evet-hayir-label">🔄 Plaka Değişimi Yapılacak mı? (Çift Plaka: 850 TL)</label>
-                <div class="evet-hayir-buttons">
-                    <button type="button" class="evet-hayir-btn" id="btnEvet" onclick="plakaSec(true)">EVET</button>
-                    <button type="button" class="evet-hayir-btn" id="btnHayir" onclick="plakaSec(false)">HAYIR</button>
+            <!-- PLAKA SORU BÖLÜMÜ -->
+            <div class="plaka-soru-bolumu">
+                <div class="plaka-soru-baslik">
+                    🔄 Plaka değişimi yapılacak mı?
+                </div>
+                <div class="plaka-soru-aciklama">
+                    Plaka ücreti hesaplanan toplam masraf bedeline <strong>haricindedir</strong>.<br>
+                    Eğer plaka değişimi yapılacaksa yan taraftaki kutucuğu işaretleyin.
+                </div>
+
+                <div class="checkbox-wrapper" onclick="document.getElementById('plakaCheck').click()">
+                    <input type="checkbox" id="plakaCheck" onclick="event.stopPropagation()">
+                    <label for="plakaCheck">
+                        <strong>Evet, plaka değişimi yapılacak</strong><br>
+                        <span class="fiyat-bilgisi">📎 Çift plaka basım ücreti: 850 TL</span>
+                    </label>
                 </div>
             </div>
 
@@ -424,26 +462,6 @@
     </div>
 
     <script>
-        // GLOBAL DEĞİŞKENLER
-        var plakaDegisimi = false;
-
-        // PLAKA SEÇİMİ
-        function plakaSec(deger) {
-            plakaDegisimi = deger;
-            var btnEvet = document.getElementById('btnEvet');
-            var btnHayir = document.getElementById('btnHayir');
-
-            if (deger) {
-                btnEvet.classList.add('active-evet');
-                btnEvet.classList.remove('active-hayir');
-                btnHayir.classList.remove('active-evet', 'active-hayir');
-            } else {
-                btnHayir.classList.add('active-hayir');
-                btnHayir.classList.remove('active-evet');
-                btnEvet.classList.remove('active-evet', 'active-hayir');
-            }
-        }
-
         // PARA FORMATI
         function formatPara(tutar) {
             return new Intl.NumberFormat('tr-TR', {
@@ -459,10 +477,13 @@
             // Değerleri al
             var satisBedeliInput = document.getElementById('satisBedeli');
             var satisBedeli = parseFloat(satisBedeliInput.value) || 0;
+            var plakaCheck = document.getElementById('plakaCheck').checked;
 
             // Kontrol
-            if (satisBedeli <= 0) {
-                alert('Lütfen geçerli bir satış bedeli girin!');
+            if (satisBedeli <= 0 || isNaN(satisBedeli)) {
+                alert('Lütfen geçerli bir satış bedeli girin!
+
+Örnek: 500000');
                 satisBedeliInput.focus();
                 return;
             }
@@ -507,7 +528,7 @@
             if (asgariKural) {
                 aciklamaElem.textContent = 'Asgari harç uygulandı (Hesaplanan: ' + formatPara(satisBedeli * NISPI_ORAN) + ')';
             } else {
-                aciklamaElem.textContent = 'Satış bedelinin binde 2'si';
+                aciklamaElem.textContent = 'Satış bedelinin binde 2'si (%0,2)';
             }
 
             document.getElementById('noterUcret').textContent = formatPara(noterUcret);
@@ -516,7 +537,7 @@
 
             // Plaka kontrolü
             var plakaSatiri = document.getElementById('plakaSatiri');
-            if (plakaDegisimi) {
+            if (plakaCheck) {
                 toplam += PLAKA_UCRET;
                 plakaSatiri.style.display = 'flex';
                 document.getElementById('plakaUcret').textContent = formatPara(PLAKA_UCRET);
@@ -539,7 +560,7 @@
             mesaj += 'Noter Ücreti: ' + encodeURIComponent(formatPara(noterUcret)) + '%0A';
             mesaj += 'Ruhsat/Tescil: ' + encodeURIComponent(formatPara(RUHSAT_UCRET)) + '%0A';
             mesaj += 'Yazı Ücreti: ' + encodeURIComponent(formatPara(yaziUcret)) + '%0A';
-            if (plakaDegisimi) {
+            if (plakaCheck) {
                 mesaj += 'Plaka (Çift): ' + encodeURIComponent(formatPara(PLAKA_UCRET)) + '%0A';
             }
             mesaj += '%0AToplam Noter Masrafı: ' + encodeURIComponent(formatPara(toplam));
@@ -564,6 +585,7 @@
             var yaziUcret = document.getElementById('yaziUcret').textContent;
             var plakaUcret = document.getElementById('plakaUcret').textContent;
             var toplamMasraf = document.getElementById('toplamMasraf').textContent;
+            var plakaCheck = document.getElementById('plakaCheck').checked;
 
             var metin = "2026 Noter Masraf Hesaplama\n\n";
             metin += "Araç Satış Bedeli: " + formatPara(parseFloat(satisBedeli)) + "\n";
@@ -571,7 +593,7 @@
             metin += "Noter Ücreti: " + noterUcret + "\n";
             metin += "Ruhsat/Tescil: " + ruhsatUcret + "\n";
             metin += "Yazı Ücreti: " + yaziUcret + "\n";
-            if (plakaDegisimi) {
+            if (plakaCheck) {
                 metin += "Plaka (Çift): " + plakaUcret + "\n";
             }
             metin += "\nTOPLAM NOTER MASRAFI: " + toplamMasraf;
