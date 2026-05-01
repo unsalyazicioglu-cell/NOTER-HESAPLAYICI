@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>2026 Noter Masraf Hesaplayıcı | Araç Satış</title>
+    <title>2026 Noter Masraf Hesaplayici | Arac Satis</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; min-height: 100%; }
@@ -75,8 +75,6 @@
             border-color: #c0c0c0;
             box-shadow: 0 0 12px rgba(192, 192, 192, 0.25);
         }
-
-        /* PLAKA SORU BÖLÜMÜ */
         .plaka-soru-bolumu {
             margin-bottom: 20px;
             padding: 15px;
@@ -99,8 +97,6 @@
         .plaka-soru-aciklama strong {
             color: #c0c0c0;
         }
-
-        /* CHECKBOX */
         .checkbox-wrapper {
             display: flex;
             align-items: center;
@@ -133,7 +129,6 @@
             color: #ffcc00;
             font-size: 12px;
         }
-
         .hesapla-btn {
             width: 100%;
             padding: 15px;
@@ -151,8 +146,6 @@
             background: #e0e0e0;
             box-shadow: 0 0 20px rgba(192, 192, 192, 0.35);
         }
-
-        /* SONUÇ */
         .sonuc-bolumu {
             margin-top: 25px;
             padding: 20px;
@@ -205,8 +198,6 @@
             font-size: 16px;
             text-align: right;
         }
-
-        /* RENKLİ ÇERÇEVELİ TOPLAM */
         .toplam-kutu {
             position: relative;
             margin-top: 24px;
@@ -266,7 +257,6 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 400% 50%; }
         }
-
         .bilgi-kutusu {
             background: #151515;
             border: 1px solid #444;
@@ -322,6 +312,19 @@
         }
         .footer strong { color: #c0c0c0; }
         .copyright { margin-top: 6px; color: #555; }
+        .footer-links {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 12px;
+            margin: 0 8px;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: #c0c0c0; }
 
         @media (max-width: 480px) {
             .page { min-height: 100vh; padding: 10px; }
@@ -343,56 +346,54 @@
 <body>
     <div class="page">
         <div class="container">
-            <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+            <a href="index.html" class="back-link">- Ana Sayfaya Don</a>
 
-            <h1>🏛️ 2026 Noter Masraf Hesaplayıcı</h1>
+            <h1>2026 Noter Masraf Hesaplayici</h1>
             <p class="subtitle">
-                Araç satış bedeline göre güncel noter ücretleri<br>
-                (Nispi Harç: Binde 2 | Asgari: 1.000 TL)
+                Arac satis bedeline gore guncel noter ucretleri<br>
+                (Nispi Harc: Binde 2 | Asgari: 1.000 TL)
             </p>
 
             <div class="bilgi-kutusu">
-                <strong>📌 2026 Yılı Tarifesi:</strong><br>
-                • Nispi Harç: Satış bedelinin <strong>binde 2'si</strong> (%0,2)<br>
-                • Asgari Harç: <strong>1.000 TL</strong> (hesaplanan tutar düşükse)<br>
-                • Noter Ücreti: Harcın <strong>%30'u</strong> (asgari 44,56 TL)<br>
-                • Ruhsat/Tescil: <strong>1.511 TL</strong><br>
-                • Plaka (çift): <strong>850 TL</strong> (opsiyonel)
+                <strong>2026 Yili Tarifesi:</strong><br>
+                - Nispi Harc: Satis bedelinin <strong>binde 2'si</strong> (%0,2)<br>
+                - Asgari Harc: <strong>1.000 TL</strong> (hesaplanan tutar dusukse)<br>
+                - Noter Ucreti: Harcin <strong>%30'u</strong> (asgari 44,56 TL)<br>
+                - Ruhsat/Tescil: <strong>1.511 TL</strong><br>
+                - Plaka (cift): <strong>850 TL</strong> (opsiyonel)
             </div>
 
             <div class="input-group">
-                <label for="satisBedeli">💰 Araç Satış Bedeli (Noter'de Beyan Edilecek) (TL)</label>
-                <input type="number" id="satisBedeli" placeholder="Örn: 500000" min="0">
+                <label for="satisBedeli">Arac Satis Bedeli (Noterde Beyan Edilecek) (TL)</label>
+                <input type="number" id="satisBedeli" placeholder="Orn: 500000" min="0">
             </div>
 
-            <!-- PLAKA SORU BÖLÜMÜ -->
             <div class="plaka-soru-bolumu">
                 <div class="plaka-soru-baslik">
-                    🔄 Plaka değişimi yapılacak mı?
+                    Plaka degisimi yapilacak mi?
                 </div>
                 <div class="plaka-soru-aciklama">
-                    Plaka ücreti hesaplanan toplam masraf bedeline <strong>haricindedir</strong>.<br>
-                    Eğer plaka değişimi yapılacaksa yan taraftaki kutucuğu işaretleyin.
+                    Plaka ucreti hesaplanan toplam masraf bedeline <strong>haricindedir</strong>.<br>
+                    Eger plaka degisimi yapilacaksa yan taraftaki kutucugu isaretleyin.
                 </div>
 
                 <div class="checkbox-wrapper" onclick="document.getElementById('plakaCheck').click()">
                     <input type="checkbox" id="plakaCheck" onclick="event.stopPropagation()">
                     <label for="plakaCheck">
-                        <strong>Evet, plaka değişimi yapılacak</strong><br>
-                        <span class="fiyat-bilgisi">📎 Çift plaka basım ücreti: 850 TL</span>
+                        <strong>Evet, plaka degisimi yapilacak</strong><br>
+                        <span class="fiyat-bilgisi">Cift plaka basim ucreti: 850 TL</span>
                     </label>
                 </div>
             </div>
 
             <button class="hesapla-btn" onclick="hesapla()">HESAPLA</button>
 
-            <!-- SONUÇ BÖLÜMÜ -->
             <div class="sonuc-bolumu" id="sonucBolumu">
-                <div class="sonuc-baslik">📋 Detaylı Masraf Hesaplama</div>
+                <div class="sonuc-baslik">Detayli Masraf Hesaplama</div>
 
                 <div class="masraf-satiri">
                     <div>
-                        <div class="masraf-adi">📋 Nispi Harç</div>
+                        <div class="masraf-adi">Nispi Harc</div>
                         <div class="masraf-aciklama" id="nispiAciklama"></div>
                     </div>
                     <div class="masraf-deger" id="nispiHarac">-</div>
@@ -400,76 +401,66 @@
 
                 <div class="masraf-satiri">
                     <div>
-                        <div class="masraf-adi">⚖️ Noter İşlem Ücreti</div>
-                        <div class="masraf-aciklama">Harcın %30'u (Asgari: 44,56 TL)</div>
+                        <div class="masraf-adi">Noter Islem Ucreti</div>
+                        <div class="masraf-aciklama">Harcin %30'u (Asgari: 44,56 TL)</div>
                     </div>
                     <div class="masraf-deger" id="noterUcret">-</div>
                 </div>
 
                 <div class="masraf-satiri">
                     <div>
-                        <div class="masraf-adi">📄 Ruhsat / Tescil Belgesi</div>
-                        <div class="masraf-aciklama">Değerli Kağıt Bedeli</div>
+                        <div class="masraf-adi">Ruhsat / Tescil Belgesi</div>
+                        <div class="masraf-aciklama">Degerli Kagit Bedeli</div>
                     </div>
                     <div class="masraf-deger" id="ruhsatUcret">-</div>
                 </div>
 
                 <div class="masraf-satiri" id="plakaSatiri" style="display:none;">
                     <div>
-                        <div class="masraf-adi">🔢 Plaka Basım Ücreti (Çift)</div>
-                        <div class="masraf-aciklama">Ön + Arka Plaka</div>
+                        <div class="masraf-adi">Plaka Basim Ucreti (Cift)</div>
+                        <div class="masraf-aciklama">On + Arka Plaka</div>
                     </div>
                     <div class="masraf-deger" id="plakaUcret">-</div>
                 </div>
 
                 <div class="masraf-satiri">
                     <div>
-                        <div class="masraf-adi">📝 Yazı Ücreti (Tahmini)</div>
-                        <div class="masraf-aciklama">2-3 Sayfa Sözleşme</div>
+                        <div class="masraf-adi">Yazi Ucreti (Tahmini)</div>
+                        <div class="masraf-aciklama">2-3 Sayfa Sozlesme</div>
                     </div>
                     <div class="masraf-deger" id="yaziUcret">-</div>
                 </div>
 
-                <!-- RENKLİ ÇERÇEVELİ TOPLAM KUTUSU -->
                 <div class="toplam-kutu">
                     <div class="toplam-etiket">TOPLAM NOTER MASRAFI</div>
                     <div class="toplam-tutar" id="toplamMasraf">-</div>
                 </div>
 
                 <a href="#" id="whatsappPaylas" class="wp-btn" target="_blank">
-                    📲 WHATSAPP'TA PAYLAŞ
+                    WHATSAPP'TA PAYLAS
                 </a>
 
                 <button class="wp-btn kopyala-btn" onclick="sonucKopyala()">
-                    📋 SONUCU KOPYALA
+                    SONUCU KOPYALA
                 </button>
             </div>
         </div>
 
-        <!-- Google AdSense (Onay sonrası aktif edilecek) -->
-        <div style="margin-top:30px; padding:20px; background:#151515; border:1px dashed #444; border-radius:8px; text-align:center; color:#555; font-size:12px; line-height:1.5;">
-            <p style="color:#666; font-size:11px;">REKLAM ALANI</p>
-        </div>
-
         <div class="footer">
-            <p>BU SİTE <strong>YZC69 BAYBURTLU ÜNSAL YAZICIOĞLU</strong> TARAFINDAN</p>
-            <p>GALERİCİLERE ÖZEL YAPILMIŞTIR</p>
-            <p class="copyright">© 2026 - Tüm Hakları Saklıdır</p>
-            <div style="margin-top:15px; padding-top:15px; border-top:1px solid #444;">
-            <a href="blog.html" style="color:#888; text-decoration:none; font-size:12px; margin:0 8px; transition:color 0.3s;">Blog</a>
-            <span style="color:#555;">|</span>
-            <a href="hakkimizda.html" style="color:#888; text-decoration:none; font-size:12px; margin:0 8px; transition:color 0.3s;">Hakkımızda</a>
-            <span style="color:#555;">|</span>
-            <a href="gizlilik.html" style="color:#888; text-decoration:none; font-size:12px; margin:0 8px; transition:color 0.3s;">Gizlilik Politikası</a>
-        </div>
+            <p>BU SITE <strong>YZC69 BAYBURTLU UNSAL YAZICIOGLU</strong> TARAFINDAN</p>
+            <p>GALERICILERE OZEL YAPILMISTIR</p>
+            <p class="copyright">2026 - Tum Haklari Saklidir</p>
+            <div class="footer-links">
+                <a href="blog.html">Blog</a>
+                <span style="color:#555;">|</span>
+                <a href="hakkimizda.html">Hakkimizda</a>
+                <span style="color:#555;">|</span>
+                <a href="gizlilik.html">Gizlilik Politikasi</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // HATA AYIKLAMA - console.log ekle
-        console.log("Sayfa yüklendi - Noter Masraf Hesaplayıcı");
-
-        // PARA FORMATI
         function formatPara(tutar) {
             return new Intl.NumberFormat('tr-TR', {
                 style: 'currency',
@@ -479,29 +470,17 @@
             }).format(tutar);
         }
 
-        // HESAPLA FONKSİYONU
         function hesapla() {
-            console.log("hesapla() çağrıldı");
-
-            // Değerleri al
             var satisBedeliInput = document.getElementById('satisBedeli');
             var satisBedeli = parseFloat(satisBedeliInput.value);
-            var plakaCheckElem = document.getElementById('plakaCheck');
-            var plakaCheck = plakaCheckElem.checked;
+            var plakaCheck = document.getElementById('plakaCheck').checked;
 
-            console.log("Satış bedeli:", satisBedeli);
-            console.log("Plaka check:", plakaCheck);
-
-            // Kontrol
             if (!satisBedeli || satisBedeli <= 0 || isNaN(satisBedeli)) {
-                alert('Lütfen geçerli bir satış bedeli girin!
-
-Örnek: 500000');
+                alert('Lutfen gecerli bir satis bedeli girin! Ornek: 500000');
                 satisBedeliInput.focus();
                 return;
             }
 
-            // 2026 TARİFE SABİT DEĞERLER
             var ASGARI_HARAC = 1000;
             var NISPI_ORAN = 0.002;
             var NOTER_UCRET_ORANI = 0.30;
@@ -511,96 +490,113 @@
             var YAZI_UCRET_SAYFA = 80.68;
             var YAZI_SAYFA = 3;
 
-            // HESAPLAMALAR
             var nispiHarac = satisBedeli * NISPI_ORAN;
             var asgariKural = false;
 
-            // Asgari harç kontrolü
             if (nispiHarac < ASGARI_HARAC) {
                 nispiHarac = ASGARI_HARAC;
                 asgariKural = true;
             }
 
-            // Noter ücreti
             var noterUcret = nispiHarac * NOTER_UCRET_ORANI;
             if (noterUcret < ASGARI_NOTER_UCRET) {
                 noterUcret = ASGARI_NOTER_UCRET;
             }
 
-            // Yazı ücreti
             var yaziUcret = YAZI_UCRET_SAYFA * YAZI_SAYFA;
-
-            // Toplam (plaka hariç)
             var toplam = nispiHarac + noterUcret + RUHSAT_UCRET + yaziUcret;
 
-            console.log("Hesaplanan değerler:", {
-                nispiHarac: nispiHarac,
-                noterUcret: noterUcret,
-                ruhsat: RUHSAT_UCRET,
-                yazi: yaziUcret,
-                plaka: plakaCheck ? PLAKA_UCRET : 0,
-                toplam: toplam
-            });
+            document.getElementById('nispiHarac').textContent = formatPara(nispiHarac);
 
-            // DEĞERLERİ HTML'E YAZ
-            var nispiHaracElem = document.getElementById('nispiHarac');
-            var nispiAciklamaElem = document.getElementById('nispiAciklama');
-            var noterUcretElem = document.getElementById('noterUcret');
-            var ruhsatUcretElem = document.getElementById('ruhsatUcret');
-            var yaziUcretElem = document.getElementById('yaziUcret');
-            var plakaSatiriElem = document.getElementById('plakaSatiri');
-            var plakaUcretElem = document.getElementById('plakaUcret');
-            var toplamMasrafElem = document.getElementById('toplamMasraf');
-            var sonucBolumu = document.getElementById('sonucBolumu');
-
-            console.log("Elementler bulundu mu:", {
-                nispiHarac: !!nispiHaracElem,
-                noterUcret: !!noterUcretElem,
-                ruhsat: !!ruhsatUcretElem,
-                yazi: !!yaziUcretElem,
-                plakaSatiri: !!plakaSatiriElem,
-                plakaUcret: !!plakaUcretElem,
-                toplam: !!toplamMasrafElem,
-                sonuc: !!sonucBolumu
-            });
-
-            nispiHaracElem.textContent = formatPara(nispiHarac);
-
-            // Açıklama
+            var aciklamaElem = document.getElementById('nispiAciklama');
             if (asgariKural) {
-                nispiAciklamaElem.textContent = 'Asgari harç uygulandı (Hesaplanan: ' + formatPara(satisBedeli * NISPI_ORAN) + ')';
+                aciklamaElem.textContent = 'Asgari harc uygulandi (Hesaplanan: ' + formatPara(satisBedeli * NISPI_ORAN) + ')';
             } else {
-                nispiAciklamaElem.textContent = 'Satış bedelinin binde 2'si (%0,2)';
+                aciklamaElem.textContent = 'Satis bedelinin binde 2si (%0,2)';
             }
 
-            noterUcretElem.textContent = formatPara(noterUcret);
-            ruhsatUcretElem.textContent = formatPara(RUHSAT_UCRET);
-            yaziUcretElem.textContent = formatPara(yaziUcret);
+            document.getElementById('noterUcret').textContent = formatPara(noterUcret);
+            document.getElementById('ruhsatUcret').textContent = formatPara(RUHSAT_UCRET);
+            document.getElementById('yaziUcret').textContent = formatPara(yaziUcret);
 
-            // Plaka kontrolü
+            var plakaSatiri = document.getElementById('plakaSatiri');
             if (plakaCheck) {
                 toplam += PLAKA_UCRET;
-                plakaSatiriElem.style.display = 'flex';
-                plakaUcretElem.textContent = formatPara(PLAKA_UCRET);
+                plakaSatiri.style.display = 'flex';
+                document.getElementById('plakaUcret').textContent = formatPara(PLAKA_UCRET);
             } else {
-                plakaSatiriElem.style.display = 'none';
+                plakaSatiri.style.display = 'none';
             }
 
-            // Toplam yaz
-            toplamMasrafElem.textContent = formatPara(toplam);
+            document.getElementById('toplamMasraf').textContent = formatPara(toplam);
 
-            // SONUCU GÖSTER
+            var sonucBolumu = document.getElementById('sonucBolumu');
             sonucBolumu.style.display = 'block';
             sonucBolumu.classList.add('gorunur');
 
-            console.log("Sonuç gösterildi");
+            var mesaj = '2026 Noter Masraf Hesaplama  ';
+            mesaj += 'Arac Satis Bedeli: ' + encodeURIComponent(formatPara(satisBedeli)) + '  ';
+            mesaj += 'Nispi Harc: ' + encodeURIComponent(formatPara(nispiHarac)) + '  ';
+            mesaj += 'Noter Ucreti: ' + encodeURIComponent(formatPara(noterUcret)) + '  ';
+            mesaj += 'Ruhsat/Tescil: ' + encodeURIComponent(formatPara(RUHSAT_UCRET)) + '  ';
+            mesaj += 'Yazi Ucreti: ' + encodeURIComponent(formatPara(yaziUcret)) + '  ';
+            if (plakaCheck) {
+                mesaj += 'Plaka (Cift): ' + encodeURIComponent(formatPara(PLAKA_UCRET)) + '  ';
+            }
+            mesaj += '  Toplam Noter Masrafi: ' + encodeURIComponent(formatPara(toplam));
 
-            // WHATSAPP MESAJI
-            var mesaj = '2026 Noter Masraf Hesaplama%0A%0A';
-            mesaj += 'Araç Satış Bedeli: ' + encodeURIComponent(formatPara(satisBedeli)) + '%0A';
-            mesaj += 'Nispi Harç: ' + encodeURIComponent(formatPara(nispiHarac)) + '%0A';
-            mesaj += 'Noter Ücreti: ' + encodeURIComponent(formatPara(noterUcret)) + '%0A';
-            mesaj += 'Ruhsat/Tescil: ' + encodeURIComponent(formatPara(RUHSAT_UCRET)) + '%0A';
+            document.getElementById('whatsappPaylas').href = 'https://wa.me/?text=' + mesaj;
+
+            setTimeout(function() {
+                sonucBolumu.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 200);
+        }
+
+        function sonucKopyala() {
+            var satisBedeli = document.getElementById('satisBedeli').value;
+            var nispiHarac = document.getElementById('nispiHarac').textContent;
+            var noterUcret = document.getElementById('noterUcret').textContent;
+            var ruhsatUcret = document.getElementById('ruhsatUcret').textContent;
+            var yaziUcret = document.getElementById('yaziUcret').textContent;
+            var plakaUcret = document.getElementById('plakaUcret').textContent;
+            var toplamMasraf = document.getElementById('toplamMasraf').textContent;
+            var plakaCheck = document.getElementById('plakaCheck').checked;
+
+            var metin = '2026 Noter Masraf Hesaplama  ';
+            metin += 'Arac Satis Bedeli: ' + formatPara(parseFloat(satisBedeli)) + '  ';
+            metin += 'Nispi Harc: ' + nispiHarac + '  ';
+            metin += 'Noter Ucreti: ' + noterUcret + '  ';
+            metin += 'Ruhsat/Tescil: ' + ruhsatUcret + '  ';
+            metin += 'Yazi Ucreti: ' + yaziUcret + '  ';
+            if (plakaCheck) {
+                metin += 'Plaka (Cift): ' + plakaUcret + '  ';
+            }
+            metin += '  TOPLAM NOTER MASRAFI: ' + toplamMasraf;
+
+            navigator.clipboard.writeText(metin).then(function() {
+                alert('Sonuc panoya kopyalandi!');
+            }).catch(function(err) {
+                var textArea = document.createElement('textarea');
+                textArea.value = metin;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Sonuc panoya kopyalandi!');
+            });
+        }
+
+        document.getElementById('satisBedeli').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                hesapla();
+            }
+        });
+    </script>
+</body>
+</html>ncodeURIComponent(formatPara(RUHSAT_UCRET)) + '%0A';
             mesaj += 'Yazı Ücreti: ' + encodeURIComponent(formatPara(yaziUcret)) + '%0A';
             if (plakaCheck) {
                 mesaj += 'Plaka (Çift): ' + encodeURIComponent(formatPara(PLAKA_UCRET)) + '%0A';
