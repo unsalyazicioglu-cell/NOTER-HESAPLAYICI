@@ -93,6 +93,14 @@
             box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
         }
 
+        /* TAPU BUTONU - YEŞİL */
+        .menu-button-tapu {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        .menu-button-tapu:hover {
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.4);
+        }
+
         .menu-button-icon {
             font-size: 28px;
             display: block;
@@ -150,6 +158,7 @@
             .footer { font-size: 11px; }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="page">
@@ -161,17 +170,24 @@
                 <div class="menu-title">Hangi Hesaplama Yapmak İstersiniz?</div>
 
                 <a href="kdv_hesaplayici.html" class="menu-button menu-button-kdv">
-                    <span class="menu-button-badge">Yeni 2026</span>
+                    <span class="menu-button-badge">Yeni 2026<br>TAŞITLARINIZ İÇİN</span>
                     <span class="menu-button-icon">📊</span>
                     <div class="menu-button-title">Noter KDV Hesaplayıcı</div>
                     <div class="menu-button-desc">Galericilere Özel<br>KDV hariç net bedel hesaplama</div>
                 </a>
 
                 <a href="noter_masraf.html" class="menu-button menu-button-noter">
-                    <span class="menu-button-badge">Yeni 2026</span>
+                    <span class="menu-button-badge">Yeni 2026<br>TAŞITLARINIZ İÇİN</span>
                     <span class="menu-button-icon">🏛️</span>
                     <div class="menu-button-title">Noter Masraf Hesaplayıcı</div>
                     <div class="menu-button-desc">Araç satış bedeline göre<br>noter harç ve ücret hesaplama</div>
+                </a>
+
+                <a href="tapu_masraf.html" class="menu-button menu-button-tapu">
+                    <span class="menu-button-badge">Yeni 2026<br>GAYRİMENKULLERİNİZ İÇİN</span>
+                    <span class="menu-button-icon">🏠</span>
+                    <div class="menu-button-title">Tapu Masraf Hesaplayıcı</div>
+                    <div class="menu-button-desc">Konut, arsa, iş yeri satış bedeline göre<br>tapu harç ve masraf hesaplama</div>
                 </a>
             </div>
 
