@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>2026 Tapu Masraf Hesaplayıcı | Gayrimenkul Satış</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; min-height: 100%; }
+        body {
+            background: #0a0a0a;
+            color: #c0c0c0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 18px;
+        }
+        .container {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 14px;
+            padding: 34px;
+            max-width: 560px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.12);
+        }
+        .back-link {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: #c0c0c0; }
+        h1 {
+            color: #e0e0e0;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .input-group { margin-bottom: 20px; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 13px 15px;
+            background: #0f0f0f;
+            border: 1px solid #444;
+            border-radius: 9px;
+            color: #e0e0e0;
+            font-size: 16px;
+            outline: none;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        input:focus, select:focus {
+            border-color: #c0c0c0;
+            box-shadow: 0 0 12px rgba(192, 192, 192, 0.25);
+        }
+        select option {
+            background: #0f0f0f;
+            color: #e0e0e0;
+        }
+        .bilgi-kutusu {
+            background: #151515;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 12px;
+            color: #777;
+            line-height: 1.6;
+        }
+        .bilgi-kutusu strong {
+            color: #c0c0c0;
+        }
+        .bilgi-kutusu .yesil {
+            color: #2ecc71;
+        }
+        .bilgi-kutusu .kirmizi {
+            color: #e74c3c;
+        }
+        .hesapla-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .hesapla-btn:hover {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.35);
+        }
+        .sonuc-bolumu {
+            margin-top: 25px;
+            padding: 20px;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            border-radius: 10px;
+            display: none;
+        }
+        .sonuc-bolumu.gorunur {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sonuc-baslik {
+            color: #e0e0e0;
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+        .masraf-satiri {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+        }
+        .masraf-satiri:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .masraf-adi {
+            color: #a0a0a0;
+            font-size: 14px;
+            flex: 1;
+        }
+        .masraf-aciklama {
+            color: #666;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        .masraf-deger {
+            color: #e0e0e0;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: right;
+        }
+        .masraf-deger.yesil {
+            color: #2ecc71;
+        }
+        .masraf-deger.kirmizi {
+            color: #e74c3c;
+        }
+        .masraf-deger.mavi {
+            color: #3498db;
+        }
+        .toplam-kutu {
+            position: relative;
+            margin-top: 24px;
+            padding: 24px 18px;
+            background: #111;
+            border-radius: 14px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .toplam-kutu::before {
+            content: "";
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(
+                90deg,
+                #27ae60,
+                #2ecc71,
+                #3498db,
+                #2ecc71,
+                #27ae60
+            );
+            background-size: 400%;
+            animation: hareketliCerceve 4s linear infinite;
+            z-index: 0;
+        }
+        .toplam-kutu::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            background: #111;
+            border-radius: 10px;
+            z-index: 1;
+        }
+        .toplam-etiket, .toplam-tutar {
+            position: relative;
+            z-index: 2;
+        }
+        .toplam-etiket {
+            color: #ffffff;
+            font-size: 13px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+        .toplam-tutar {
+            color: #ffffff;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            word-break: break-word;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+        }
+        @keyframes hareketliCerceve {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+        .wp-btn {
+            width: 100%;
+            padding: 15px;
+            background: #25D366;
+            color: #061b0d;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .wp-btn:hover {
+            background: #35e275;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.35);
+        }
+        .kopyala-btn {
+            background: #4a4a4a;
+            color: #e0e0e0;
+            margin-top: 8px;
+        }
+        .kopyala-btn:hover {
+            background: #5a5a5a;
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.15);
+        }
+        .uyari-kutusu {
+            background: #1a1005;
+            border: 1px solid #664400;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 11px;
+            color: #aa8800;
+            line-height: 1.5;
+        }
+        .uyari-kutusu strong {
+            color: #ffaa00;
+        }
+        .footer {
+            width: 100%;
+            max-width: 560px;
+            margin-top: auto;
+            padding-top: 22px;
+            padding-bottom: 8px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+        .footer strong { color: #c0c0c0; }
+        .copyright { margin-top: 6px; color: #555; }
+        .footer-links {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 12px;
+            margin: 0 8px;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: #c0c0c0; }
+
+        @media (max-width: 480px) {
+            .page { min-height: 100vh; padding: 10px; }
+            .container {
+                min-height: calc(100vh - 115px);
+                padding: 22px;
+                border-radius: 12px;
+            }
+            h1 { font-size: 20px; }
+            .subtitle { font-size: 12px; }
+            input, select { padding: 14px; }
+            .hesapla-btn { padding: 15px; }
+            .toplam-tutar { font-size: 24px; }
+            .footer { font-size: 11px; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="page">
+        <div class="container">
+            <a href="index.html" class="back-link">- Ana Sayfaya Don</a>
+
+            <h1>2026 Tapu Masraf Hesaplayici</h1>
+            <p class="subtitle">
+                Gayrimenkul satis bedeline gore guncel tapu harci ve masraf hesaplama<br>
+                (Konut, Arsa, Is Yeri, Tarla)
+            </p>
+
+            <div class="bilgi-kutusu">
+                <strong>2026 Yili Tapu Tarifesi:</strong><br>
+                - Tapu Harci: Satis bedelinin <strong class="yesil">%4'u</strong> (Alıci %2 + Satıci %2)<br>
+                - Döner Sermaye: <strong class="yesil">2.534 TL</strong> (2.227 TL + 307 TL ilave)<br>
+                - Yasal olarak harcin yarisi alici, yarisi satıcıdan tahsil edilir<br>
+                - Uygulamada cogunlukla <strong class="kirmizi">tamami alıcı</strong> tarafindan ödenir
+            </div>
+
+            <div class="uyari-kutusu">
+                <strong>⚠️ Önemli Uyari:</strong> Tapuya beyan edilen satis bedeli, emlak vergisi (rayic) degerinden dusuk olamaz. 2026'da emlak vergisi matrahlari yaklasik 3 kat artmistir. Dusuk beyan vergi ziya cezasi ile sonuclanir.
+            </div>
+
+            <div class="input-group">
+                <label for="satisBedeli">Gayrimenkul Satis Bedeli (Tapuda Beyan Edilecek) (TL)</label>
+                <input type="number" id="satisBedeli" placeholder="Orn: 1000000" min="0">
+            </div>
+
+            <div class="input-group">
+                <label for="gayrimenkulTuru">Gayrimenkul Turu</label>
+                <select id="gayrimenkulTuru">
+                    <option value="konut">Konut / Daire</option>
+                    <option value="isyeri">Is Yeri / Dukkan</option>
+                    <option value="arsa">Arsa</option>
+                    <option value="tarla">Tarla / Arazi</option>
+                </select>
+            </div>
+
+            <button class="hesapla-btn" onclick="hesapla()">HESAPLA</button>
+
+            <div class="sonuc-bolumu" id="sonucBolumu">
+                <div class="sonuc-baslik">Detayli Tapu Masraf Hesaplama</div>
+
+                <div class="masraf-satiri">
+                    <div>
+                        <div class="masraf-adi">Gayrimenkul Satis Bedeli</div>
+                        <div class="masraf-aciklama" id="satisAciklama"></div>
+                    </div>
+                    <div class="masraf-deger" id="satisBedeliGoster">-</div>
+                </div>
+
+                <div class="masraf-satiri">
+                    <div>
+                        <div class="masraf-adi">Alıci Tapu Harci</div>
+                        <div class="masraf-aciklama">Satis bedelinin %2'si</div>
+                    </div>
+                    <div class="masraf-deger yesil" id="aliciHarci">-</div>
+                </div>
+
+                <div class="masraf-satiri">
+                    <div>
+                        <div class="masraf-adi">Satıci Tapu Harci</div>
+                        <div class="masraf-aciklama">Satis bedelinin %2'si</div>
+                    </div>
+                    <div class="masraf-deger kirmizi" id="saticiHarci">-</div>
+                </div>
+
+                <div class="masraf-satiri">
+                    <div>
+                        <div class="masraf-adi">Toplam Tapu Harci</div>
+                        <div class="masraf-aciklama">Satis bedelinin %4'u (Alıci + Satıci)</div>
+                    </div>
+                    <div class="masraf-deger mavi" id="toplamHarci">-</div>
+                </div>
+
+                <div class="masraf-satiri">
+                    <div>
+                        <div class="masraf-adi">Döner Sermaye Bedeli</div>
+                        <div class="masraf-aciklama">2026 yili sabit ucreti</div>
+                    </div>
+                    <div class="masraf-deger" id="donerSermaye">-</div>
+                </div>
+
+                <div class="toplam-kutu">
+                    <div class="toplam-etiket">TOPLAM TAPU MASRAFI<br>(Harç + Döner Sermaye)</div>
+                    <div class="toplam-tutar" id="genelToplam">-</div>
+                </div>
+
+                <div style="margin-top:15px; padding:12px; background:#151515; border:1px solid #333; border-radius:8px; font-size:11px; color:#888; line-height:1.5;">
+                    <strong style="color:#c0c0c0;">Not:</strong> Büyüksehirlerde (İstanbul, Ankara, İzmir vb.) döner sermaye katsayisi farklilasabilir. Kesin tutar için Tapu Sicil Müdürlügü'ne danisiniz.
+                </div>
+
+                <a href="#" id="whatsappPaylas" class="wp-btn" target="_blank">
+                    WHATSAPP'TA PAYLAS
+                </a>
+
+                <button class="wp-btn kopyala-btn" onclick="sonucKopyala()">
+                    SONUCU KOPYALA
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>BU SITE <strong>YZC69 BAYBURTLU UNSAL YAZICIOGLU</strong> TARAFINDAN</p>
+            <p>GALERICILERE OZEL YAPILMISTIR</p>
+            <p class="copyright">2026 - Tum Haklari Saklidir</p>
+            <div class="footer-links">
+                <a href="blog.html">Blog</a>
+                <span style="color:#555;">|</span>
+                <a href="hakkimizda.html">Hakkimizda</a>
+                <span style="color:#555;">|</span>
+                <a href="gizlilik.html">Gizlilik Politikasi</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function formatPara(tutar) {
+            return new Intl.NumberFormat('tr-TR', {
+                style: 'currency',
+                currency: 'TRY',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(tutar);
+        }
+
+        function hesapla() {
+            var satisBedeliInput = document.getElementById('satisBedeli');
+            var satisBedeli = parseFloat(satisBedeliInput.value);
+            var gayrimenkulTuru = document.getElementById('gayrimenkulTuru').value;
+
+            if (!satisBedeli || satisBedeli <= 0 || isNaN(satisBedeli)) {
+                alert('Lutfen gecerli bir gayrimenkul satis bedeli girin! Ornek: 1000000');
+                satisBedeliInput.focus();
+                return;
+            }
+
+            var HARC_ORAN = 0.04;
+            var ALICI_ORAN = 0.02;
+            var SATICI_ORAN = 0.02;
+            var DONER_SERMAYE = 2534;
+
+            var toplamHarci = satisBedeli * HARC_ORAN;
+            var aliciHarci = satisBedeli * ALICI_ORAN;
+            var saticiHarci = satisBedeli * SATICI_ORAN;
+            var genelToplam = toplamHarci + DONER_SERMAYE;
+
+            var turIsimleri = {
+                'konut': 'Konut / Daire',
+                'isyeri': 'Is Yeri / Dukkan',
+                'arsa': 'Arsa',
+                'tarla': 'Tarla / Arazi'
+            };
+
+            document.getElementById('satisBedeliGoster').textContent = formatPara(satisBedeli);
+            document.getElementById('satisAciklama').textContent = turIsimleri[gayrimenkulTuru] + ' - Satis bedelinin %4'u harc olarak tahsil edilir';
+            document.getElementById('aliciHarci').textContent = formatPara(aliciHarci);
+            document.getElementById('saticiHarci').textContent = formatPara(saticiHarci);
+            document.getElementById('toplamHarci').textContent = formatPara(toplamHarci);
+            document.getElementById('donerSermaye').textContent = formatPara(DONER_SERMAYE);
+            document.getElementById('genelToplam').textContent = formatPara(genelToplam);
+
+            var sonucBolumu = document.getElementById('sonucBolumu');
+            sonucBolumu.style.display = 'block';
+            sonucBolumu.classList.add('gorunur');
+
+            var mesaj = '2026 Tapu Masraf Hesaplama  ';
+            mesaj += 'Gayrimenkul Turu: ' + encodeURIComponent(turIsimleri[gayrimenkulTuru]) + '  ';
+            mesaj += 'Satis Bedeli: ' + encodeURIComponent(formatPara(satisBedeli)) + '  ';
+            mesaj += 'Alici Harci (%2): ' + encodeURIComponent(formatPara(aliciHarci)) + '  ';
+            mesaj += 'Satici Harci (%2): ' + encodeURIComponent(formatPara(saticiHarci)) + '  ';
+            mesaj += 'Toplam Harc (%4): ' + encodeURIComponent(formatPara(toplamHarci)) + '  ';
+            mesaj += 'Doner Sermaye: ' + encodeURIComponent(formatPara(DONER_SERMAYE)) + '  ';
+            mesaj += '  Genel Toplam: ' + encodeURIComponent(formatPara(genelToplam));
+
+            document.getElementById('whatsappPaylas').href = 'https://wa.me/?text=' + mesaj;
+
+            setTimeout(function() {
+                sonucBolumu.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 200);
+        }
+
+        function sonucKopyala() {
+            var satisBedeli = document.getElementById('satisBedeli').value;
+            var gayrimenkulTuru = document.getElementById('gayrimenkulTuru');
+            var turIsimleri = {
+                'konut': 'Konut / Daire',
+                'isyeri': 'Is Yeri / Dukkan',
+                'arsa': 'Arsa',
+                'tarla': 'Tarla / Arazi'
+            };
+            var turAdi = turIsimleri[gayrimenkulTuru.value];
+            var aliciHarci = document.getElementById('aliciHarci').textContent;
+            var saticiHarci = document.getElementById('saticiHarci').textContent;
+            var toplamHarci = document.getElementById('toplamHarci').textContent;
+            var donerSermaye = document.getElementById('donerSermaye').textContent;
+            var genelToplam = document.getElementById('genelToplam').textContent;
+
+            var metin = '2026 Tapu Masraf Hesaplama  ';
+            metin += 'Gayrimenkul Turu: ' + turAdi + '  ';
+            metin += 'Satis Bedeli: ' + formatPara(parseFloat(satisBedeli)) + '  ';
+            metin += 'Alici Harci (%2): ' + aliciHarci + '  ';
+            metin += 'Satici Harci (%2): ' + saticiHarci + '  ';
+            metin += 'Toplam Harc (%4): ' + toplamHarci + '  ';
+            metin += 'Doner Sermaye: ' + donerSermaye + '  ';
+            metin += '  GENEL TOPLAM: ' + genelToplam;
+
+            navigator.clipboard.writeText(metin).then(function() {
+                alert('Sonuc panoya kopyalandi!');
+            }).catch(function(err) {
+                var textArea = document.createElement('textarea');
+                textArea.value = metin;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Sonuc panoya kopyalandi!');
+            });
+        }
+
+        document.getElementById('satisBedeli').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                hesapla();
+            }
+        });
+    </script>
+</body>
+</html>
