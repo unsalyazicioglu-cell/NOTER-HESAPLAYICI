@@ -335,7 +335,7 @@
 
             <div class="bilgi-kutusu">
                 <strong>2026 Yili Tapu Tarifesi:</strong><br>
-                - Tapu Harci: Satis bedelinin <strong class="yesil">%4'u</strong> (Alici %2 + Satici %2)<br>
+                - Tapu Harci: Satis bedelinin <strong class="yesil">%4u</strong> (Alici %2 + Satici %2)<br>
                 - Doner Sermaye: <strong class="yesil">2.534 TL</strong> (2.227 TL + 307 TL ilave)<br>
                 - Yasal olarak harcin yarisi alici, yarisi saticidan tahsil edilir<br>
                 - Uygulamada cogunlukla <strong class="kirmizi">tamami alici</strong> tarafindan odenir
@@ -376,7 +376,7 @@
                 <div class="masraf-satiri">
                     <div>
                         <div class="masraf-adi">Alici Tapu Harci</div>
-                        <div class="masraf-aciklama">Satis bedelinin %2'si</div>
+                        <div class="masraf-aciklama">Satis bedelinin %2si</div>
                     </div>
                     <div class="masraf-deger yesil" id="aliciHarci">-</div>
                 </div>
@@ -384,7 +384,7 @@
                 <div class="masraf-satiri">
                     <div>
                         <div class="masraf-adi">Satici Tapu Harci</div>
-                        <div class="masraf-aciklama">Satis bedelinin %2'si</div>
+                        <div class="masraf-aciklama">Satis bedelinin %2si</div>
                     </div>
                     <div class="masraf-deger kirmizi" id="saticiHarci">-</div>
                 </div>
@@ -392,7 +392,7 @@
                 <div class="masraf-satiri">
                     <div>
                         <div class="masraf-adi">Toplam Tapu Harci</div>
-                        <div class="masraf-aciklama">Satis bedelinin %4'u (Alici + Satici)</div>
+                        <div class="masraf-aciklama">Satis bedelinin %4u (Alici + Satici)</div>
                     </div>
                     <div class="masraf-deger mavi" id="toplamHarci">-</div>
                 </div>
@@ -477,7 +477,7 @@
             };
 
             document.getElementById('satisBedeliGoster').textContent = formatPara(satisBedeli);
-            document.getElementById('satisAciklama').textContent = turIsimleri[gayrimenkulTuru] + ' - Satis bedelinin %4'u harc olarak tahsil edilir';
+            document.getElementById('satisAciklama').textContent = turIsimleri[gayrimenkulTuru] + ' - Satis bedelinin %4u harc olarak tahsil edilir';
             document.getElementById('aliciHarci').textContent = formatPara(aliciHarci);
             document.getElementById('saticiHarci').textContent = formatPara(saticiHarci);
             document.getElementById('toplamHarci').textContent = formatPara(toplamHarci);
