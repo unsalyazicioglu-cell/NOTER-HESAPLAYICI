@@ -288,6 +288,7 @@
             .noter-value { font-size: 21px; }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="page">
@@ -300,10 +301,7 @@
             <!-- KASKO KODU SEÇİM ALANI -->
             
 
-            <div class="input-group">
-                <label for="aracNotu">🚘 Araç / Plaka Notu</label>
-                <input type="text" id="aracNotu" placeholder="Örn: 34 ABC 123 - BMW 320i">
-            </div>
+            
 
             <div class="input-group">
                 <label for="alimBedeli">🔹 Araç Alım Bedeli (Maliyet) (TL)</label>
@@ -327,10 +325,7 @@
             <div class="result" id="sonuc">
                 <div class="result-title">📊 Detaylı Hesaplama</div>
 
-                <div class="result-row" id="aracNotuSatiri" style="display: none;">
-                    <span class="result-label">Araç / Plaka Notu</span>
-                    <span class="result-value" id="resAracNotu">-</span>
-                </div>
+                
 
                 <div class="result-row" id="kaskoKoduSatiri" style="display: none;">
                     <span class="result-label">Kasko Kodu</span>
@@ -425,5 +420,100 @@
     </div>
 
     
+
+    <script>
+        function formatPara(value) {
+            return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) + ' TL';
+        }
+
+        function hesapla() {
+            const alimBedeli = parseFloat(document.getElementById('alimBedeli').value) || 0;
+            const satisBedeli = parseFloat(document.getElementById('satisBedeli').value) || 0;
+            const kdvOrani = parseFloat(document.getElementById('kdvOrani').value) || 20;
+
+            if (alimBedeli <= 0 || satisBedeli <= 0) {
+                alert('Lütfen alım ve satış bedellerini giriniz.');
+                return;
+            }
+
+            const kar = satisBedeli - alimBedeli;
+            const kdvTutari = kar * (kdvOrani / 100);
+            const satisEksiKdv = satisBedeli - kdvTutari;
+            const noterRakam = satisEksiKdv;
+
+            // Sonuçları göster
+            document.getElementById('resAlim').textContent = formatPara(alimBedeli);
+            document.getElementById('resSatis').textContent = formatPara(satisBedeli);
+            document.getElementById('resKar').textContent = formatPara(kar);
+            document.getElementById('resKdvOrani').textContent = '%' + kdvOrani;
+            document.getElementById('resKdvTutari').textContent = formatPara(kdvTutari);
+            document.getElementById('resSatisEksiKdv').textContent = formatPara(satisEksiKdv);
+            document.getElementById('resNoter').textContent = formatPara(noterRakam);
+
+            // Sonuç alanını göster
+            document.getElementById('sonuc').classList.add('show');
+
+            // WhatsApp paylaş linkini güncelle
+            const mesaj = `📊 NOTER KDV HESAPLAMA
+
+🔹 Alım Bedeli: ${formatPara(alimBedeli)}
+🔹 Satış Bedeli: ${formatPara(satisBedeli)}
+💰 Elde Edilen Kar: ${formatPara(kar)}
+📌 KDV Oranı: %${kdvOrani}
+💸 Karın KDV Tutarı: ${formatPara(kdvTutari)}
+📉 Satış Bedeli - KDV: ${formatPara(satisEksiKdv)}
+
+✅ NOTERE KDV HARİÇ YAZILMASI GEREKEN RAKAM: ${formatPara(noterRakam)}
+
+noterhesap.com`;
+
+            document.getElementById('whatsappPaylas').href = 'https://wa.me/?text=' + encodeURIComponent(mesaj);
+        }
+
+        function sonucKopyala() {
+            const alim = document.getElementById('resAlim').textContent;
+            const satis = document.getElementById('resSatis').textContent;
+            const kar = document.getElementById('resKar').textContent;
+            const kdvOrani = document.getElementById('resKdvOrani').textContent;
+            const kdvTutari = document.getElementById('resKdvTutari').textContent;
+            const satisEksiKdv = document.getElementById('resSatisEksiKdv').textContent;
+            const noter = document.getElementById('resNoter').textContent;
+
+            let metin = `📊 NOTER KDV HESAPLAMA
+
+`;
+            metin += `🔹 Alım Bedeli: ${alim}
+`;
+            metin += `🔹 Satış Bedeli: ${satis}
+`;
+            metin += `💰 Elde Edilen Kar: ${kar}
+`;
+            metin += `📌 KDV Oranı: ${kdvOrani}
+`;
+            metin += `💸 Karın KDV Tutarı: ${kdvTutari}
+`;
+            metin += `📉 Satış Bedeli - KDV: ${satisEksiKdv}
+
+`;
+            metin += `✅ NOTERE KDV HARİÇ YAZILMASI GEREKEN RAKAM: ${noter}
+
+`;
+            metin += `noterhesap.com`;
+
+            navigator.clipboard.writeText(metin).then(() => {
+                alert('Sonuç kopyalandı!');
+            }).catch(() => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = metin;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Sonuç kopyalandı!');
+            });
+        }
+    </script>
+
 </body>
 </html>
