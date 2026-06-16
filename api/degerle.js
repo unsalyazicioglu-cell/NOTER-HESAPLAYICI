@@ -22,6 +22,15 @@ Vites: ${veri.vites}
 KM: ${veri.km}
 Tramer: ${veri.tramer}
 İl: ${veri.il}
+Ön Şase: ${veri.onSase}
+Arka Şase: ${veri.arkaSase}
+
+Sağ Podye: ${veri.sagPodye}
+Sol Podye: ${veri.solPodye}
+
+Bagaj Havuzu: ${veri.bagajHavuzu}
+
+Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
 SADECE JSON DÖNDÜR.
