@@ -31,25 +31,27 @@ margin-bottom:25px;
 
 label{
 display:block;
-margin-top:12px;
-margin-bottom:5px;
+margin-top:8px;
+margin-bottom:3px;
 font-weight:bold;
+font-size:14px;
 }
 
 input,select{
 width:100%;
-padding:12px;
+padding:9px;
 border-radius:8px;
 border:1px solid #444;
 background:#222;
 color:#fff;
 font-size:16px;
+box-sizing:border-box;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
+gap:10px;
 }
 
 .ekspertiz{
@@ -331,6 +333,38 @@ font-size:20px;
 
 .sonucPopup p{
 font-size:14px;
+}
+
+}
+
+  @media(max-width:768px){
+
+.container{
+padding:12px;
+}
+
+input,
+select{
+padding:8px;
+font-size:16px;
+}
+
+h1{
+font-size:22px;
+}
+
+h2{
+font-size:18px;
+}
+
+label{
+font-size:13px;
+margin-top:6px;
+margin-bottom:2px;
+}
+
+.grid{
+gap:8px;
 }
 
 }
