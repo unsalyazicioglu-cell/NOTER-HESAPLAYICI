@@ -256,6 +256,40 @@ grid-template-columns:1fr;
 }
 
 }
+  .popupArkaPlan{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.75);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.popup{
+background:#1a1a1a;
+padding:20px;
+border-radius:15px;
+width:320px;
+border:1px solid #444;
+}
+
+.popup h3{
+margin-bottom:15px;
+text-align:center;
+}
+
+.popupSecenek{
+padding:12px;
+margin-top:8px;
+border-radius:8px;
+cursor:pointer;
+text-align:center;
+font-weight:bold;
+}
 </style>
 
 </head>
@@ -562,45 +596,68 @@ durumlar[durum].isim;
 
 });
 
-  document
+let aktifParca=null;
+
+document
 .querySelectorAll(".aracParca")
 .forEach(parca=>{
 
-parca.dataset.durum=0;
-
 parca.onclick=()=>{
 
-let durum=
-parseInt(
-parca.dataset.durum
-);
+aktifParca=parca;
 
-durum++;
-
-if(
-durum>=durumlar.length
-){
-durum=0;
-}
-
-parca.dataset.durum=
-durum;
-
-parca.style.background=
-durumlar[durum].renk;
-
-parca.innerHTML=
+document
+.getElementById(
+"popupBaslik"
+)
+.innerHTML=
 parca.innerText
-.split("\n")[0]
-+
-"<br>"
-+
-durumlar[durum].isim;
+.split("\n")[0];
+
+document
+.getElementById(
+"popupArkaPlan"
+)
+.style.display=
+"flex";
 
 };
 
 });
+
+
+function durumSec(index){
+
+if(!aktifParca)
+return;
+
+aktifParca.dataset.durum=index;
+
+aktifParca.style.background=
+durumlar[index].renk;
+
+const parcaAdi=
+aktifParca.innerText
+.split("\n")[0];
+
+aktifParca.innerHTML=
+parcaAdi
++
+"<br>"
++
+durumlar[index].isim;
+
+document
+.getElementById("popupArkaPlan")
+.style.display="none";
+
+}
+
 async function degerle(){
+
+...
+...
+...
 const overlay=
 document.getElementById(
 "loadingOverlay"
@@ -953,6 +1010,61 @@ id="progressBar">
 class="yuzde"
 id="yuzde">
 0%
+</div>
+
+</div>
+
+</div>
+  <div
+class="popupArkaPlan"
+id="popupArkaPlan">
+
+<div class="popup">
+
+<h3 id="popupBaslik">
+Parça
+</h3>
+
+<div
+class="popupSecenek"
+style="background:#27ae60"
+onclick="durumSec(0)">
+🟩 Orijinal
+</div>
+
+<div
+class="popupSecenek"
+style="background:#f1c40f"
+onclick="durumSec(1)">
+🟨 Lokal Boya
+</div>
+
+<div
+class="popupSecenek"
+style="background:#e67e22"
+onclick="durumSec(2)">
+🟧 Boyalı
+</div>
+
+<div
+class="popupSecenek"
+style="background:#3498db"
+onclick="durumSec(3)">
+🟦 Sök Tak
+</div>
+
+<div
+class="popupSecenek"
+style="background:#9b59b6"
+onclick="durumSec(4)">
+🟪 Sök Tak Boya
+</div>
+
+<div
+class="popupSecenek"
+style="background:#e74c3c"
+onclick="durumSec(5)">
+🟥 Değişen
 </div>
 
 </div>
