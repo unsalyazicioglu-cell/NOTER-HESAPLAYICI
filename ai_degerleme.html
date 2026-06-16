@@ -60,7 +60,40 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
 }
+#aracSemasi{
+margin-top:20px;
+}
 
+.aracSatir{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.aracParca{
+flex:1;
+background:#1f2937;
+border:2px solid #333;
+padding:15px;
+border-radius:12px;
+text-align:center;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.aracParca:hover{
+border-color:#00c896;
+transform:scale(1.03);
+}
+
+@media(max-width:768px){
+
+.aracSatir{
+flex-direction:column;
+}
+
+}
 .parca{
 padding:14px;
 border-radius:8px;
@@ -265,7 +298,69 @@ grid-template-columns:1fr;
 <div class="ekspertiz">
 
 <h2>Kaporta Ekspertizi</h2>
+<div id="aracSemasi">
 
+<div class="aracParca">
+Tavan
+</div>
+
+<div class="aracSatir">
+
+<div class="aracParca">
+Sol Ön Çamurluk
+</div>
+
+<div class="aracParca">
+Kaput
+</div>
+
+<div class="aracParca">
+Sağ Ön Çamurluk
+</div>
+
+</div>
+
+<div class="aracSatir">
+
+<div class="aracParca">
+Sol Ön Kapı
+</div>
+
+<div class="aracParca">
+Sağ Ön Kapı
+</div>
+
+</div>
+
+<div class="aracSatir">
+
+<div class="aracParca">
+Sol Arka Kapı
+</div>
+
+<div class="aracParca">
+Sağ Arka Kapı
+</div>
+
+</div>
+
+<div class="aracSatir">
+
+<div class="aracParca">
+Sol Arka Çamurluk
+</div>
+
+<div class="aracParca">
+Bagaj
+</div>
+
+<div class="aracParca">
+Sağ Arka Çamurluk
+</div>
+
+</div>
+
+</div>
 <div class="ekspertiz-grid">
 
 <div class="parca" data-durum="0">Kaput</div>
