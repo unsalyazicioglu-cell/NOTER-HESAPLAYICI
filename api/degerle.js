@@ -1,3 +1,4 @@
+````javascript
 export default async function handler(req, res) {
 
   if (req.method !== "POST") {
@@ -11,7 +12,7 @@ export default async function handler(req, res) {
     const veri = req.body;
 
     const prompt = `
-Sen Türkiye'de çalışan uzman ikinci el araç değerleme uzmanısın.
+Sen Türkiye ikinci el araç piyasasında uzman araç değerleme danışmanısın.
 
 Araç Bilgileri:
 
@@ -31,38 +32,21 @@ Tramer: ${veri.tramer}
 Ekspertiz:
 ${veri.ekspertiz}
 
-Kurallar:
-
-1- Sadece JSON döndür.
-2- Açıklama yazma.
-3- Markdown kullanma.
-4- Kod bloğu kullanma.
-
-JSON formatı:
+SADECE JSON DÖNDÜR.
 
 {
-  "minimumDeger":"",
-  "ortalamaDeger":"",
-  "maksimumDeger":"",
-  "satilabilirlik":"",
-  "tahminiSatisSuresi":"",
-  "guvenPuani":"",
-  "yorum":""
+ "minimumDeger":"",
+ "ortalamaDeger":"",
+ "maksimumDeger":"",
+ "satilabilirlik":"",
+ "tahminiSatisSuresi":"",
+ "guvenPuani":"",
+ "yorum":""
 }
-
-Satılabilirlik sadece:
-
-🚀 Çok Hızlı Satılır
-🟢 Hızlı Satılır
-🟡 Ortalama Sürede Satılır
-🟠 Yavaş Satılır
-🔴 Zor Satılır
-
-olabilir.
 `;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -82,46 +66,57 @@ olabilir.
       }
     );
 
-const data = await response.json();
+    const data = await response.json();
 
-console.log("GEMINI CEVABI:");
-console.log(JSON.stringify(data, null, 2));
+    let text =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-let text =
-data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    if (!text) {
 
-if(!text){
-    return res.status(500).json({
-        minimumDeger:"-",
-        ortalamaDeger:"-",
-        maksimumDeger:"-",
-        satilabilirlik:"Hata",
-        tahminiSatisSuresi:"-",
-        guvenPuani:"0",
-        yorum:"Gemini boş cevap döndürdü. Vercel loglarına bak."
-    });
-}
+      return res.status(500).json({
+        minimumDeger: "-",
+        ortalamaDeger: "-",
+        maksimumDeger: "-",
+        satilabilirlik: "Hata",
+        tahminiSatisSuresi: "-",
+        guvenPuani: "0",
+        yorum: JSON.stringify(data)
+      });
 
-text = text
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+    }
 
-return res.status(200).json({
-  debug: text
-});
+    text = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
 
-    return res.status(200).json(sonuc);
+    try {
+
+      const sonuc = JSON.parse(text);
+
+      return res.status(200).json(sonuc);
+
+    } catch {
+
+      return res.status(200).json({
+        minimumDeger: "-",
+        ortalamaDeger: "-",
+        maksimumDeger: "-",
+        satilabilirlik: "AI Cevabı",
+        tahminiSatisSuresi: "-",
+        guvenPuani: "0",
+        yorum: text
+      });
+
+    }
 
   } catch (err) {
-
-    console.error(err);
 
     return res.status(500).json({
       minimumDeger: "-",
       ortalamaDeger: "-",
       maksimumDeger: "-",
-      satilabilirlik: "Hesaplanamadı",
+      satilabilirlik: "Hata",
       tahminiSatisSuresi: "-",
       guvenPuani: "0",
       yorum: err.message
@@ -130,3 +125,4 @@ return res.status(200).json({
   }
 
 }
+````
