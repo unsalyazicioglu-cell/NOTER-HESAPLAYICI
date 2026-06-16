@@ -628,6 +628,8 @@ return;
 
 function durumSec(index){
 
+function durumSec(index){
+
 if(!aktifParca)
 return;
 
@@ -637,14 +639,11 @@ aktifParca.style.background=
 durumlar[index].renk;
 
 const parcaAdi=
-aktifParca.innerText
-.split("\n")[0];
+aktifParca.innerText.split("\n")[0];
 
 aktifParca.innerHTML=
-parcaAdi
-+
-"<br>"
-+
+parcaAdi +
+"<br>" +
 durumlar[index].isim;
 
 document
