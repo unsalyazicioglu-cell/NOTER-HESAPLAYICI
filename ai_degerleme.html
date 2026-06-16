@@ -54,7 +54,36 @@ gap:15px;
 .ekspertiz{
 margin-top:25px;
 }
+.kritikAlanlar{
+margin-top:25px;
+}
 
+.kritikGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:15px;
+}
+
+.kritikKart{
+background:#222;
+padding:15px;
+border-radius:10px;
+border:1px solid #333;
+}
+
+.kritikKart div{
+margin-bottom:8px;
+font-weight:bold;
+}
+
+@media(max-width:768px){
+
+.kritikGrid{
+grid-template-columns:1fr;
+}
+
+}
 .ekspertiz-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -386,7 +415,65 @@ Sağ Arka Çamurluk
 </div>
 
 </div>
+<div class="kritikAlanlar">
 
+<h2>
+🏗️ Şase ve Güvenlik Kontrolü
+</h2>
+
+<div class="kritikGrid">
+
+<div class="kritikKart">
+<div>Ön Şase</div>
+<select id="onSase">
+<option>Temiz</option>
+<option>İşlemli</option>
+</select>
+</div>
+
+<div class="kritikKart">
+<div>Arka Şase</div>
+<select id="arkaSase">
+<option>Temiz</option>
+<option>İşlemli</option>
+</select>
+</div>
+
+<div class="kritikKart">
+<div>Sağ Podye</div>
+<select id="sagPodye">
+<option>Temiz</option>
+<option>İşlemli</option>
+</select>
+</div>
+
+<div class="kritikKart">
+<div>Sol Podye</div>
+<select id="solPodye">
+<option>Temiz</option>
+<option>İşlemli</option>
+</select>
+</div>
+
+<div class="kritikKart">
+<div>Bagaj Havuzu</div>
+<select id="bagajHavuzu">
+<option>Temiz</option>
+<option>İşlemli</option>
+</select>
+</div>
+
+<div class="kritikKart">
+<div>Direkler</div>
+<select id="direkler">
+<option>Temiz</option>
+<option>İşlemli</option>
+</select>
+</div>
+
+</div>
+
+</div>
 <button class="hesapla"
 onclick="degerle()">
 
