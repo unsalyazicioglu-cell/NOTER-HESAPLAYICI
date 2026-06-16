@@ -102,10 +102,10 @@ if(!text){
     });
 }
 
-    text = text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+text = text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
 
 return res.status(200).json({
   debug: text
