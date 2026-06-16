@@ -1,0 +1,290 @@
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Araç Değerleme</title>
+
+<style>
+
+body{
+background:#0a0a0a;
+color:#fff;
+font-family:Segoe UI,Arial,sans-serif;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:#1a1a1a;
+padding:25px;
+border-radius:15px;
+border:1px solid #333;
+}
+
+h1{
+text-align:center;
+margin-bottom:25px;
+}
+
+label{
+display:block;
+margin-top:12px;
+margin-bottom:5px;
+font-weight:bold;
+}
+
+input,select{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #444;
+background:#222;
+color:#fff;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.ekspertiz{
+margin-top:25px;
+}
+
+.ekspertiz-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.parca{
+padding:14px;
+border-radius:8px;
+cursor:pointer;
+text-align:center;
+font-weight:bold;
+background:#27ae60;
+}
+
+.hesapla{
+width:100%;
+padding:15px;
+margin-top:25px;
+border:none;
+border-radius:10px;
+background:#00c896;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.sonuc{
+margin-top:25px;
+padding:20px;
+background:#222;
+border-radius:10px;
+display:none;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🤖 AI Araç Değerleme</h1>
+
+<div class="grid">
+
+<div>
+<label>Marka</label>
+<input id="marka">
+</div>
+
+<div>
+<label>Model</label>
+<input id="model">
+</div>
+
+<div>
+<label>Paket</label>
+<input id="paket">
+</div>
+
+<div>
+<label>İl</label>
+<input id="il">
+</div>
+
+<div>
+<label>Model Yılı</label>
+<select id="yil"></select>
+</div>
+
+<div>
+<label>Yakıt</label>
+<select id="yakit">
+<option>Benzin</option>
+<option>Dizel</option>
+<option>LPG</option>
+<option>Hibrit</option>
+<option>Elektrik</option>
+</select>
+</div>
+
+<div>
+<label>Vites</label>
+<select id="vites">
+<option>Otomatik</option>
+<option>Manuel</option>
+<option>Yarı Otomatik</option>
+</select>
+</div>
+
+<div>
+<label>KM</label>
+<input id="km" type="number">
+</div>
+
+<div>
+<label>Tramer Tutarı</label>
+<input id="tramer" type="number">
+</div>
+
+</div>
+
+<div class="ekspertiz">
+
+<h2>Kaporta Ekspertizi</h2>
+
+<div class="ekspertiz-grid">
+
+<div class="parca" data-durum="0">Kaput</div>
+<div class="parca" data-durum="0">Tavan</div>
+
+<div class="parca" data-durum="0">Bagaj</div>
+<div class="parca" data-durum="0">Ön Tampon</div>
+
+<div class="parca" data-durum="0">Arka Tampon</div>
+<div class="parca" data-durum="0">Sol Ön Çamurluk</div>
+
+<div class="parca" data-durum="0">Sol Ön Kapı</div>
+<div class="parca" data-durum="0">Sol Arka Kapı</div>
+
+<div class="parca" data-durum="0">Sol Arka Çamurluk</div>
+<div class="parca" data-durum="0">Sağ Ön Çamurluk</div>
+
+<div class="parca" data-durum="0">Sağ Ön Kapı</div>
+<div class="parca" data-durum="0">Sağ Arka Kapı</div>
+
+<div class="parca" data-durum="0">Sağ Arka Çamurluk</div>
+
+</div>
+
+</div>
+
+<button class="hesapla">
+🤖 AI DEĞERLEME YAP
+</button>
+
+<div class="sonuc" id="sonuc">
+
+<h3>Sonuç</h3>
+
+<p>Minimum Değer</p>
+
+<p>Ortalama Değer</p>
+
+<p>Maksimum Değer</p>
+
+<p>Satılabilirlik</p>
+
+<p>Tahmini Satış Süresi</p>
+
+<p>AI Yorumu</p>
+
+</div>
+
+</div>
+
+<script>
+
+for(let y=2026;y>=1990;y--){
+
+document.getElementById("yil").innerHTML+=
+`<option>${y}</option>`;
+
+}
+
+const durumlar=[
+
+{
+isim:"Orijinal",
+renk:"#27ae60"
+},
+
+{
+isim:"Lokal Boya",
+renk:"#f1c40f"
+},
+
+{
+isim:"Boyalı",
+renk:"#e67e22"
+},
+
+{
+isim:"Değişen",
+renk:"#e74c3c"
+},
+
+{
+isim:"Sök Tak",
+renk:"#3498db"
+}
+
+];
+
+document.querySelectorAll(".parca")
+.forEach(parca=>{
+
+parca.onclick=()=>{
+
+let durum=
+parseInt(
+parca.dataset.durum
+);
+
+durum++;
+
+if(durum>=durumlar.length)
+durum=0;
+
+parca.dataset.durum=durum;
+
+parca.style.background=
+durumlar[durum].renk;
+
+parca.innerHTML=
+parca.innerHTML.split("<br>")[0]
++
+"<br>"
++
+durumlar[durum].isim;
+
+};
+
+});
+
+</script>
+
+</body>
+</html>
+```
