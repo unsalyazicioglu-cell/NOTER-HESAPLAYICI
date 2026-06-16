@@ -49,9 +49,12 @@ SADECE JSON DÖNDÜR.
       }
     );
 
-    const data = await response.json();
+const data = await response.json();
 
-    return res.status(200).json(data);
+return res.status(200).json({
+  apiKeyVar: !!process.env.GEMINI_API_KEY,
+  googleCevap: data
+});
 
   } catch (err) {
 
