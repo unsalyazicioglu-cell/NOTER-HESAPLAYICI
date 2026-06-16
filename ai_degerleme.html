@@ -424,6 +424,7 @@ Sağ Arka Çamurluk
 </div>
 
 </div>
+  <!--
 <div class="ekspertiz-grid">
 
 <div class="parca" data-durum="0">Kaput</div>
@@ -445,7 +446,7 @@ Sağ Arka Çamurluk
 <div class="parca" data-durum="0">Sağ Arka Kapı</div>
 
 <div class="parca" data-durum="0">Sağ Arka Çamurluk</div>
-
+-->
 </div>
 
 </div>
@@ -602,31 +603,25 @@ document
 .querySelectorAll(".aracParca")
 .forEach(parca=>{
 
+parca.dataset.durum=0;
+
 parca.onclick=()=>{
 
 aktifParca=parca;
 
 document
-.getElementById(
-"popupBaslik"
-)
+.getElementById("popupBaslik")
 .innerHTML=
-parca.innerText
-.split("\n")[0];
+parca.innerText.split("\n")[0];
 
 document
-.getElementById(
-"popupArkaPlan"
-)
-.style.display=
-"flex";
+.getElementById("popupArkaPlan")
+.style.display="flex";
 
 };
 
 });
 
-
-function durumSec(index){
 
 if(!aktifParca)
 return;
