@@ -1,167 +1,102 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Araç Değerleme V2</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-    <style>
-        /* TEMEL AYARLAR - Sorunsuz Çalışması İçin Sadeleştirildi */
-        body {
-            background-color: #0a0a0a; /* V1'deki orijinal arka plan rengin */
-            color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 20px 10px;
-        }
-
-        .container {
-            max-width: 480px; /* Mobil odaklı ama bilgisayarda da ortalanmış durur */
-            margin: 0 auto;
-            background: #1a1a1a;
-            border-radius: 15px;
-            border: 1px solid #333;
-            padding: 20px;
-        }
-
-        h1 { text-align: center; font-size: 22px; margin-top: 0; margin-bottom: 20px; }
-
-        /* KART BÖLÜMLERİ */
-        .section-box {
-            background: #222;
-            border: 1px solid #444;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .section-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #00c896; border-bottom: 1px solid #444; padding-bottom: 8px; }
-
-        /* FORMLAR (V2 Tarzı Grid) */
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
-        
-        label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; color: #aaa; }
-        
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #555;
-            background: #111;
-            color: #fff;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        /* 🚗 V2 YENİ ARAÇ ŞEMASI (Grid Sistemi) */
-        .car-schema-wrapper {
-            background: #111;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-        .car-row { display: flex; justify-content: center; gap: 5px; margin-bottom: 5px; }
-        .car-col { width: 80px; } /* Yan parçalar */
-        .car-col-mid { width: 90px; } /* Orta parçalar (Kaput, tavan vb) */
-        .car-col-full { width: 260px; } /* Tamponlar */
-
-        .parca {
-            background: #27ae60;
-            border-radius: 6px;
-            padding: 8px 2px;
-            text-align: center;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 55px;
-            box-sizing: border-box;
-            border: 1px solid rgba(0,0,0,0.2);
-        }
-        .parca-alt-bilgi { font-size: 9px; margin-top: 4px; background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 3px; font-weight: normal; }
-
-        /* CANLI SAYAÇLAR */
-        .sayac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-        .sayac-badge { font-size: 11px; font-weight: bold; padding: 5px; border-radius: 5px; text-align: center; color: white; }
-
-        /* KRİTİK HASAR BUTONLARI */
-        .hasar-satir { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #333; }
-        .hasar-satir:last-child { border-bottom: none; }
-        .hasar-label { font-size: 14px; font-weight: bold; }
-        .r-group { display: flex; gap: 5px; }
-        .r-btn { padding: 5px 12px; border-radius: 5px; background: #333; color: #aaa; font-size: 12px; cursor: pointer; font-weight: bold; border: 1px solid #444; }
-        .r-btn.secili { background: #fff; color: #000; border-color: #fff; }
-        .r-btn.secili.var { background: #e74c3c; color: #fff; border-color: #e74c3c; }
-
-        /* ANA BUTON (V1'deki gibi her zaman görünür) */
-        .hesapla-btn {
-            width: 100%;
-            padding: 18px;
-            background: #00c896;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            display: block;
-        }
-
-        /* YÜKLEME VE SONUÇ ALANI */
-        #loadingAlani { display: none; text-align: center; padding: 30px 10px; background: #222; border-radius: 12px; margin-top: 20px; }
-        #sonucAlani { display: none; margin-top: 20px; }
-
-        /* PREMIUM SONUÇ KARTI */
-        .premium-kart { background: linear-gradient(135deg, #1e2535, #111); padding: 20px; border-radius: 15px; border: 2px solid #333; }
-        .etiket { background: rgba(0, 200, 150, 0.2); color: #00c896; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
-        
-        .fiyat-kutu { background: #222; border: 1px solid #444; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
-        .fiyat-satir { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
-        .fiyat-satir.ana { font-size: 18px; font-weight: bold; color: #00c896; border-bottom: 1px solid #444; padding-bottom: 8px; margin-bottom: 8px; }
-        
-        .skor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .skor-kutu { background: #222; border: 1px solid #444; padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; }
-        .skor-deger { font-size: 16px; font-weight: bold; margin-top: 5px; }
-        
-        .ai-yorum { background: #111; border-left: 3px solid #00c896; padding: 10px; font-size: 13px; line-height: 1.5; color: #ccc; }
-
-        .aksiyon-butonlari { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .aks-btn { padding: 12px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; font-size: 14px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Araç Değerleme V2</title>
+<style>
+body{margin:0;background:#0f1117;color:#fff;font-family:Arial}
+.container{max-width:900px;margin:auto;padding:15px}
+.card{background:#1b2230;border-radius:16px;padding:15px;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+input,select,button{width:100%;padding:12px;border-radius:10px;border:none}
+.car{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.part{background:#27ae60;padding:12px;border-radius:10px;text-align:center;cursor:pointer}
+.loading,.result{display:none}
+.actions button{margin-top:8px}
+</style>
 </head>
 <body>
-
 <div class="container">
-    <h1>🤖 AI Araç Değerleme</h1>
+<h1>🤖 AI Araç Değerleme V2</h1>
 
-    <div class="section-box">
-        <div class="section-title">Araç Künyesi</div>
-        <div class="grid-3">
-            <div><label>Marka</label><input id="marka" placeholder="Örn: Renault"></div>
-            <div><label>Model</label><input id="model" placeholder="Clio"></div>
-            <div><label>Paket</label><input id="paket" placeholder="Icon"></div>
-        </div>
-        <div class="grid-3">
-            <div><label>Model Yılı</label><select id="yil"></select></div>
-            <div><label>Yakıt</label><select id="yakit"><option>Benzin</option><option>Dizel</option><option>LPG</option><option>Hibrit</option><option>Elektrik</option></select></div>
-            <div><label>Vites</label><select id="vites"><option>Otomatik</option><option>Manuel</option><option>Yarı Otom.</option></select></div>
-        </div>
-        <div class="grid-2">
-            <div><label>KM</label><input id="km" type="number" placeholder="0"></div>
-            <div><label>Tramer Tutarı (TL)</label><input id="tramer" type="number" placeholder="0"></div>
-        </div>
-        <div><label>İl</label><input id="il" placeholder="İstanbul"></div>
-    </div>
+<div class="card">
+<div class="grid">
+<input placeholder="Marka">
+<input placeholder="Model">
+<input placeholder="Paket">
+<input placeholder="İl">
+<input placeholder="KM">
+<input placeholder="Tramer">
+</div>
+</div>
 
-    <div class="section-box">
-        <div class="section-title">Kaporta Ekspertizi</div>
-        
-        <div class="car-schema-wrapper">
+<div class="card">
+<h3>🚗 Kaporta Şeması</h3>
+<div class="car">
+<div class="part">Sol Ön Çamurluk</div>
+<div class="part">Kaput</div>
+<div class="part">Sağ Ön Çamurluk</div>
+<div class="part">Sol Ön Kapı</div>
+<div class="part">Tavan</div>
+<div class="part">Sağ Ön Kapı</div>
+<div class="part">Sol Arka Kapı</div>
+<div class="part">Bagaj</div>
+<div class="part">Sağ Arka Kapı</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🏗️ Kritik Noktalar</h3>
+<div class="grid">
+<select><option>Şase Yok</option><option>Şase Var</option></select>
+<select><option>Bagaj Havuzu Yok</option><option>Bagaj Havuzu Var</option></select>
+<select><option>Ön Podye Yok</option><option>Ön Podye Var</option></select>
+<select><option>Arka Podye Yok</option><option>Arka Podye Var</option></select>
+</div>
+</div>
+
+<button onclick="startAI()">🤖 AI DEĞERLEME YAP</button>
+
+<div id="loading" class="card loading">
+<h3>⏳ AI Analiz Ediyor</h3>
+<div id="percent">0%</div>
+</div>
+
+<div id="result" class="card result">
+<h3>📊 Sonuç</h3>
+<p>Minimum Değer: --</p>
+<p>Ortalama Değer: --</p>
+<p>Maksimum Değer: --</p>
+<div class="actions">
+<button onclick="copyResult()">📋 Sonucu Kopyala</button>
+<button onclick="shareWhatsApp()">📲 WhatsApp Paylaş</button>
+</div>
+</div>
+
+</div>
+<script>
+function startAI(){
+document.getElementById('loading').style.display='block';
+let p=0;
+let t=setInterval(()=>{
+p+=5;
+document.getElementById('percent').innerText=p+'%';
+if(p>=100){
+clearInterval(t);
+document.getElementById('loading').style.display='none';
+document.getElementById('result').style.display='block';
+}
+},120);
+}
+function copyResult(){
+navigator.clipboard.writeText('AI Araç Değerleme Sonucu');
+alert('Kopyalandı');
+}
+function shareWhatsApp(){
+window.open('https://wa.me/?text='+encodeURIComponent('AI Araç Değerleme Sonucu'));
+}
+</script>
+</body>
+</html>
