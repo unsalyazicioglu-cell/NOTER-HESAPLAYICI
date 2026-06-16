@@ -289,7 +289,199 @@ durumlar[durum].isim;
 };
 
 });
+async function degerle(){
 
+const ekspertiz=[];
+
+document
+.querySelectorAll(".parca")
+.forEach(parca=>{
+
+ekspertiz.push({
+
+parca:
+parca.innerText
+.split("\n")[0],
+
+durum:
+parca.innerText
+.split("\n")[1]
+||
+"Orijinal"
+
+});
+
+});
+
+const veri={
+
+marka:
+document
+.getElementById("marka")
+.value,
+
+model:
+document
+.getElementById("model")
+.value,
+
+paket:
+document
+.getElementById("paket")
+.value,
+
+yil:
+document
+.getElementById("yil")
+.value,
+
+yakit:
+document
+.getElementById("yakit")
+.value,
+
+vites:
+document
+.getElementById("vites")
+.value,
+
+km:
+document
+.getElementById("km")
+.value,
+
+tramer:
+document
+.getElementById("tramer")
+.value,
+
+il:
+document
+.getElementById("il")
+.value,
+
+ekspertiz:
+JSON.stringify(
+ekspertiz
+)
+
+};
+
+const sonucDiv=
+document
+.getElementById("sonuc");
+
+sonucDiv.style.display=
+"block";
+
+sonucDiv.innerHTML=
+"⏳ AI analiz yapıyor...";
+
+try{
+
+const cevap=
+await fetch(
+"/api/degerle",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(veri)
+
+}
+);
+
+const sonuc=
+await cevap.json();
+
+sonucDiv.innerHTML=`
+
+<h2>
+📊 AI Araç Analizi
+</h2>
+
+<hr>
+
+<p>
+<b>
+Minimum Değer:
+</b>
+<br>
+${sonuc.minimumDeger}
+</p>
+
+<p>
+<b>
+Ortalama Değer:
+</b>
+<br>
+${sonuc.ortalamaDeger}
+</p>
+
+<p>
+<b>
+Maksimum Değer:
+</b>
+<br>
+${sonuc.maksimumDeger}
+</p>
+
+<p>
+<b>
+Satılabilirlik:
+</b>
+<br>
+${sonuc.satilabilirlik}
+</p>
+
+<p>
+<b>
+Tahmini Satış Süresi:
+</b>
+<br>
+${sonuc.tahminiSatisSuresi}
+</p>
+
+<p>
+<b>
+Güven Puanı:
+</b>
+<br>
+${sonuc.guvenPuani}
+</p>
+
+<hr>
+
+<p>
+
+${sonuc.yorum}
+
+</p>
+
+`;
+
+}
+catch(err){
+
+sonucDiv.innerHTML=`
+
+❌ Hata Oluştu
+
+<br><br>
+
+${err.message}
+
+`;
+
+}
+
+}
 </script>
 
 </body>
