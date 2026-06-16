@@ -2,58 +2,166 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Araç Değerleme V2.2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Araç Değerleme V2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
+
     <style>
-        :root {
-            --bg-main: #0f1219;
-            --bg-card: #181d28;
-            --bg-input: #222938;
-            --border-color: #2e3748;
-            --text-main: #ffffff;
-            --text-muted: #a0aec0;
-            --primary: #00c896;
-            
-            /* Ekspertiz Durum Renkleri */
-            --color-orijinal: #27ae60;
-            --color-lokal: #2980b9;
-            --color-boya: #f1c40f;
-            --color-soktak: #e67e22;
-            --color-degisen: #e74c3c;
-            --color-islemli: #111111;
+        /* TEMEL AYARLAR - Sorunsuz Çalışması İçin Sadeleştirildi */
+        body {
+            background-color: #0a0a0a; /* V1'deki orijinal arka plan rengin */
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px 10px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-main); color: var(--text-main); padding: 12px; display: flex; justify-content: center; }
-        .phone-container { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 16px; padding-bottom: 60px; }
-        h1.main-title { text-align: center; font-size: 20px; font-weight: 800; margin: 10px 0; }
-        
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 16px; }
-        .card-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
-        .form-group { display: flex; flex-direction: column; gap: 4px; }
-        label { font-size: 11px; font-weight: 600; color: var(--text-muted); }
-        input, select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-input); color: #fff; font-size: 13px; font-weight: 600; outline: none; }
-
-        /* ARABA ŞEMASI */
-        .car-layout { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 300px; margin: 15px auto; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 24px; border: 1px dashed rgba(255,255,255,0.1); }
-        .car-row { display: flex; justify-content: center; gap: 4px; width: 100%; }
-        
-        .part { 
-            background: var(--color-orijinal); border-radius: 6px; padding: 6px 2px; text-align: center; 
-            color: #fff; cursor: pointer; user-select: none; transition: background 0.2s; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50px; 
+        .container {
+            max-width: 480px; /* Mobil odaklı ama bilgisayarda da ortalanmış durur */
+            margin: 0 auto;
+            background: #1a1a1a;
+            border-radius: 15px;
+            border: 1px solid #333;
+            padding: 20px;
         }
-        .part-name { font-size: 10px; font-weight: 800; line-height: 1.1; }
-        .part-status { font-size: 8px; font-weight: 600; background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 4px; margin-top: 4px; }
-        
-        .w-mid { width: 80px; } .w-side { width: 75px; } .w-full { width: 234px; }
-        .empty-space { background: transparent !important; cursor: default; }
 
-        /* CANLI SAYACLAR */
-        .live-counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+        h1 { text-align: center; font-size: 22px; margin-top: 0; margin-bottom: 20px; }
+
+        /* KART BÖLÜMLERİ */
+        .section-box {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #00c896; border-bottom: 1px solid #444; padding-bottom: 8px; }
+
+        /* FORMLAR (V2 Tarzı Grid) */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
+        
+        label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; color: #aaa; }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background: #111;
+            color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* 🚗 V2 YENİ ARAÇ ŞEMASI (Grid Sistemi) */
+        .car-schema-wrapper {
+            background: #111;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .car-row { display: flex; justify-content: center; gap: 5px; margin-bottom: 5px; }
+        .car-col { width: 80px; } /* Yan parçalar */
+        .car-col-mid { width: 90px; } /* Orta parçalar (Kaput, tavan vb) */
+        .car-col-full { width: 260px; } /* Tamponlar */
+
+        .parca {
+            background: #27ae60;
+            border-radius: 6px;
+            padding: 8px 2px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 55px;
+            box-sizing: border-box;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        .parca-alt-bilgi { font-size: 9px; margin-top: 4px; background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 3px; font-weight: normal; }
+
+        /* CANLI SAYAÇLAR */
+        .sayac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .sayac-badge { font-size: 11px; font-weight: bold; padding: 5px; border-radius: 5px; text-align: center; color: white; }
+
+        /* KRİTİK HASAR BUTONLARI */
+        .hasar-satir { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #333; }
+        .hasar-satir:last-child { border-bottom: none; }
+        .hasar-label { font-size: 14px; font-weight: bold; }
+        .r-group { display: flex; gap: 5px; }
+        .r-btn { padding: 5px 12px; border-radius: 5px; background: #333; color: #aaa; font-size: 12px; cursor: pointer; font-weight: bold; border: 1px solid #444; }
+        .r-btn.secili { background: #fff; color: #000; border-color: #fff; }
+        .r-btn.secili.var { background: #e74c3c; color: #fff; border-color: #e74c3c; }
+
+        /* ANA BUTON (V1'deki gibi her zaman görünür) */
+        .hesapla-btn {
+            width: 100%;
+            padding: 18px;
+            background: #00c896;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* YÜKLEME VE SONUÇ ALANI */
+        #loadingAlani { display: none; text-align: center; padding: 30px 10px; background: #222; border-radius: 12px; margin-top: 20px; }
+        #sonucAlani { display: none; margin-top: 20px; }
+
+        /* PREMIUM SONUÇ KARTI */
+        .premium-kart { background: linear-gradient(135deg, #1e2535, #111); padding: 20px; border-radius: 15px; border: 2px solid #333; }
+        .etiket { background: rgba(0, 200, 150, 0.2); color: #00c896; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        
+        .fiyat-kutu { background: #222; border: 1px solid #444; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .fiyat-satir { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .fiyat-satir.ana { font-size: 18px; font-weight: bold; color: #00c896; border-bottom: 1px solid #444; padding-bottom: 8px; margin-bottom: 8px; }
+        
+        .skor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .skor-kutu { background: #222; border: 1px solid #444; padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; }
+        .skor-deger { font-size: 16px; font-weight: bold; margin-top: 5px; }
+        
+        .ai-yorum { background: #111; border-left: 3px solid #00c896; padding: 10px; font-size: 13px; line-height: 1.5; color: #ccc; }
+
+        .aksiyon-butonlari { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .aks-btn { padding: 12px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🤖 AI Araç Değerleme</h1>
+
+    <div class="section-box">
+        <div class="section-title">Araç Künyesi</div>
+        <div class="grid-3">
+            <div><label>Marka</label><input id="marka" placeholder="Örn: Renault"></div>
+            <div><label>Model</label><input id="model" placeholder="Clio"></div>
+            <div><label>Paket</label><input id="paket" placeholder="Icon"></div>
+        </div>
+        <div class="grid-3">
+            <div><label>Model Yılı</label><select id="yil"></select></div>
+            <div><label>Yakıt</label><select id="yakit"><option>Benzin</option><option>Dizel</option><option>LPG</option><option>Hibrit</option><option>Elektrik</option></select></div>
+            <div><label>Vites</label><select id="vites"><option>Otomatik</option><option>Manuel</option><option>Yarı Otom.</option></select></div>
+        </div>
+        <div class="grid-2">
+            <div><label>KM</label><input id="km" type="number" placeholder="0"></div>
+            <div><label>Tramer Tutarı (TL)</label><input id="tramer" type="number" placeholder="0"></div>
+        </div>
+        <div><label>İl</label><input id="il" placeholder="İstanbul"></div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">Kaporta Ekspertizi</div>
+        
+        <div class="car-schema-wrapper">
