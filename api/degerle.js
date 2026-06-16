@@ -107,7 +107,9 @@ if(!text){
       .replace(/```/g, "")
       .trim();
 
-    const sonuc = JSON.parse(text);
+return res.status(200).json({
+  debug: text
+});
 
     return res.status(200).json(sonuc);
 
