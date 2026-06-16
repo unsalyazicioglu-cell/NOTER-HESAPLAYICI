@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Araç Değerleme V2.1</title>
+    <title>AI Araç Değerleme V2.2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -26,323 +26,34 @@
             --color-islemli: #111111;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            padding: 12px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .phone-container {
-            width: 100%;
-            max-width: 450px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            padding-bottom: 60px;
-        }
-
-        h1.main-title {
-            text-align: center;
-            font-size: 20px;
-            font-weight: 800;
-            margin: 10px 0;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 16px;
-        }
-
-        .card-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-main); color: var(--text-main); padding: 12px; display: flex; justify-content: center; }
+        .phone-container { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 16px; padding-bottom: 60px; }
+        h1.main-title { text-align: center; font-size: 20px; font-weight: 800; margin: 10px 0; }
+        
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 16px; }
+        .card-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
         .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
-
         label { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+        input, select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-input); color: #fff; font-size: 13px; font-weight: 600; outline: none; }
+
+        /* ARABA ŞEMASI */
+        .car-layout { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 300px; margin: 15px auto; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 24px; border: 1px dashed rgba(255,255,255,0.1); }
+        .car-row { display: flex; justify-content: center; gap: 4px; width: 100%; }
         
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-input);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            outline: none;
+        .part { 
+            background: var(--color-orijinal); border-radius: 6px; padding: 6px 2px; text-align: center; 
+            color: #fff; cursor: pointer; user-select: none; transition: background 0.2s; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50px; 
         }
-
-        /* 🚗 GERÇEKÇİ OTOMOBİL ŞEMASI TASARIMI */
-        .car-layout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            max-width: 300px;
-            margin: 15px auto;
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
-            border-radius: 24px;
-            border: 1px dashed rgba(255,255,255,0.1);
-        }
-
-        .car-row {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            width: 100%;
-        }
-
-        .part {
-            background: var(--color-orijinal);
-            border-radius: 6px;
-            padding: 8px 2px;
-            text-align: center;
-            font-size: 10px;
-            font-weight: 700;
-            color: #fff;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 44px;
-        }
-
-        .part span {
-            font-size: 8px;
-            font-weight: 500;
-            background: rgba(0,0,0,0.3);
-            padding: 1px 4px;
-            border-radius: 4px;
-            margin-top: 2px;
-        }
-
-        /* Genişlik Ayarları ile Araba Formu Verme */
-        .w-mid  { width: 80px; }
-        .w-side { width: 75px; }
-        .w-full { width: 234px; } /* Ön ve Arka Tampon */
-
-        /* Canlı Sayaçlar */
-        .live-counter-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-top: 12px;
-        }
-        .counter-badge {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 6px;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        /* Kritik Hasar */
-        .damage-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .radio-group { display: flex; gap: 6px; }
-        .radio-btn {
-            padding: 4px 10px;
-            border-radius: 6px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-        .radio-btn.active { background: #fff; color: #000; }
-        .radio-btn.active.danger-yes { background: var(--color-degisen); color: #fff; }
-
-        /* SORGULAMA BUTONU (Her Zaman Görünür) */
-        .btn-submit-container {
-            margin: 10px 0;
-        }
-        .btn-calc {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #00c896, #009a75);
-            color: white;
-            font-size: 15px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(0,200,150,0.3);
-        }
-
-        /* Yükleme Ekranı */
-        .loading-overlay { display: none; text-align: center; padding: 25px 10px; }
-        .progress-text { font-size: 20px; font-weight: 800; margin: 15px 0; }
-        .steps-container { display: flex; flex-direction: column; gap: 8px; text-align: left; max-width: 220px; margin: 0 auto; }
-        .step-item { font-size: 13px; font-weight: 600; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
-        .step-item.done { color: var(--primary); }
-
-        /* Sonuç Alanları */
-        .result-wrapper { display: none; }
-        .premium-card {
-            background: linear-gradient(145deg, #1e2535, #111622);
-            border: 2px solid #2e3748;
-            border-radius: 20px;
-            padding: 16px;
-            position: relative;
-        }
-        .badge-status {
-            background: rgba(0, 200, 150, 0.15);
-            color: var(--primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .price-row {
-            background: rgba(255,255,255,0.03);
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-        }
-        .price-box { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;}
-        .price-box.main-avg { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; margin-bottom: 6px; font-size: 16px; font-weight: 800; color: var(--primary);}
+        .part-name { font-size: 10px; font-weight: 800; line-height: 1.1; }
+        .part-status { font-size: 8px; font-weight: 600; background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 4px; margin-top: 4px; }
         
-        .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-        .meta-item { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; text-align: center; font-size: 12px; }
-        .meta-val { font-size: 15px; font-weight: 800; margin-top: 2px; }
+        .w-mid { width: 80px; } .w-side { width: 75px; } .w-full { width: 234px; }
+        .empty-space { background: transparent !important; cursor: default; }
 
-        .ai-comment-box { background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; border-left: 4px solid var(--primary); font-size: 12px; line-height: 1.4; }
-        
-        .action-buttons { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-        .btn-action { width: 100%; padding: 12px; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .btn-whatsapp { background: #25D366; }
-        .btn-copy { background: #4a5568; }
-        .btn-screenshot { background: #3182ce; }
-    </style>
-</head>
-<body>
-
-<div class="phone-container">
-
-    <h1 class="main-title">🤖 AI Araç Değerleme V2.1</h1>
-
-    <div class="card">
-        <div class="card-title"><i class="fa-solid fa-car"></i> Araç Künyesi</div>
-        
-        <div class="grid-3">
-            <div class="form-group"><label>Marka</label><input id="marka" placeholder="Renault"></div>
-            <div class="form-group"><label>Model</label><input id="model" placeholder="Clio"></div>
-            <div class="form-group"><label>Paket</label><input id="paket" placeholder="Icon"></div>
-        </div>
-
-        <div class="grid-3">
-            <div class="form-group">
-                <label>Yıl</label>
-                <select id="yil">
-                    </select>
-            </div>
-            <div class="form-group">
-                <label>Yakıt</label>
-                <select id="yakit">
-                    <option>Benzin</option>
-                    <option>Dizel</option>
-                    <option>LPG</option>
-                    <option>Hibrit</option>
-                    <option>Elektrik</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Vites</label>
-                <select id="vites">
-                    <option>Otomatik</option>
-                    <option>Manuel</option>
-                    <option>Yarı Otom.</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="grid-2">
-            <div class="form-group"><label>KM</label><input id="km" type="number" placeholder="0"></div>
-            <div class="form-group"><label>Tramer (TL)</label><input id="tramer" type="number" placeholder="0"></div>
-        </div>
-
-        <div class="form-group"><label>Şehir</label><input id="il" placeholder="İstanbul"></div>
-    </div>
-
-    <div class="card">
-        <div class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Kaporta Ekspertizi</div>
-        
-        <div class="car-layout">
-            <div class="car-row">
-                <div class="part w-full" id="p-onTampon" data-durum="0">ÖN TAMPON</div>
-            </div>
-            <div class="car-row">
-                <div class="part w-side" id="p-solOnCamurluk" data-durum="0">SOL ÖN<span>Çamurluk</span></div>
-                <div class="part w-mid" id="p-kaput" data-durum="0">KAPUT</div>
-                <div class="part w-side" id="p-sagOnCamurluk" data-durum="0">SAĞ ÖN<span>Çamurluk</span></div>
-            </div>
-            <div class="car-row">
-                <div class="part w-side" id="p-solOnKapi" data-durum="0">SOL ÖN<span>Kapı</span></div>
-                <div class="part w-mid" id="p-tavan" data-durum="0">TAVAN</div>
-                <div class="part w-side" id="p-sagOnKapi" data-durum="0">SAĞ ÖN<span>Kapı</span></div>
-            </div>
-            <div class="car-row">
-                <div class="part w-side" id="p-solArkaKapi" data-durum="0">SOL ARKA<span>Kapı</span></div>
-                <div class="part w-mid" style="visibility:hidden;"></div>
-                <div class="part w-side" id="p-sagArkaKapi" data-durum="0">SAĞ ARKA<span>Kapı</span></div>
-            </div>
-            <div class="car-row">
-                <div class="part w-side" id="p-solArkaCamurluk" data-durum="0">SOL ARKA<span>Çamurluk</span></div>
-                <div class="part w-mid" id="p-bagaj" data-durum="0">BAGAJ</div>
-                <div class="part w-side" id="p-sagArkaCamurluk" data-durum="0">SAĞ ARKA<span>Çamurluk</span></div>
-            </div>
-            <div class="car-row">
-                <div class="part w-full" id="p-arkaTampon" data-durum="0">ARKA TAMPON</div>
-            </div>
-        </div>
-
-        <div class="live-counter-grid">
-            <div class="counter-badge" style="background:var(--color-degisen)">Değişen: <span id="c-degisen">0</span></div>
-            <div class="counter-badge" style="background:var(--color-boya)">Boya: <span id="c-boya">0</span></div>
-            <div class="counter-badge" style="background:var(--color-lokal)">Lokal: <span id="c-lokal">0</span></div>
-            <div class="counter-badge" style="background:var(--color-soktak)">Sök Tak: <span id="c-soktak">0</span></div>
-            <div class="counter-badge" style="background:var(--color-islemli)">İşlemli: <span id="c-islemli">0</span></div>
-            <div class="counter-badge" style="background:var(--color-orijinal)">Orijinal: <span id="c-orijinal">13</span></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Kritik Şase / İskelet Kontrolü</div>
+        /* CANLI SAYACLAR */
+        .live-counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
