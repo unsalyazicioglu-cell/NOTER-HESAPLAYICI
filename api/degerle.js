@@ -82,10 +82,25 @@ olabilir.
       }
     );
 
-    const data = await response.json();
+const data = await response.json();
 
-    let text =
-      data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+console.log("GEMINI CEVABI:");
+console.log(JSON.stringify(data, null, 2));
+
+let text =
+data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+if(!text){
+    return res.status(500).json({
+        minimumDeger:"-",
+        ortalamaDeger:"-",
+        maksimumDeger:"-",
+        satilabilirlik:"Hata",
+        tahminiSatisSuresi:"-",
+        guvenPuani:"0",
+        yorum:"Gemini boş cevap döndürdü. Vercel loglarına bak."
+    });
+}
 
     text = text
       .replace(/```json/g, "")
