@@ -1,482 +1,548 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Araç Değerleme V2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-main: #0f1219;
+            --bg-card: #181d28;
+            --bg-input: #222938;
+            --border-color: #2e3748;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --primary: #00c896;
+            --primary-hover: #00b386;
+            
+            /* Ekspertiz Renkleri */
+            --color-orijinal: #27ae60;
+            --color-lokal: #2980b9;
+            --color-boya: #f1c40f;
+            --color-soktak: #e67e22;
+            --color-degisen: #e74c3c;
+            --color-islemli: #8e44ad;
+        }
 
-<title>AI Araç Değerleme</title>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-<style>
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+        }
 
-body{
-background:#0a0a0a;
-color:#fff;
-font-family:Segoe UI,Arial,sans-serif;
-padding:20px;
-}
+        .phone-container {
+            width: 100%;
+            max-width: 480px;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 40px;
+        }
 
-.container{
-max-width:800px;
-margin:auto;
-background:#1a1a1a;
-padding:25px;
-border-radius:15px;
-border:1px solid #333;
-}
+        h1.main-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 10px 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-h1{
-text-align:center;
-margin-bottom:25px;
-}
+        /* Kart Yapısı */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
 
-label{
-display:block;
-margin-top:12px;
-margin-bottom:5px;
-font-weight:bold;
-}
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
 
-input,select{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid #444;
-background:#222;
-color:#fff;
-}
+        /* Akıllı Grid Sistemleri */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
 
-.ekspertiz{
-margin-top:25px;
-}
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-.ekspertiz-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-}
+        label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
 
-.parca{
-padding:14px;
-border-radius:8px;
-cursor:pointer;
-text-align:center;
-font-weight:bold;
-background:#27ae60;
-}
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s;
+        }
 
-.hesapla{
-width:100%;
-padding:15px;
-margin-top:25px;
-border:none;
-border-radius:10px;
-background:#00c896;
-color:white;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-}
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
 
-.sonuc{
-margin-top:25px;
-padding:20px;
-background:#222;
-border-radius:10px;
-display:none;
-}
+        /* İnteraktif Araç Şeması */
+        .car-schema-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
 
-</style>
+        .car-schema {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            width: 100%;
+            max-width: 320px;
+            margin: 10px auto;
+        }
 
+        .part {
+            background: var(--color-orijinal);
+            border-radius: 8px;
+            padding: 12px 4px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            line-height: 1.2;
+        }
+        
+        .part span {
+            font-size: 9px;
+            opacity: 0.85;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .empty-space {
+            visibility: hidden;
+        }
+
+        /* Canlı Sayaçlar */
+        .live-counter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 15px;
+            background: rgba(0,0,0,0.15);
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        .counter-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px;
+            border-radius: 6px;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Ağır Hasar Bölümü */
+        .damage-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .damage-row:last-child {
+            border-bottom: none;
+        }
+
+        .damage-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .radio-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .radio-btn.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+        
+        .radio-btn.active.danger-yes {
+            background: var(--color-degisen);
+            color: #fff;
+            border-color: var(--color-degisen);
+        }
+
+        /* Ana Değerleme Butonu */
+        .btn-calc {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #00c896, #009a75);
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,200,150,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.1s;
+        }
+
+        .btn-calc:active {
+            transform: scale(0.98);
+        }
+
+        /* AI Loading Ekranı */
+        .loading-overlay {
+            display: none;
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .loader-icon {
+            font-size: 40px;
+            color: var(--primary);
+            animation: pulse 1.5s infinite ease-in-out;
+            margin-bottom: 15px;
+        }
+
+        .progress-text {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+
+        .step-item {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-item.done {
+            color: var(--primary);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* Premium Sonuç Kartı */
+        .result-wrapper {
+            display: none;
+        }
+
+        .premium-card {
+            background: linear-gradient(145deg, #1e2535, #111622);
+            border: 2px solid #2e3748;
+            border-radius: 24px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+        }
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, #00c896, #3498db, #00c896);
+        }
+
+        .badge-status {
+            background: rgba(0, 200, 150, 0.15);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(255,255,255,0.03);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+        }
+
+        .price-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-box.main-avg {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        .price-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .price-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .price-box.main-avg .price-title {
+            font-size: 15px;
+            color: #fff;
+        }
+        .price-box.main-avg .price-value {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .meta-val {
+            font-size: 18px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+        
+        .meta-val.score { color: #3498db; }
+        .meta-val.body-score { color: #e67e22; }
+
+        .ai-comment-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 14px;
+            border-radius: 14px;
+            border-left: 4px solid var(--primary);
+            font-size: 13px;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        /* Aksiyon Butonları */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #fff;
+        }
+
+        .btn-whatsapp { background: #25D366; }
+        .btn-copy { background: #4a5568; }
+        .btn-screenshot { background: #3182ce; }
+
+    </style>
 </head>
 <body>
 
-<div class="container">
-
-<h1>🤖 AI Araç Değerleme</h1>
-
-<div class="grid">
-
-<div>
-<label>Marka</label>
-<input id="marka">
-</div>
-
-<div>
-<label>Model</label>
-<input id="model">
-</div>
-
-<div>
-<label>Paket</label>
-<input id="paket">
-</div>
-
-<div>
-<label>İl</label>
-<input id="il">
-</div>
-
-<div>
-<label>Model Yılı</label>
-<select id="yil"></select>
-</div>
-
-<div>
-<label>Yakıt</label>
-<select id="yakit">
-<option>Benzin</option>
-<option>Dizel</option>
-<option>LPG</option>
-<option>Hibrit</option>
-<option>Elektrik</option>
-</select>
-</div>
-
-<div>
-<label>Vites</label>
-<select id="vites">
-<option>Otomatik</option>
-<option>Manuel</option>
-<option>Yarı Otomatik</option>
-</select>
-</div>
-
-<div>
-<label>KM</label>
-<input id="km" type="number">
-</div>
-
-<div>
-<label>Tramer Tutarı</label>
-<input id="tramer" type="number">
-</div>
-
-</div>
-
-<div class="ekspertiz">
-
-<h2>Kaporta Ekspertizi</h2>
-
-<div class="ekspertiz-grid">
-
-<div class="parca" data-durum="0">Kaput</div>
-<div class="parca" data-durum="0">Tavan</div>
-
-<div class="parca" data-durum="0">Bagaj</div>
-<div class="parca" data-durum="0">Ön Tampon</div>
-
-<div class="parca" data-durum="0">Arka Tampon</div>
-<div class="parca" data-durum="0">Sol Ön Çamurluk</div>
-
-<div class="parca" data-durum="0">Sol Ön Kapı</div>
-<div class="parca" data-durum="0">Sol Arka Kapı</div>
-
-<div class="parca" data-durum="0">Sol Arka Çamurluk</div>
-<div class="parca" data-durum="0">Sağ Ön Çamurluk</div>
-
-<div class="parca" data-durum="0">Sağ Ön Kapı</div>
-<div class="parca" data-durum="0">Sağ Arka Kapı</div>
-
-<div class="parca" data-durum="0">Sağ Arka Çamurluk</div>
-
-</div>
-
-</div>
-
-<button class="hesapla"
-onclick="degerle()">
-
-🤖 AI DEĞERLEME YAP
-
-</button>
-
-<div class="sonuc" id="sonuc"></div>
-
-<p>Minimum Değer</p>
-
-<p>Ortalama Değer</p>
-
-<p>Maksimum Değer</p>
-
-<p>Satılabilirlik</p>
-
-<p>Tahmini Satış Süresi</p>
-
-<p>AI Yorumu</p>
-
-</div>
-
-</div>
-
-<script>
-
-for(let y=2026;y>=1990;y--){
-
-document.getElementById("yil").innerHTML+=
-`<option>${y}</option>`;
-
-}
-
-const durumlar=[
-
-{
-isim:"Orijinal",
-renk:"#27ae60"
-},
-
-{
-isim:"Lokal Boya",
-renk:"#f1c40f"
-},
-
-{
-isim:"Boyalı",
-renk:"#e67e22"
-},
-
-{
-isim:"Değişen",
-renk:"#e74c3c"
-},
-
-{
-isim:"Sök Tak",
-renk:"#3498db"
-}
-
-];
-
-document.querySelectorAll(".parca")
-.forEach(parca=>{
-
-parca.onclick=()=>{
-
-let durum=
-parseInt(
-parca.dataset.durum
-);
-
-durum++;
-
-if(durum>=durumlar.length)
-durum=0;
-
-parca.dataset.durum=durum;
-
-parca.style.background=
-durumlar[durum].renk;
-
-parca.innerHTML=
-parca.innerHTML.split("<br>")[0]
-+
-"<br>"
-+
-durumlar[durum].isim;
-
-};
-
-});
-async function degerle(){
-
-const ekspertiz=[];
-
-document
-.querySelectorAll(".parca")
-.forEach(parca=>{
-
-ekspertiz.push({
-
-parca:
-parca.innerText
-.split("\n")[0],
-
-durum:
-parca.innerText
-.split("\n")[1]
-||
-"Orijinal"
-
-});
-
-});
-
-const veri={
-
-marka:
-document
-.getElementById("marka")
-.value,
-
-model:
-document
-.getElementById("model")
-.value,
-
-paket:
-document
-.getElementById("paket")
-.value,
-
-yil:
-document
-.getElementById("yil")
-.value,
-
-yakit:
-document
-.getElementById("yakit")
-.value,
-
-vites:
-document
-.getElementById("vites")
-.value,
-
-km:
-document
-.getElementById("km")
-.value,
-
-tramer:
-document
-.getElementById("tramer")
-.value,
-
-il:
-document
-.getElementById("il")
-.value,
-
-ekspertiz:
-JSON.stringify(
-ekspertiz
-)
-
-};
-
-const sonucDiv=
-document
-.getElementById("sonuc");
-
-sonucDiv.style.display=
-"block";
-
-sonucDiv.innerHTML=
-"⏳ AI analiz yapıyor...";
-
-try{
-
-const cevap=
-await fetch(
-"/api/degerle",
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"application/json"
-},
-
-body:
-JSON.stringify(veri)
-
-}
-);
-
-const sonuc=
-await cevap.json();
-
-sonucDiv.innerHTML=`
-
-<h2>
-📊 AI Araç Analizi
-</h2>
-
-<hr>
-
-<p>
-<b>
-Minimum Değer:
-</b>
-<br>
-${sonuc.minimumDeger}
-</p>
-
-<p>
-<b>
-Ortalama Değer:
-</b>
-<br>
-${sonuc.ortalamaDeger}
-</p>
-
-<p>
-<b>
-Maksimum Değer:
-</b>
-<br>
-${sonuc.maksimumDeger}
-</p>
-
-<p>
-<b>
-Satılabilirlik:
-</b>
-<br>
-${sonuc.satilabilirlik}
-</p>
-
-<p>
-<b>
-Tahmini Satış Süresi:
-</b>
-<br>
-${sonuc.tahminiSatisSuresi}
-</p>
-
-<p>
-<b>
-Güven Puanı:
-</b>
-<br>
-${sonuc.guvenPuani}
-</p>
-
-<hr>
-
-<p>
-
-${sonuc.yorum}
-
-</p>
-
-`;
-
-}
-catch(err){
-
-sonucDiv.innerHTML=`
-
-❌ Hata Oluştu
-
-<br><br>
-
-${err.message}
-
-`;
-
-}
-
-}
-</script>
-
-</body>
-</html>
-```
+<div class="phone-container">
+
+    <h1 class="main-title">🤖 AI Araç Değerleme <span style="font-size:12px; background:#e2e8f0; color:#000; padding:2px 6px; border-radius:6px; vertical-align:middle;">V2</span></h1>
+
+    <div class="card" id="inputCard">
+        <div class="card-title"><i class="fa-solid incentives fa-car"></i> Araç Künyesi</div>
+        
+        <div class="grid-3">
+            <div class="form-group">
+                <label>Marka</label>
+                <input id="marka" placeholder="Örn: Renault">
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <input id="model" placeholder="Clio">
+            </div>
+            <div class="form-group">
+                <label>Paket</label>
+                <input id="paket" placeholder="Icon">
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="form-group">
+                <label>Yıl</label>
+                <select id="yil"></select>
+            </div>
+            <div class="form-group">
+                <label>Yakıt</label>
+                <select id="yakit">
+                    <option>Benzin</option>
+                    <option>Dizel</option>
+                    <option>LPG</option>
+                    <option>Hibrit</option>
+                    <option>Elektrik</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Vites</label>
+                <select id="vites">
+                    <option>Otomatik</option>
+                    <option>Manuel</option>
+                    <option>Yarı Otom.</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label>KM</label>
+                <input id="km" type="number" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label>Tramer (TL)</label>
+                <input id="tramer" type="number" placeholder="0">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Şehir</label>
+            <input id="il" placeholder="İstanbul">
+        </div>
+    </div>
+
+    <div class="card" id="schemaCard">
+        <div class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Kaporta Ekspertizi</div>
+        
+        <div class="car-schema-container">
+            <div class="car-schema">
+                <div class="empty-space"></div>
+                <div class="part" id="p-tavan" data-durum="0">TAVAN</div>
+                <div class="empty-space"></div>
+
+                <div class="part" id="p-solOnCamurluk" data-durum="0">SOL ÖN<span>Çamurluk</span></div>
+                <div class="part" id="p-kaput" data-durum="0">KAPUT</div>
+                <div class="part" id="p-sagOnCamurluk" data-durum="0">SAĞ ÖN<span>Çamurluk</span></div>
+
+                <div class="part" id="p-solOnKapi" data-durum="0">SOL ÖN<span>Kapı</span></div>
+                <div class="empty-space"></div>
+                <div class="part" id="p-sagOnKapi" data-durum="0">SAĞ ÖN<span>Kapı</span></div>
+
+                <div class="part" id="p-solArkaKapi" data-durum="0">SOL ARKA<span>Kapı</span></div>
+                <div class="empty-space"></div>
+                <div class="part" id="p-sagArkaKapi" data-durum="0">SAĞ ARKA<span>Kapı</span></div>
