@@ -25,9 +25,18 @@ Tramer: ${veri.tramer}
 Ekspertiz: ${veri.ekspertiz}
 
 SADECE JSON DÖNDÜR.
+
+{
+"minimumDeger":"",
+"ortalamaDeger":"",
+"maksimumDeger":"",
+"satilabilirlik":"",
+"tahminiSatisSuresi":"",
+"guvenPuani":"",
+"yorum":""
+}
 `;
-console.log("API KEY VAR MI:", !!process.env.GEMINI_API_KEY);
-console.log("VERI:", veri);
+
     const response = await fetch(
 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
@@ -50,12 +59,28 @@ console.log("VERI:", veri);
     );
 
 const data = await response.json();
-console.log("GOOGLE CEVABI:");
-console.log(JSON.stringify(data, null, 2));
-return res.status(200).json({
-  apiKeyVar: !!process.env.GEMINI_API_KEY,
-  googleCevap: data
-});
+
+const text =
+  data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+const temiz = text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+try {
+
+  const sonuc = JSON.parse(temiz);
+
+  return res.status(200).json(sonuc);
+
+} catch {
+
+  return res.status(200).json({
+    yorum: temiz
+  });
+
+}
 
   } catch (err) {
 
