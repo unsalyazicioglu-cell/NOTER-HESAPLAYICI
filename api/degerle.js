@@ -22,6 +22,7 @@ Vites: ${veri.vites}
 KM: ${veri.km}
 Tramer: ${veri.tramer}
 İl: ${veri.il}
+Cam Tavan / Sunroof: ${veri.sunroof}
 Ön Şase: ${veri.onSase}
 Arka Şase: ${veri.arkaSase}
 
@@ -32,7 +33,9 @@ Bagaj Havuzu: ${veri.bagajHavuzu}
 
 Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
+Cam tavan / sunroof bulunan araçların piyasa değeri ve satılabilirliği üzerinde pozitif etkisini dikkate al.
 
+Araçta sunroof yoksa buna göre değerlendirme yap.
 SADECE JSON DÖNDÜR.
 
 {
