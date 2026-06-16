@@ -89,6 +89,47 @@ padding:20px;
 background:#222;
 border-radius:10px;
 display:none;
+position:relative;
+overflow:hidden;
+}
+
+.sonuc::before{
+content:"";
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:linear-gradient(
+90deg,
+transparent,
+#00c896,
+transparent
+);
+animation:don 4s linear infinite;
+}
+
+.sonuc::after{
+content:"";
+position:absolute;
+inset:3px;
+background:#222;
+border-radius:8px;
+z-index:0;
+}
+
+.sonuc *{
+position:relative;
+z-index:1;
+}
+
+@keyframes don{
+0%{
+transform:rotate(0deg);
+}
+100%{
+transform:rotate(360deg);
+}
 }
 .loading-overlay{
 position:fixed;
@@ -551,7 +592,41 @@ ${sonuc.guvenPuani}
 ${sonuc.yorum}
 
 </p>
+<hr>
 
+<button
+onclick="sonucuKopyala()"
+style="
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#3498db;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+">
+
+📋 Sonucu Kopyala
+
+</button>
+
+<button
+onclick="whatsappPaylas()"
+style="
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#25D366;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+">
+
+📲 WhatsApp'ta Paylaş
+
+</button>
 `;
 
 }
@@ -570,6 +645,37 @@ ${err.message}
 `;
 
 }
+
+}
+  function sonucuKopyala(){
+
+const metin =
+document
+.getElementById("sonuc")
+.innerText;
+
+navigator.clipboard.writeText(
+metin
+);
+
+alert(
+"✅ Sonuç panoya kopyalandı"
+);
+
+}
+
+function whatsappPaylas(){
+
+const metin =
+document
+.getElementById("sonuc")
+.innerText;
+
+window.open(
+"https://wa.me/?text="
++
+encodeURIComponent(metin)
+);
 
 }
 </script>
