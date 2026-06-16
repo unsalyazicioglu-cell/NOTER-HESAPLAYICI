@@ -50,7 +50,8 @@ console.log("VERI:", veri);
     );
 
 const data = await response.json();
-
+console.log("GOOGLE CEVABI:");
+console.log(JSON.stringify(data, null, 2));
 return res.status(200).json({
   apiKeyVar: !!process.env.GEMINI_API_KEY,
   googleCevap: data
