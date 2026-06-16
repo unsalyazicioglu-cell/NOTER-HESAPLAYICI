@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Araç Değerleme V2</title>
+    <title>AI Araç Değerleme V2.1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -16,22 +16,21 @@
             --text-main: #ffffff;
             --text-muted: #a0aec0;
             --primary: #00c896;
-            --primary-hover: #00b386;
             
-            /* Ekspertiz Renkleri */
+            /* Ekspertiz Durum Renkleri */
             --color-orijinal: #27ae60;
             --color-lokal: #2980b9;
             --color-boya: #f1c40f;
             --color-soktak: #e67e22;
             --color-degisen: #e74c3c;
-            --color-islemli: #8e44ad;
+            --color-islemli: #111111;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: system-ui, -apple-system, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -45,449 +44,235 @@
 
         .phone-container {
             width: 100%;
-            max-width: 480px;
-            background: transparent;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding-bottom: 40px;
+            padding-bottom: 60px;
         }
 
         h1.main-title {
             text-align: center;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             margin: 10px 0;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
-        /* Kart Yapısı */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 18px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            padding: 16px;
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-main);
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
         }
 
-        /* Akıllı Grid Sistemleri */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
+        .form-group { display: flex; flex-direction: column; gap: 4px; }
 
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        label {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-        }
-
+        label { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+        
         input, select {
             width: 100%;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
             background: var(--bg-input);
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        input:focus, select:focus {
-            border-color: var(--primary);
-        }
-
-        /* İnteraktif Araç Şeması */
-        .car-schema-container {
+        /* 🚗 GERÇEKÇİ OTOMOBİL ŞEMASI TASARIMI */
+        .car-layout {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
+            max-width: 300px;
+            margin: 15px auto;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 24px;
+            border: 1px dashed rgba(255,255,255,0.1);
         }
 
-        .car-schema {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+        .car-row {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
             width: 100%;
-            max-width: 320px;
-            margin: 10px auto;
         }
 
         .part {
             background: var(--color-orijinal);
-            border-radius: 8px;
-            padding: 12px 4px;
+            border-radius: 6px;
+            padding: 8px 2px;
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: #fff;
             cursor: pointer;
             user-select: none;
-            transition: all 0.2s ease;
-            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+            transition: background 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 52px;
-            line-height: 1.2;
-        }
-        
-        .part span {
-            font-size: 9px;
-            opacity: 0.85;
-            margin-top: 2px;
-            font-weight: 500;
+            min-height: 44px;
         }
 
-        .empty-space {
-            visibility: hidden;
+        .part span {
+            font-size: 8px;
+            font-weight: 500;
+            background: rgba(0,0,0,0.3);
+            padding: 1px 4px;
+            border-radius: 4px;
+            margin-top: 2px;
         }
+
+        /* Genişlik Ayarları ile Araba Formu Verme */
+        .w-mid  { width: 80px; }
+        .w-side { width: 75px; }
+        .w-full { width: 234px; } /* Ön ve Arka Tampon */
 
         /* Canlı Sayaçlar */
         .live-counter-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
-            margin-top: 15px;
-            background: rgba(0,0,0,0.15);
-            padding: 8px;
-            border-radius: 12px;
+            margin-top: 12px;
         }
-
         .counter-badge {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             padding: 6px;
             border-radius: 6px;
             text-align: center;
-            color: #fff;
         }
 
-        /* Ağır Hasar Bölümü */
+        /* Kritik Hasar */
         .damage-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .damage-row:last-child {
-            border-bottom: none;
-        }
-
-        .damage-label {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 8px;
-        }
-
+        .radio-group { display: flex; gap: 6px; }
         .radio-btn {
-            padding: 6px 14px;
-            border-radius: 8px;
+            padding: 4px 10px;
+            border-radius: 6px;
             background: var(--bg-input);
             border: 1px solid var(--border-color);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             color: var(--text-muted);
-            transition: all 0.2s;
         }
+        .radio-btn.active { background: #fff; color: #000; }
+        .radio-btn.active.danger-yes { background: var(--color-degisen); color: #fff; }
 
-        .radio-btn.active {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
+        /* SORGULAMA BUTONU (Her Zaman Görünür) */
+        .btn-submit-container {
+            margin: 10px 0;
         }
-        
-        .radio-btn.active.danger-yes {
-            background: var(--color-degisen);
-            color: #fff;
-            border-color: var(--color-degisen);
-        }
-
-        /* Ana Değerleme Butonu */
         .btn-calc {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             border: none;
-            border-radius: 16px;
+            border-radius: 14px;
             background: linear-gradient(135deg, #00c896, #009a75);
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(0,200,150,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: transform 0.1s;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,200,150,0.3);
         }
 
-        .btn-calc:active {
-            transform: scale(0.98);
-        }
+        /* Yükleme Ekranı */
+        .loading-overlay { display: none; text-align: center; padding: 25px 10px; }
+        .progress-text { font-size: 20px; font-weight: 800; margin: 15px 0; }
+        .steps-container { display: flex; flex-direction: column; gap: 8px; text-align: left; max-width: 220px; margin: 0 auto; }
+        .step-item { font-size: 13px; font-weight: 600; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .step-item.done { color: var(--primary); }
 
-        /* AI Loading Ekranı */
-        .loading-overlay {
-            display: none;
-            text-align: center;
-            padding: 30px 10px;
-        }
-
-        .loader-icon {
-            font-size: 40px;
-            color: var(--primary);
-            animation: pulse 1.5s infinite ease-in-out;
-            margin-bottom: 15px;
-        }
-
-        .progress-text {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .steps-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            text-align: left;
-            max-width: 240px;
-            margin: 0 auto;
-        }
-
-        .step-item {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step-item.done {
-            color: var(--primary);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-
-        /* Premium Sonuç Kartı */
-        .result-wrapper {
-            display: none;
-        }
-
+        /* Sonuç Alanları */
+        .result-wrapper { display: none; }
         .premium-card {
             background: linear-gradient(145deg, #1e2535, #111622);
             border: 2px solid #2e3748;
-            border-radius: 24px;
-            padding: 22px;
+            border-radius: 20px;
+            padding: 16px;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 12px 36px rgba(0,0,0,0.4);
         }
-
-        .premium-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg, #00c896, #3498db, #00c896);
-        }
-
         .badge-status {
             background: rgba(0, 200, 150, 0.15);
             color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 20px;
+            display: inline-block;
+            margin-bottom: 12px;
         }
-
         .price-row {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
             background: rgba(255,255,255,0.03);
-            padding: 16px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 20px;
-        }
-
-        .price-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-box.main-avg {
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding-bottom: 10px;
-            margin-bottom: 4px;
-        }
-
-        .price-title {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .price-value {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .price-box.main-avg .price-title {
-            font-size: 15px;
-            color: #fff;
-        }
-        .price-box.main-avg .price-value {
-            font-size: 22px;
-            color: var(--primary);
-            font-weight: 800;
-        }
-
-        .meta-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .meta-item {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
             padding: 12px;
-            border-radius: 14px;
-            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 12px;
         }
-
-        .meta-val {
-            font-size: 18px;
-            font-weight: 800;
-            margin-top: 4px;
-        }
+        .price-box { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;}
+        .price-box.main-avg { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; margin-bottom: 6px; font-size: 16px; font-weight: 800; color: var(--primary);}
         
-        .meta-val.score { color: #3498db; }
-        .meta-val.body-score { color: #e67e22; }
+        .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .meta-item { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; text-align: center; font-size: 12px; }
+        .meta-val { font-size: 15px; font-weight: 800; margin-top: 2px; }
 
-        .ai-comment-box {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 14px;
-            border-radius: 14px;
-            border-left: 4px solid var(--primary);
-            font-size: 13px;
-            line-height: 1.5;
-            color: #e2e8f0;
-        }
-
-        /* Aksiyon Butonları */
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn-action {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: #fff;
-        }
-
+        .ai-comment-box { background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; border-left: 4px solid var(--primary); font-size: 12px; line-height: 1.4; }
+        
+        .action-buttons { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .btn-action { width: 100%; padding: 12px; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .btn-whatsapp { background: #25D366; }
         .btn-copy { background: #4a5568; }
         .btn-screenshot { background: #3182ce; }
-
     </style>
 </head>
 <body>
 
 <div class="phone-container">
 
-    <h1 class="main-title">🤖 AI Araç Değerleme <span style="font-size:12px; background:#e2e8f0; color:#000; padding:2px 6px; border-radius:6px; vertical-align:middle;">V2</span></h1>
+    <h1 class="main-title">🤖 AI Araç Değerleme V2.1</h1>
 
-    <div class="card" id="inputCard">
-        <div class="card-title"><i class="fa-solid incentives fa-car"></i> Araç Künyesi</div>
+    <div class="card">
+        <div class="card-title"><i class="fa-solid fa-car"></i> Araç Künyesi</div>
         
         <div class="grid-3">
-            <div class="form-group">
-                <label>Marka</label>
-                <input id="marka" placeholder="Örn: Renault">
-            </div>
-            <div class="form-group">
-                <label>Model</label>
-                <input id="model" placeholder="Clio">
-            </div>
-            <div class="form-group">
-                <label>Paket</label>
-                <input id="paket" placeholder="Icon">
-            </div>
+            <div class="form-group"><label>Marka</label><input id="marka" placeholder="Renault"></div>
+            <div class="form-group"><label>Model</label><input id="model" placeholder="Clio"></div>
+            <div class="form-group"><label>Paket</label><input id="paket" placeholder="Icon"></div>
         </div>
 
         <div class="grid-3">
             <div class="form-group">
                 <label>Yıl</label>
-                <select id="yil"></select>
+                <select id="yil">
+                    </select>
             </div>
             <div class="form-group">
                 <label>Yakıt</label>
@@ -510,39 +295,54 @@
         </div>
 
         <div class="grid-2">
-            <div class="form-group">
-                <label>KM</label>
-                <input id="km" type="number" placeholder="0">
+            <div class="form-group"><label>KM</label><input id="km" type="number" placeholder="0"></div>
+            <div class="form-group"><label>Tramer (TL)</label><input id="tramer" type="number" placeholder="0"></div>
+        </div>
+
+        <div class="form-group"><label>Şehir</label><input id="il" placeholder="İstanbul"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Kaporta Ekspertizi</div>
+        
+        <div class="car-layout">
+            <div class="car-row">
+                <div class="part w-full" id="p-onTampon" data-durum="0">ÖN TAMPON</div>
             </div>
-            <div class="form-group">
-                <label>Tramer (TL)</label>
-                <input id="tramer" type="number" placeholder="0">
+            <div class="car-row">
+                <div class="part w-side" id="p-solOnCamurluk" data-durum="0">SOL ÖN<span>Çamurluk</span></div>
+                <div class="part w-mid" id="p-kaput" data-durum="0">KAPUT</div>
+                <div class="part w-side" id="p-sagOnCamurluk" data-durum="0">SAĞ ÖN<span>Çamurluk</span></div>
+            </div>
+            <div class="car-row">
+                <div class="part w-side" id="p-solOnKapi" data-durum="0">SOL ÖN<span>Kapı</span></div>
+                <div class="part w-mid" id="p-tavan" data-durum="0">TAVAN</div>
+                <div class="part w-side" id="p-sagOnKapi" data-durum="0">SAĞ ÖN<span>Kapı</span></div>
+            </div>
+            <div class="car-row">
+                <div class="part w-side" id="p-solArkaKapi" data-durum="0">SOL ARKA<span>Kapı</span></div>
+                <div class="part w-mid" style="visibility:hidden;"></div>
+                <div class="part w-side" id="p-sagArkaKapi" data-durum="0">SAĞ ARKA<span>Kapı</span></div>
+            </div>
+            <div class="car-row">
+                <div class="part w-side" id="p-solArkaCamurluk" data-durum="0">SOL ARKA<span>Çamurluk</span></div>
+                <div class="part w-mid" id="p-bagaj" data-durum="0">BAGAJ</div>
+                <div class="part w-side" id="p-sagArkaCamurluk" data-durum="0">SAĞ ARKA<span>Çamurluk</span></div>
+            </div>
+            <div class="car-row">
+                <div class="part w-full" id="p-arkaTampon" data-durum="0">ARKA TAMPON</div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Şehir</label>
-            <input id="il" placeholder="İstanbul">
+        <div class="live-counter-grid">
+            <div class="counter-badge" style="background:var(--color-degisen)">Değişen: <span id="c-degisen">0</span></div>
+            <div class="counter-badge" style="background:var(--color-boya)">Boya: <span id="c-boya">0</span></div>
+            <div class="counter-badge" style="background:var(--color-lokal)">Lokal: <span id="c-lokal">0</span></div>
+            <div class="counter-badge" style="background:var(--color-soktak)">Sök Tak: <span id="c-soktak">0</span></div>
+            <div class="counter-badge" style="background:var(--color-islemli)">İşlemli: <span id="c-islemli">0</span></div>
+            <div class="counter-badge" style="background:var(--color-orijinal)">Orijinal: <span id="c-orijinal">13</span></div>
         </div>
     </div>
 
-    <div class="card" id="schemaCard">
-        <div class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Kaporta Ekspertizi</div>
-        
-        <div class="car-schema-container">
-            <div class="car-schema">
-                <div class="empty-space"></div>
-                <div class="part" id="p-tavan" data-durum="0">TAVAN</div>
-                <div class="empty-space"></div>
-
-                <div class="part" id="p-solOnCamurluk" data-durum="0">SOL ÖN<span>Çamurluk</span></div>
-                <div class="part" id="p-kaput" data-durum="0">KAPUT</div>
-                <div class="part" id="p-sagOnCamurluk" data-durum="0">SAĞ ÖN<span>Çamurluk</span></div>
-
-                <div class="part" id="p-solOnKapi" data-durum="0">SOL ÖN<span>Kapı</span></div>
-                <div class="empty-space"></div>
-                <div class="part" id="p-sagOnKapi" data-durum="0">SAĞ ÖN<span>Kapı</span></div>
-
-                <div class="part" id="p-solArkaKapi" data-durum="0">SOL ARKA<span>Kapı</span></div>
-                <div class="empty-space"></div>
-                <div class="part" id="p-sagArkaKapi" data-durum="0">SAĞ ARKA<span>Kapı</span></div>
+    <div class="card">
+        <div class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Kritik Şase / İskelet Kontrolü</div>
