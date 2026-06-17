@@ -652,11 +652,12 @@ const markalar =
 [
 ...new Set(
 json.map(
-x=>x["MARKA ADI"]
+x=>x["Marka Adı"]
 ).filter(Boolean)
 )
 ]
 .sort();
+    console.log(markalar);
 
 markalar.forEach(marka=>{
 
