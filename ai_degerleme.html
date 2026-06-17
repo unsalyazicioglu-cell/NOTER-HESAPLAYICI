@@ -996,6 +996,21 @@ document
 }
 
 async function degerle(){
+  if(
+!document.getElementById("marka").value ||
+!document.getElementById("yil").value ||
+!document.getElementById("model").value ||
+!document.getElementById("km").value ||
+!document.getElementById("tramer").value
+){
+
+alert(
+"Lütfen Marka, Model Yılı, Araç Tipi, KM ve Tramer bilgilerini doldurun."
+);
+
+return;
+
+}
 const overlay=
 document.getElementById(
 "loadingOverlay"
