@@ -11,7 +11,6 @@ module.exports = async function handler(req, res) {
     const veri = req.body;
 
     const prompt = `
-Sen Türkiye ikinci el araç piyasasında uzman bir araç değerleme danışmanısın.
 
 Marka: ${veri.marka}
 Model: ${veri.model}
