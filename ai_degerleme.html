@@ -713,6 +713,56 @@ String(yil)
 
 });
 
+
+document
+.getElementById("yil")
+.addEventListener(
+"change",
+function(){
+
+const secilenYil =
+this.value;
+
+const secilenMarka =
+document
+.getElementById("marka")
+.value;
+
+const modelSelect =
+document
+.getElementById("model");
+
+modelSelect.innerHTML =
+'<option value="">Araç Tipi Seçiniz</option>';
+
+const modeller =
+window.excelVerileri
+.filter(x=>{
+
+return (
+x["Marka Adı"] === secilenMarka &&
+Number(x[secilenYil]) > 0
+);
+
+})
+.map(
+x=>x["Tip Adı"]
+);
+
+[...new Set(modeller)]
+.sort()
+.forEach(model=>{
+
+modelSelect.innerHTML +=
+`<option value="${model}">
+${model}
+</option>`;
+
+});
+
+});
+
+  
 [...new Set(yillar)]
 .sort((a,b)=>b-a)
 .forEach(yil=>{
