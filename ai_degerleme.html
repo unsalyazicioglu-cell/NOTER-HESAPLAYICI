@@ -670,7 +670,45 @@ ${marka}
 
 window.excelVerileri =
 json;
+document
+.getElementById("marka")
+.addEventListener(
+"change",
+function(){
 
+const secilenMarka =
+this.value;
+
+const modelSelect =
+document.getElementById("model");
+
+modelSelect.innerHTML =
+'<option value="">Araç Tipi Seçiniz</option>';
+
+const modeller =
+window.excelVerileri
+.filter(
+x =>
+x["Marka Adı"] ===
+secilenMarka
+)
+.map(
+x =>
+x["Tip Adı"]
+);
+
+[...new Set(modeller)]
+.sort()
+.forEach(model=>{
+
+modelSelect.innerHTML +=
+`<option value="${model}">
+${model}
+</option>`;
+
+});
+
+});
 }
 
 yukleAracVerileri();
