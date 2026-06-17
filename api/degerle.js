@@ -14,7 +14,6 @@ module.exports = async function handler(req, res) {
 
 Marka: ${veri.marka}
 Model: ${veri.model}
-Paket: ${veri.paket}
 Yıl: ${veri.yil}
 Yakıt: ${veri.yakit}
 Vites: ${veri.vites}
@@ -22,7 +21,6 @@ KM: ${veri.km}
 Tramer: ${veri.tramer}
 Ağır Hasar Kaydı: ${veri.agirHasar}
 Kasko Değeri: ${veri.kaskoDegeri}
-İl: ${veri.il}
 Cam Tavan / Sunroof: ${veri.sunroof}
 Ön Şase: ${veri.onSase}
 Arka Şase: ${veri.arkaSase}
@@ -124,10 +122,17 @@ try {
 } catch {
 
   return res.status(200).json({
+    minimumDeger: "-",
+    ortalamaDeger: "-",
+    maksimumDeger: "-",
+    satilabilirlik: "-",
+    tahminiSatisSuresi: "-",
+    guvenPuani: "-",
     yorum: temiz
   });
 
 }
+
 
   } catch (err) {
 
