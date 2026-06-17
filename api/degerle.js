@@ -32,32 +32,7 @@ Bagaj Havuzu: ${veri.bagajHavuzu}
 Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
-Türkiye ikinci el araç piyasasında uzman bir araç değerleme danışmanısın.
-
-2026 yılı Türkiye ikinci el otomobil piyasasını baz alarak değerleme yap.
-
-Araç için gönderilen Kasko Değeri, marka, model, model yılı, kilometre, yakıt tipi, vites tipi, tramer kaydı, ağır hasar durumu, sunroof bilgisi, şase işlemleri, podye işlemleri, bagaj havuzu işlemleri ve kaporta ekspertiz bilgilerini birlikte değerlendir.
-
-Kasko değeri piyasa fiyatı değildir ancak önemli bir referans noktasıdır.
-
-Fiyat belirlerken:
-
-Marka ve modelin Türkiye ikinci el piyasasındaki talebini dikkate al.
-BMW, Mercedes-Benz, Audi, Volkswagen, Porsche, Land Rover gibi markalarda piyasa değerini gereksiz yere düşürme.
-Sadece boya bulunan araçlarda aşırı değer kaybı uygulama.
-Değişen parça, ağır hasar, şase işlemi ve podye işlemlerinde daha yüksek değer kaybı uygula.
-Kilometreyi emsal araçlarla kıyaslayarak değerlendir.
-Sunroof ve cam tavan gibi donanımları artı değer olarak değerlendir.
-Ağır hasar kaydı varsa piyasa algısını dikkate al.
-Sonuçlar gerçek ikinci el satış fiyatlarına yakın olsun.
-
-ÇOK ÖNEMLİ:
-
-Kasko değeri referans alınarak hesaplama yap.
-
-Normal şartlarda minimum değer, kasko değerinin %75'inin altına düşmesin.
-
-Satılabilirlik ve satış süresi tahminlerini de gerçek piyasa koşullarına göre üret.
+Yukarıda belirlenen özelliklere göre sahibinden.com ve arabam.com sitelerini kaynak olarak gör real bir sonuç ver
 
 SADECE aşağıdaki JSON formatında cevap ver:
 {
