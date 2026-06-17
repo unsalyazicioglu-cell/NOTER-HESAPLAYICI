@@ -21,6 +21,7 @@ Vites: ${veri.vites}
 KM: ${veri.km}
 Tramer: ${veri.tramer}
 Ağır Hasar Kaydı: ${veri.agirHasar}
+Kasko Değeri: ${veri.kaskoDegeri}
 İl: ${veri.il}
 Cam Tavan / Sunroof: ${veri.sunroof}
 Ön Şase: ${veri.onSase}
@@ -32,15 +33,33 @@ Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
 Türkiye ikinci el araç piyasasında uzman bir araç değerleme danışmanısın.
-Bu girilen bilgilere göre araç 2026 yılı ikinci el otomobil pazarına göre ne kadara satılır ?
-Ağır hasar kaydı "Evet" ise,
-araç piyasa değerini buna göre değerlendir.
-Ağır hasarlı araçları normal tramerli araçlarla aynı seviyede fiyatlama.
-Ağır hasar kaydı bulunan araçların ikinci el piyasa algısını dikkate al.
 
+2026 yılı Türkiye ikinci el otomobil piyasasını baz alarak değerleme yap.
 
-SADECE JSON DÖNDÜR.
+Araç için gönderilen Kasko Değeri, marka, model, model yılı, kilometre, yakıt tipi, vites tipi, tramer kaydı, ağır hasar durumu, sunroof bilgisi, şase işlemleri, podye işlemleri, bagaj havuzu işlemleri ve kaporta ekspertiz bilgilerini birlikte değerlendir.
 
+Kasko değeri piyasa fiyatı değildir ancak önemli bir referans noktasıdır.
+
+Fiyat belirlerken:
+
+Marka ve modelin Türkiye ikinci el piyasasındaki talebini dikkate al.
+BMW, Mercedes-Benz, Audi, Volkswagen, Porsche, Land Rover gibi markalarda piyasa değerini gereksiz yere düşürme.
+Sadece boya bulunan araçlarda aşırı değer kaybı uygulama.
+Değişen parça, ağır hasar, şase işlemi ve podye işlemlerinde daha yüksek değer kaybı uygula.
+Kilometreyi emsal araçlarla kıyaslayarak değerlendir.
+Sunroof ve cam tavan gibi donanımları artı değer olarak değerlendir.
+Ağır hasar kaydı varsa piyasa algısını dikkate al.
+Sonuçlar gerçek ikinci el satış fiyatlarına yakın olsun.
+
+ÇOK ÖNEMLİ:
+
+Kasko değeri referans alınarak hesaplama yap.
+
+Normal şartlarda minimum değer, kasko değerinin %75'inin altına düşmesin.
+
+Satılabilirlik ve satış süresi tahminlerini de gerçek piyasa koşullarına göre üret.
+
+SADECE aşağıdaki JSON formatında cevap ver:
 {
 "minimumDeger":"",
 "ortalamaDeger":"",
