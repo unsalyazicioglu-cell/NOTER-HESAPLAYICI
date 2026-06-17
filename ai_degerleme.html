@@ -939,6 +939,15 @@ document
 .querySelectorAll(".aracParca")
 .forEach(parca=>{
 
+parca.dataset.durum = 0;
+
+parca.innerHTML =
+parca.innerText +
+"<br>Orijinal";
+
+parca.style.background =
+durumlar[0].renk;
+  
 parca.dataset.durum=0;
 
 parca.onclick=()=>{
