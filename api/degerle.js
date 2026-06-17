@@ -20,6 +20,7 @@ Yakıt: ${veri.yakit}
 Vites: ${veri.vites}
 KM: ${veri.km}
 Tramer: ${veri.tramer}
+Ağır Hasar Kaydı: ${veri.agirHasar}
 İl: ${veri.il}
 Cam Tavan / Sunroof: ${veri.sunroof}
 Ön Şase: ${veri.onSase}
@@ -31,8 +32,11 @@ Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
 Türkiye ikinci el araç piyasasında uzman bir araç değerleme danışmanısın.
-
 Bu girilen bilgilere göre araç 2026 yılı ikinci el otomobil pazarına göre ne kadara satılır ?
+Ağır hasar kaydı "Evet" ise,
+araç piyasa değerini buna göre değerlendir.
+Ağır hasarlı araçları normal tramerli araçlarla aynı seviyede fiyatlama.
+Ağır hasar kaydı bulunan araçların ikinci el piyasa algısını dikkate al.
 
 
 SADECE JSON DÖNDÜR.
