@@ -104,7 +104,8 @@ SADECE aşağıdaki JSON formatında cevap ver:
     );
 
 const data = await response.json();
-
+return res.status(200).json(data);
+    
 const text =
   data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
