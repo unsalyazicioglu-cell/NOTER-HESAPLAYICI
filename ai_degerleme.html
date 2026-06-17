@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ÜCRETSİZ CANLI ARAÇ DEĞERLEME UYGULAMASI BİLGİLER GERÇEK GALERİ FİRMALARINDAN ANLIK ALINIR VE YÜZDE YÜZ GERÇEK CANLI VERİDİR</title>
-
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <style>
 
 body{
@@ -615,7 +615,59 @@ onclick="degerle()">
 </div>
 
 <script>
+let ARACLAR = {};
+  async function yukleAracVerileri(){
 
+const excelUrl =
+"https://raw.githubusercontent.com/unsalyazicioglu-cell/NOTER-HESAPLAYICI/20520a34811556bcd6a32324c91ae50e385180e4/202604R3.xlsx";
+
+const response =
+await fetch(excelUrl);
+
+const data =
+await response.arrayBuffer();
+
+const workbook =
+XLSX.read(data,{
+type:"array"
+});
+
+const sheet =
+workbook.Sheets[
+workbook.SheetNames[0]
+];
+
+const json =
+XLSX.utils.sheet_to_json(sheet);
+
+const markaSelect =
+document.getElementById("marka");
+
+const markalar =
+[
+...new Set(
+json.map(
+x=>x["MARKA ADI"]
+).filter(Boolean)
+)
+]
+.sort();
+
+markalar.forEach(marka=>{
+
+markaSelect.innerHTML +=
+`<option value="${marka}">
+${marka}
+</option>`;
+
+});
+
+window.excelVerileri =
+json;
+
+}
+
+yukleAracVerileri();
 for(let y=2026;y>=1990;y--){
 
 document.getElementById("yil").innerHTML+=
