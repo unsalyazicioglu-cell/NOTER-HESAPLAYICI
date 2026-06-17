@@ -116,9 +116,7 @@ const temiz = text
   .replace(/```/g, "")
   .trim();
 
-return res.status(200).json({
-  test: temiz
-});
+
     
 try {
 
