@@ -782,6 +782,60 @@ ${model}
 
 });
 
+  document
+.getElementById("model")
+.addEventListener(
+"change",
+function(){
+
+const secilenMarka =
+document
+.getElementById("marka")
+.value;
+
+const secilenYil =
+document
+.getElementById("yil")
+.value;
+
+const secilenModel =
+this.value;
+
+const kayit =
+window.excelVerileri.find(x=>{
+
+return (
+
+x["Marka Adı"] === secilenMarka &&
+
+x["Tip Adı"] === secilenModel
+
+);
+
+});
+
+if(!kayit)
+return;
+
+const deger =
+kayit[secilenYil];
+
+document
+.getElementById("kaskoKutusu")
+.style.display =
+"block";
+
+document
+.getElementById("kaskoDegeri")
+.innerHTML =
+
+Number(deger)
+.toLocaleString("tr-TR")
++
+" TL";
+
+});
+
 });
 
   
