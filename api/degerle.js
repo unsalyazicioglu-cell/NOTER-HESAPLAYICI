@@ -78,7 +78,32 @@ Maksimum değer:
 Sabırlı satışta ulaşılabilecek fiyat.
 
 Satılabilirlik ve satış süresini de buna göre hesapla.
+ÖNEMLİ:
 
+Araç değerini hesaplarken önce aynı marka, model, paket ve yıl için temiz emsal piyasa değerini belirle.
+
+Daha sonra kilometre, tramer, boya, değişen, şase, podye, bagaj havuzu ve diğer ekspertiz bilgilerine göre bu temiz emsal değer üzerinden artı veya eksi düzeltmeler yap.
+
+Araç fiyatını sıfırdan tahmin etme.
+
+Önce temiz emsal değeri belirle, sonra hasar ve kilometre etkilerini uygula.
+
+Türkiye ikinci el piyasasında oluşmuş gerçek fiyat seviyelerinden kopma.
+
+Premium segment araçlarda (Mercedes, BMW, Audi, Porsche, Land Rover vb.) sadece boya veya kaput değişeni nedeniyle aracın değerini aşırı düşürme.
+
+İlan fiyatı değil, gerçekleşebilir satış fiyatı tahmini ver.
+
+Piyasada uzun süredir satılmayan aşırı yüksek ilanları baz alma.
+
+Minimum değer:
+Hızlı satılabilir piyasa fiyatı.
+
+Ortalama değer:
+Normal piyasa satış fiyatı.
+
+Maksimum değer:
+Sabırlı satışta ulaşılabilecek fiyat.
 SADECE JSON DÖNDÜR.
 
 {
