@@ -31,58 +31,15 @@ Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
 Türkiye ikinci el araç piyasasında uzman bir araç değerleme danışmanısın.
-Araç değerini belirlerken Türkiye ikinci el piyasasını ve özellikle sahibinden.com üzerindeki benzer emsal araçların fiyat seviyelerini baz al.
-Cam tavan / sunroof bulunan araçların piyasa değeri ve satılabilirliği üzerinde pozitif etkisini dikkate al.
-Araçta sunroof yoksa buna göre değerlendirme yap.
 
-Fiyat belirlerken:
+Verilen aracın güncel Türkiye ikinci el piyasasındaki satılabilir değerini tahmin et.
 
-Marka
-Model
-Paket
-Model yılı
-Kilometre
-Tramer
-Kaporta durumu
-Değişen parça sayısı
-Boyalı parça sayısı
-Şase işlemleri
-Podye işlemleri
-Bagaj havuzu işlemleri
-Direk işlemleri
-Cam tavan / sunroof durumu
+Fiyat verirken güncel piyasa seviyelerine yakın davran.
 
-kriterlerini dikkate al.
+Kilometre, tramer, ekspertiz, şase, podye, sunroof ve diğer bilgileri dikkate al ancak bu kusurlar nedeniyle aracın değerini aşırı düşürme.
 
-Temiz emsaller ile hasarlı emsalleri ayır.
-Yani ağır hasar kayıtı şeçeneği işaretlenmiş araç ile normal yüksek hasar kayıtı arasında farkı göz önünde bulundur 
-Gerçekçi ve satılabilir fiyatlar ver.
+Gerçek piyasada satılabilecek fiyatları tahmin et.
 
-Minimum değer:
-Galericinin hızlı satabileceği fiyat.
-
-Ortalama değer:
-Piyasa satış ortalaması.
-
-Maksimum değer:
-Sabırlı satışta ulaşılabilecek fiyat.
-
-Satılabilirlik ve satış süresini de buna göre hesapla.
-
-Araç değerini hesaplarken önce aynı marka, model, paket ve yıl için temiz emsal piyasa değerini belirle.
-
-Araç fiyatını sıfırdan tahmin etme.
-
-Türkiye ikinci el piyasasında oluşmuş gerçek fiyat seviyelerinden kopma.
-
-Minimum değer:
-Hızlı satılabilir piyasa fiyatı.
-
-Ortalama değer:
-Normal piyasa satış fiyatı.
-
-Maksimum değer:
-Sabırlı satışta ulaşılabilecek fiyat.
 SADECE JSON DÖNDÜR.
 
 {
