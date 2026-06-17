@@ -1174,7 +1174,7 @@ JSON.stringify(veri)
 
 const sonuc=
 await cevap.json();
-alert(JSON.stringify(sonuc));
+
   
 clearInterval(animasyon);
 
@@ -1190,8 +1190,9 @@ overlay.style.display="none";
 sonucPopup.style.display=
 "flex";
 
+  console.log(sonuc);
 sonucPopupIcerik.innerHTML=`
-
+<p>${JSON.stringify(sonuc)}</p>
 <h2>
 📊 AI Araç Analizi
 </h2>
