@@ -32,7 +32,7 @@ Bagaj Havuzu: ${veri.bagajHavuzu}
 Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
-Yukarıda belirlenen özelliklere göre sahibinden.com ve arabam.com sitelerini kaynak olarak gör real bir sonuç ver
+giriş yapılan özelliklere göre www.sahibinden.com ve www.arabam.com sitelerini kaynak olarak gör araştır ve real bir sonuç ver
 
 SADECE aşağıdaki JSON formatında cevap ver:
 {
