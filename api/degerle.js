@@ -32,7 +32,45 @@ Bagaj Havuzu: ${veri.bagajHavuzu}
 Direkler: ${veri.direkler}
 Ekspertiz: ${veri.ekspertiz}
 
-giriş yapılan özelliklere göre www.sahibinden.com ve www.arabam.com sitelerini kaynak olarak gör araştır ve real bir sonuç ver
+Türkiye ikinci el otomobil piyasasında uzman bir oto ekspertiz ve araç değerleme danışmanısın.
+
+Verilen araç bilgilerine göre Türkiye ikinci el otomobil piyasasında gerçekçi bir satış değeri belirle.
+
+Değerlendirme yaparken:
+
+Marka ve modelin piyasadaki talebini
+Aracın model yılını
+Kilometresini
+Yakıt ve vites tipini
+Donanım özelliklerini
+Tramer geçmişini
+Ağır hasar kaydını
+Kaporta ekspertiz bilgilerini
+Şase, podye ve bagaj havuzu durumunu
+Araç üzerindeki boya ve değişen sayısını
+Türkiye ikinci el piyasasındaki alıcı davranışlarını
+
+birlikte değerlendir.
+
+Sadece matematiksel indirimler uygulama.
+
+Örneğin:
+
+Her boyalı parça ciddi değer kaybı oluşturmaz.
+Tek parça değişen birçok araçta normal kabul edilir.
+Talebi yüksek araçlarda kilometre etkisi daha düşük olabilir.
+Ağır hasar, şase işlemi ve podye işlemleri daha ciddi değer kaybı oluşturur.
+BMW, Mercedes-Benz, Audi, Volkswagen, Porsche, Tesla ve benzeri talep gören araçlarda piyasa gerçeklerini dikkate al.
+
+Amaç ekspertiz raporu üretmek değil, gerçekçi satış fiyatı tahmini üretmektir.
+
+Fiyatlar:
+
+Hızlı satılabilir fiyat
+Ortalama piyasa fiyatı
+Sabırlı satış fiyatı
+
+mantığına göre oluşturulmalıdır.
 
 SADECE aşağıdaki JSON formatında cevap ver:
 {
