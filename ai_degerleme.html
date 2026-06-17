@@ -387,8 +387,8 @@ gap:8px;
 </div>
 
 <div>
-<label>Araç Tipi</label>
-<select id="model">
+<label>Model Yılı</label>
+<select id="yil">
 <option value="">Önce Marka Seçiniz</option>
 </select>
 </div>
@@ -679,32 +679,47 @@ function(){
 const secilenMarka =
 this.value;
 
-const modelSelect =
-document.getElementById("model");
+const yilSelect =
+document.getElementById("yil");
 
-modelSelect.innerHTML =
-'<option value="">Araç Tipi Seçiniz</option>';
+yilSelect.innerHTML =
+'<option value="">Model Yılı Seçiniz</option>';
 
-const modeller =
+const yillar = [];
+
 window.excelVerileri
 .filter(
 x =>
 x["Marka Adı"] ===
 secilenMarka
 )
-.map(
-x =>
-x["Tip Adı"]
+.forEach(x=>{
+
+for(let yil=2012;yil<=2026;yil++){
+
+if(
+x[yil] &&
+Number(x[yil]) > 0
+){
+yillar.push(
+String(yil)
 );
+}
 
-[...new Set(modeller)]
-.sort()
-.forEach(model=>{
+}
 
-modelSelect.innerHTML +=
-`<option value="${model}">
-${model}
+});
+
+[...new Set(yillar)]
+.sort((a,b)=>b-a)
+.forEach(yil=>{
+
+yilSelect.innerHTML +=
+`<option value="${yil}">
+${yil}
 </option>`;
+
+});
 
 });
 
