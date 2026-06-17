@@ -32,13 +32,8 @@ Ekspertiz: ${veri.ekspertiz}
 
 Türkiye ikinci el araç piyasasında uzman bir araç değerleme danışmanısın.
 
-Verilen aracın güncel Türkiye ikinci el piyasasındaki satılabilir değerini tahmin et.
+Bu girilen bilgilere göre araç 2026 yılı ikinci el otomobil pazarına göre ne kadara satılır ?
 
-Fiyat verirken güncel piyasa seviyelerine yakın davran.
-
-Kilometre, tramer, ekspertiz, şase, podye, sunroof ve diğer bilgileri dikkate al ancak bu kusurlar nedeniyle aracın değerini aşırı düşürme.
-
-Gerçek piyasada satılabilecek fiyatları tahmin et.
 
 SADECE JSON DÖNDÜR.
 
