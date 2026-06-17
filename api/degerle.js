@@ -115,6 +115,10 @@ const temiz = text
   .replace(/```/g, "")
   .trim();
 
+return res.status(200).json({
+  test: temiz
+});
+    
 try {
 
   const sonuc = JSON.parse(temiz);
@@ -124,12 +128,6 @@ try {
 } catch {
 
   return res.status(200).json({
-    minimumDeger: "-",
-    ortalamaDeger: "-",
-    maksimumDeger: "-",
-    satilabilirlik: "-",
-    tahminiSatisSuresi: "-",
-    guvenPuani: "-",
     yorum: temiz
   });
 
