@@ -33,10 +33,21 @@ nav{
 }
 
 .logo{
-    font-family:"Cormorant Garamond",serif;
-    font-size:42px;
-    letter-spacing:7px;
-    color:#d7b56d;
+
+font-family:"Michroma",sans-serif;
+
+font-size:30px;
+
+letter-spacing:10px;
+
+font-weight:400;
+
+color:#d4af37;
+
+text-transform:uppercase;
+
+transition:.4s;
+
 }
 
 nav ul{
@@ -46,12 +57,27 @@ nav ul{
 }
 
 nav a{
-    color:#fff;
-    text-decoration:none;
-    font-size:14px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    transition:.35s;
+
+font-family:"Michroma",sans-serif;
+
+font-size:12px;
+
+letter-spacing:4px;
+
+text-transform:uppercase;
+
+color:white;
+
+opacity:.92;
+
+transition:.35s;
+
+}
+
+nav a:hover{
+
+color:#d4af37;
+
 }
 
 nav a:hover{
@@ -79,32 +105,89 @@ nav a:hover{
 }
 
 .hero h1{
-    font-family:"Cormorant Garamond",serif;
-    font-size:110px;
-    letter-spacing:12px;
-    margin-bottom:15px;
+
+font-family:"Michroma",sans-serif;
+
+font-size:88px;
+
+letter-spacing:18px;
+
+font-weight:400;
+
+margin-bottom:25px;
+
+text-transform:uppercase;
+
 }
 
 .hero h2{
-    font-size:32px;
-    font-weight:300;
-    margin-bottom:25px;
+
+font-size:20px;
+
+letter-spacing:8px;
+
+font-weight:300;
+
+text-transform:uppercase;
+
+color:#d4af37;
+
+margin-bottom:30px;
+
 }
 
 .hero p{
-    color:#bfbfbf;
-    font-size:18px;
-    line-height:1.8;
+
+font-size:17px;
+
+letter-spacing:2px;
+
+color:#b8b8b8;
+
+line-height:2;
+
+max-width:700px;
+
+margin:auto;
+
 }
 
 .btn{
-    display:inline-block;
-    margin-top:45px;
-    padding:18px 45px;
-    border:1px solid #d7b56d;
-    color:#d7b56d;
-    text-decoration:none;
-    transition:.35s;
+
+display:inline-block;
+
+margin-top:55px;
+
+padding:20px 55px;
+
+border:1px solid #d4af37;
+
+font-family:"Michroma",sans-serif;
+
+font-size:12px;
+
+letter-spacing:4px;
+
+text-transform:uppercase;
+
+color:#d4af37;
+
+text-decoration:none;
+
+transition:.45s;
+
+}
+
+.btn:hover{
+
+background:#d4af37;
+
+color:#111;
+
+transform:translateY(-3px);
+
+box-shadow:0 15px 35px rgba(212,175,55,.35);
+
 }
 
 .btn:hover{
