@@ -1,0 +1,171 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#0a0a0a;
+    color:#fff;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:85px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 80px;
+    backdrop-filter:blur(18px);
+    background:rgba(10,10,10,.35);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    z-index:999;
+}
+
+.logo{
+    font-family:"Cormorant Garamond",serif;
+    font-size:42px;
+    letter-spacing:7px;
+    color:#d7b56d;
+}
+
+nav ul{
+    display:flex;
+    gap:45px;
+    list-style:none;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    transition:.35s;
+}
+
+nav a:hover{
+    color:#d7b56d;
+}
+
+.hero{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75)),
+    url("assets/images/hero.jpg");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:900px;
+    padding:20px;
+}
+
+.hero h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:110px;
+    letter-spacing:12px;
+    margin-bottom:15px;
+}
+
+.hero h2{
+    font-size:32px;
+    font-weight:300;
+    margin-bottom:25px;
+}
+
+.hero p{
+    color:#bfbfbf;
+    font-size:18px;
+    line-height:1.8;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:45px;
+    padding:18px 45px;
+    border:1px solid #d7b56d;
+    color:#d7b56d;
+    text-decoration:none;
+    transition:.35s;
+}
+
+.btn:hover{
+    background:#d7b56d;
+    color:#000;
+}
+
+section{
+    padding:140px 10%;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+}
+
+section h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:56px;
+    margin-bottom:25px;
+    color:#d7b56d;
+}
+
+section p{
+    color:#cfcfcf;
+    line-height:2;
+    max-width:800px;
+}
+
+footer{
+    padding:50px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.08);
+    color:#888;
+}
+
+@media(max-width:900px){
+
+nav{
+padding:0 25px;
+height:75px;
+}
+
+nav ul{
+display:none;
+}
+
+.logo{
+font-size:30px;
+}
+
+.hero h1{
+font-size:65px;
+letter-spacing:5px;
+}
+
+.hero h2{
+font-size:24px;
+}
+
+section{
+padding:90px 25px;
+}
+
+}
