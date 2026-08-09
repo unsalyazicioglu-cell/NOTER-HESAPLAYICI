@@ -34,9 +34,10 @@ body {
 .smoke {
     position: fixed;
     inset: -15%;
-    z-index: 1;
+    z-index: 3;
     pointer-events: none;
     overflow: hidden;
+    mix-blend-mode: screen;
 }
 
 .smoke::before,
@@ -62,7 +63,7 @@ body {
         );
 
     filter: blur(38px);
-    opacity: .65;
+    opacity: .20;
     mix-blend-mode: screen;
 }
 
@@ -98,7 +99,7 @@ body {
         );
 
     filter: blur(42px);
-    opacity: .55;
+    opacity: .16;
     mix-blend-mode: screen;
 }
 
@@ -118,6 +119,45 @@ body {
     left: 22%;
     bottom: -25%;
     animation: smokeBottom 19s ease-in-out infinite alternate;
+}
+
+.smoke-cloud::before,
+.smoke-cloud::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            ellipse at 50% 50%,
+            rgba(235,235,235,.22) 0%,
+            rgba(185,185,185,.10) 20%,
+            rgba(120,120,120,.035) 42%,
+            transparent 72%
+        );
+    filter: blur(28px);
+    animation: smokePulse 9s ease-in-out infinite alternate;
+}
+
+.smoke-cloud::after {
+    transform: translate(14%, -10%) scale(.72);
+    opacity: .65;
+    animation-duration: 13s;
+}
+
+@keyframes smokePulse {
+    0% {
+        transform: translate(-7%, 6%) scale(.78);
+        opacity: .35;
+    }
+    50% {
+        transform: translate(5%, -8%) scale(1.05);
+        opacity: .75;
+    }
+    100% {
+        transform: translate(10%, 5%) scale(.86);
+        opacity: .42;
+    }
 }
 
 @keyframes smokeLeft {
@@ -260,14 +300,14 @@ body {
     }
 
     .smoke-cloud {
-        opacity: .48;
-        filter: blur(34px);
+        opacity: .28;
+        filter: blur(30px);
     }
 }
 
 @media (max-width: 400px) {
     .smoke-cloud {
-        opacity: .42;
+        opacity: .24;
     }
 }
 
