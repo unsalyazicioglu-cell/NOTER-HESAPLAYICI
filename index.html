@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
 
 <style>
-
 * {
     margin: 0;
     padding: 0;
@@ -19,375 +18,115 @@ html,
 body {
     width: 100%;
     height: 100%;
+    background: #050505;
 }
 
 body {
-    background: #050505;
-    font-family: 'Michroma', sans-serif;
     overflow: hidden;
-    height: 100vh;
-    min-height: 100vh;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    position: relative;
 }
 
-/* Arka plan ışıkları */
-
-body::before {
-    content: "";
-    position: absolute;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, #ffffff18, transparent 70%);
-    filter: blur(30px);
-    animation: move1 12s infinite alternate;
-    pointer-events: none;
-}
-
-body::after {
-    content: "";
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, #ffffff10, transparent 70%);
-    right: -150px;
-    bottom: -150px;
-    filter: blur(40px);
-    animation: move2 14s infinite alternate;
-    pointer-events: none;
-}
-
-@keyframes move1 {
-    0% {
-        transform: translate(-150px, -100px);
-    }
-
-    100% {
-        transform: translate(150px, 100px);
-    }
-}
-
-@keyframes move2 {
-    0% {
-        transform: translate(80px, 100px);
-    }
-
-    100% {
-        transform: translate(-100px, -80px);
-    }
-}
-
-/* Ana içerik */
-
+/* Yeni dikey YZC69 görseli */
 .container {
-    text-align: center;
     position: relative;
     z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 30px;
+
+    width: 100vw;
+    height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    background: #050505;
 }
-
-/* Logo */
-
-.logo {
-    font-size: 90px;
-    letter-spacing: 18px;
-    font-weight: 600;
-    color: white;
-
-    text-shadow:
-        0 0 10px rgba(255,255,255,.4),
-        0 0 25px rgba(255,255,255,.25);
-
-    animation: glow 3s infinite;
-
-    white-space: nowrap;
-}
-
-@keyframes glow {
-
-    0%,
-    100% {
-        text-shadow:
-            0 0 10px rgba(255,255,255,.25),
-            0 0 30px rgba(255,255,255,.15);
-    }
-
-    50% {
-        text-shadow:
-            0 0 20px rgba(255,255,255,.6),
-            0 0 60px rgba(255,255,255,.3);
-    }
-}
-
-/* Çizgi */
-
-.line {
-    width: 180px;
-    height: 1px;
-    background: white;
-    margin: 35px auto;
-    opacity: .3;
-}
-
-/* Alt başlık */
-
-.subtitle {
-    font-size: 12px;
-    letter-spacing: 8px;
-    color: #bdbdbd;
-    line-height: 1.8;
-}
-
-/* Footer */
-
-.footer {
-    position: absolute;
-    bottom: 35px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    font-size: 10px;
-    letter-spacing: 6px;
-    opacity: .35;
-
-    white-space: nowrap;
-    z-index: 2;
-}
-
-/* Grid */
-
-.grid {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    inset: 0;
-
-    background:
-        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
-
-    background-size: 70px 70px;
-
-    animation: grid 12s linear infinite;
-
-    pointer-events: none;
-}
-
-@keyframes grid {
-
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(70px);
-    }
-}
-
-
-/* =====================================================
-   MOBİL
-   ===================================================== */
-
-@media (max-width: 768px) {
-
-    body {
-        min-height: 100dvh;
-        height: 100dvh;
-    }
-
-    .container {
-        padding: 0 20px;
-    }
-
-    .logo {
-        font-size: clamp(48px, 17vw, 72px);
-        letter-spacing: clamp(8px, 3vw, 14px);
-    }
-
-    .line {
-        width: 120px;
-        margin: 25px auto;
-    }
-
-    .subtitle {
-        font-size: clamp(8px, 2.5vw, 11px);
-        letter-spacing: clamp(3px, 1.5vw, 6px);
-        line-height: 2;
-        max-width: 100%;
-    }
-
-    .footer {
-        bottom: 22px;
-        width: 100%;
-        text-align: center;
-        font-size: 8px;
-        letter-spacing: 3px;
-        padding: 0 15px;
-    }
-
-    body::before {
-        width: 450px;
-        height: 450px;
-        filter: blur(25px);
-    }
-
-    body::after {
-        width: 400px;
-        height: 400px;
-        filter: blur(30px);
-        right: -180px;
-        bottom: -180px;
-    }
-
-    .grid {
-        background-size: 50px 50px;
-    }
-}
-
-
-/* =====================================================
-   KÜÇÜK TELEFONLAR
-   ===================================================== */
-
-@media (max-width: 400px) {
-
-    .container {
-        padding: 0 15px;
-    }
-
-    .logo {
-        font-size: 48px;
-        letter-spacing: 7px;
-    }
-
-    .line {
-        width: 100px;
-        margin: 22px auto;
-    }
-
-    .subtitle {
-        font-size: 7px;
-        letter-spacing: 2.5px;
-        line-height: 2.2;
-    }
-
-    .footer {
-        bottom: 18px;
-        font-size: 7px;
-        letter-spacing: 2px;
-    }
-
-}
-
-
-/* =====================================================
-   YATAY TELEFON
-   ===================================================== */
-
-@media (max-width: 900px) and (orientation: landscape) {
-
-    .container {
-        transform: scale(.75);
-    }
-
-    .footer {
-        bottom: 10px;
-    }
-
-}
-/* =====================================================
-   YZC69 LOGO
-   ===================================================== */
 
 .brand-logo {
     display: block;
 
-    /* Görsel oranını bozmadan ekrana sığdır */
-    width: auto;
-    height: auto;
-
-    max-width: 90vw;
-    max-height: 75vh;
+    width: 100%;
+    height: 100%;
 
     object-fit: contain;
     object-position: center;
 
-    margin: 0 auto;
+    /* Görselin siyah kenarlarını siteyle aynı tona yaklaştırır */
+    background: #050505;
 
+    /* Hafif sinematik yumuşaklık */
     filter:
-        drop-shadow(0 0 15px rgba(255,255,255,.12))
-        drop-shadow(0 0 40px rgba(255,255,255,.08));
+        drop-shadow(0 0 18px rgba(255,255,255,.06))
+        drop-shadow(0 0 45px rgba(0,0,0,.65));
 
-    animation: logoAppear 1.8s ease-out both;
+    animation: logoAppear 1.6s ease-out both;
 }
 
 @keyframes logoAppear {
-
     from {
         opacity: 0;
-        transform: scale(.94);
+        transform: scale(1.025);
+        filter: blur(7px) brightness(.75);
     }
 
     to {
         opacity: 1;
         transform: scale(1);
+        filter:
+            blur(0)
+            drop-shadow(0 0 18px rgba(255,255,255,.06))
+            drop-shadow(0 0 45px rgba(0,0,0,.65));
     }
-
 }
 
-
-/* =====================================================
-   MOBİL
-   ===================================================== */
-
+/* Çok uzun iPhone ekranlarında da tam yüksekliği koru */
 @media (max-width: 768px) {
-
     .container {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        overflow: visible;
+        width: 100vw;
+        height: 100dvh;
+        min-height: 100dvh;
     }
 
     .brand-logo {
-        width: auto;
-        height: auto;
-
-        max-width: 100%;
-        max-height: 62vh;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
 
         object-fit: contain;
         object-position: center;
-
-        margin: 0 auto;
     }
-
 }
 
-
-/* =====================================================
-   KÜÇÜK TELEFON
-   ===================================================== */
-
+/* Küçük telefonlar */
 @media (max-width: 400px) {
-
     .brand-logo {
-        max-width: 100%;
-        max-height: 58vh;
+        object-fit: contain;
     }
+}
 
+/* Yatay telefon */
+@media (max-width: 900px) and (orientation: landscape) {
+    .brand-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+/* YouTube arka plan oynatıcısı */
+.youtube-player {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    left: -10px;
+    bottom: -10px;
+    opacity: 0;
+    pointer-events: none;
 }
 </style>
 
@@ -395,28 +134,20 @@ body::after {
 
 <body>
 
-<div class="grid"></div>
-
 <div class="container">
-
     <img
         src="yzc69-logo.png"
-        alt="YZC69"
+        alt="YZC69 Luxury Car Boutique & Real Estate"
         class="brand-logo"
     >
-
 </div>
 
-<div class="footer">
-    ISTANBUL • EST. 2026
-</div>
 <iframe
-    width="1"
-    height="1"
+    class="youtube-player"
     src="https://www.youtube.com/embed/XMo6aye_6TA?autoplay=1&loop=1&playlist=XMo6aye_6TA&controls=0&mute=0"
     frameborder="0"
     allow="autoplay; encrypted-media"
-    style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;">
-</iframe>
+></iframe>
+
 </body>
 </html>
