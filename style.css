@@ -173,16 +173,32 @@ footer {
 .brand-logo {
     display: block;
 
-    width: 900px;
-    max-width: 90vw;
-
+    width: auto;
     height: auto;
+
+    max-width: 90vw;
     max-height: 75vh;
 
     object-fit: contain;
     object-position: center;
 
     margin: 0 auto;
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 55%,
+            rgba(0,0,0,.85) 72%,
+            transparent 100%
+        );
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 55%,
+            rgba(0,0,0,.85) 72%,
+            transparent 100%
+        );
 
     filter:
         drop-shadow(0 0 15px rgba(255,255,255,.12))
