@@ -30,202 +30,134 @@ body {
     color: white;
 }
 
-/* Animated smoke environment */
+/* =====================================================
+   LIVE CINEMATIC FOG / SMOKE
+   ===================================================== */
+
 .smoke {
     position: fixed;
-    inset: -15%;
-    z-index: 3;
+    inset: 0;
+    z-index: 4;
     pointer-events: none;
     overflow: hidden;
-    mix-blend-mode: screen;
+    opacity: 1;
 }
 
-.smoke::before,
-.smoke::after {
-    content: "";
+.fog-sheet {
     position: absolute;
-    width: 65vw;
-    height: 65vw;
-    min-width: 420px;
-    min-height: 420px;
-    max-width: 950px;
-    max-height: 950px;
-
-    border-radius: 50%;
-
+    inset: -20%;
     background:
-        radial-gradient(
-            ellipse at 35% 65%,
-            rgba(210,210,210,.10) 0%,
-            rgba(170,170,170,.055) 18%,
-            rgba(110,110,110,.025) 35%,
-            transparent 68%
-        );
+        radial-gradient(ellipse at 18% 28%,
+            rgba(230,230,230,.20) 0%,
+            rgba(170,170,170,.10) 18%,
+            transparent 42%),
+        radial-gradient(ellipse at 82% 34%,
+            rgba(220,220,220,.18) 0%,
+            rgba(160,160,160,.08) 20%,
+            transparent 44%),
+        radial-gradient(ellipse at 50% 78%,
+            rgba(210,210,210,.14) 0%,
+            rgba(150,150,150,.06) 20%,
+            transparent 46%),
+        radial-gradient(ellipse at 45% 48%,
+            rgba(190,190,190,.07) 0%,
+            transparent 45%);
 
-    filter: blur(38px);
-    opacity: .20;
+    filter: blur(28px);
     mix-blend-mode: screen;
+    animation: fogFlow 22s ease-in-out infinite alternate;
 }
 
-.smoke::before {
-    left: -18%;
-    top: 5%;
-    animation: smokeLeft 18s ease-in-out infinite alternate;
+.fog-sheet.two {
+    inset: -30%;
+    background:
+        radial-gradient(ellipse at 30% 58%,
+            rgba(245,245,245,.15) 0%,
+            rgba(180,180,180,.07) 18%,
+            transparent 40%),
+        radial-gradient(ellipse at 72% 18%,
+            rgba(235,235,235,.16) 0%,
+            rgba(170,170,170,.07) 18%,
+            transparent 42%),
+        radial-gradient(ellipse at 58% 88%,
+            rgba(220,220,220,.12) 0%,
+            transparent 38%);
+
+    filter: blur(40px);
+    opacity: .8;
+    animation: fogFlow2 29s ease-in-out infinite alternate;
 }
 
-.smoke::after {
-    right: -18%;
-    top: 18%;
-    animation: smokeRight 22s ease-in-out infinite alternate;
-}
-
-.smoke-cloud {
+.fog-ribbon {
     position: absolute;
-    width: 55vw;
-    height: 55vw;
-    min-width: 350px;
-    min-height: 350px;
-    max-width: 800px;
-    max-height: 800px;
-
-    border-radius: 50%;
+    width: 125%;
+    height: 38%;
+    left: -12%;
+    top: 18%;
 
     background:
         radial-gradient(
             ellipse at center,
-            rgba(220,220,220,.075) 0%,
-            rgba(150,150,150,.035) 24%,
-            transparent 68%
-        );
-
-    filter: blur(42px);
-    opacity: .16;
-    mix-blend-mode: screen;
-}
-
-.smoke-cloud.one {
-    left: 12%;
-    top: -18%;
-    animation: smokeUp 20s ease-in-out infinite alternate;
-}
-
-.smoke-cloud.two {
-    right: 5%;
-    top: 38%;
-    animation: smokeDrift 24s ease-in-out infinite alternate;
-}
-
-.smoke-cloud.three {
-    left: 22%;
-    bottom: -25%;
-    animation: smokeBottom 19s ease-in-out infinite alternate;
-}
-
-.smoke-cloud::before,
-.smoke-cloud::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background:
-        radial-gradient(
-            ellipse at 50% 50%,
-            rgba(235,235,235,.22) 0%,
-            rgba(185,185,185,.10) 20%,
-            rgba(120,120,120,.035) 42%,
+            rgba(235,235,235,.16) 0%,
+            rgba(190,190,190,.08) 24%,
+            rgba(120,120,120,.025) 48%,
             transparent 72%
         );
-    filter: blur(28px);
-    animation: smokePulse 9s ease-in-out infinite alternate;
+
+    filter: blur(32px);
+    mix-blend-mode: screen;
+    opacity: .85;
+
+    animation: ribbonMove 17s ease-in-out infinite alternate;
 }
 
-.smoke-cloud::after {
-    transform: translate(14%, -10%) scale(.72);
+.fog-ribbon.bottom {
+    top: auto;
+    bottom: -4%;
     opacity: .65;
-    animation-duration: 13s;
+    animation-duration: 24s;
+    animation-direction: alternate-reverse;
 }
 
-@keyframes smokePulse {
+@keyframes fogFlow {
     0% {
-        transform: translate(-7%, 6%) scale(.78);
+        transform: translate3d(-5%, 4%, 0) scale(.95) rotate(-1deg);
+        opacity: .55;
+    }
+    50% {
+        transform: translate3d(4%, -5%, 0) scale(1.05) rotate(1deg);
+        opacity: .95;
+    }
+    100% {
+        transform: translate3d(10%, 3%, 0) scale(1.0) rotate(2deg);
+        opacity: .70;
+    }
+}
+
+@keyframes fogFlow2 {
+    0% {
+        transform: translate3d(8%, -4%, 0) scale(.9);
         opacity: .35;
     }
     50% {
-        transform: translate(5%, -8%) scale(1.05);
-        opacity: .75;
+        transform: translate3d(-7%, 5%, 0) scale(1.08);
+        opacity: .80;
     }
     100% {
-        transform: translate(10%, 5%) scale(.86);
-        opacity: .42;
+        transform: translate3d(-12%, -3%, 0) scale(.96);
+        opacity: .45;
     }
 }
 
-@keyframes smokeLeft {
+@keyframes ribbonMove {
     0% {
-        transform: translate3d(-8%, 7%, 0) scale(.85) rotate(-8deg);
+        transform: translate3d(-8%, 8%, 0) scale(.85) rotate(-3deg);
     }
     50% {
-        transform: translate3d(12%, -5%, 0) scale(1.08) rotate(5deg);
+        transform: translate3d(7%, -4%, 0) scale(1.08) rotate(2deg);
     }
     100% {
-        transform: translate3d(25%, -14%, 0) scale(.92) rotate(12deg);
-    }
-}
-
-@keyframes smokeRight {
-    0% {
-        transform: translate3d(10%, 10%, 0) scale(1);
-    }
-    50% {
-        transform: translate3d(-12%, -8%, 0) scale(1.12);
-    }
-    100% {
-        transform: translate3d(-28%, 4%, 0) scale(.9);
-    }
-}
-
-@keyframes smokeUp {
-    0% {
-        transform: translate3d(-5%, 18%, 0) scale(.9);
-        opacity: .3;
-    }
-    50% {
-        transform: translate3d(8%, -5%, 0) scale(1.12);
-        opacity: .65;
-    }
-    100% {
-        transform: translate3d(-3%, -24%, 0) scale(.95);
-        opacity: .4;
-    }
-}
-
-@keyframes smokeDrift {
-    0% {
-        transform: translate3d(12%, 0, 0) scale(.85);
-        opacity: .25;
-    }
-    50% {
-        transform: translate3d(-8%, -10%, 0) scale(1.15);
-        opacity: .6;
-    }
-    100% {
-        transform: translate3d(-20%, 12%, 0) scale(.95);
-        opacity: .3;
-    }
-}
-
-@keyframes smokeBottom {
-    0% {
-        transform: translate3d(0, 18%, 0) scale(.9);
-        opacity: .25;
-    }
-    50% {
-        transform: translate3d(7%, -8%, 0) scale(1.12);
-        opacity: .5;
-    }
-    100% {
-        transform: translate3d(-8%, -20%, 0) scale(1);
-        opacity: .3;
+        transform: translate3d(-3%, 7%, 0) scale(.94) rotate(-1deg);
     }
 }
 
@@ -299,15 +231,27 @@ body {
         inset: -25%;
     }
 
-    .smoke-cloud {
-        opacity: .28;
+    .smoke {
+        opacity: 1;
+    }
+
+    .fog-sheet {
+        filter: blur(22px);
+    }
+
+    .fog-sheet.two {
         filter: blur(30px);
+    }
+
+    .fog-ribbon {
+        filter: blur(25px);
     }
 }
 
 @media (max-width: 400px) {
-    .smoke-cloud {
-        opacity: .24;
+    .fog-sheet,
+    .fog-sheet.two {
+        opacity: .9;
     }
 }
 
@@ -335,10 +279,11 @@ body {
 
 <body>
 
-<div class="smoke">
-    <div class="smoke-cloud one"></div>
-    <div class="smoke-cloud two"></div>
-    <div class="smoke-cloud three"></div>
+<div class="smoke" aria-hidden="true">
+    <div class="fog-sheet"></div>
+    <div class="fog-sheet two"></div>
+    <div class="fog-ribbon"></div>
+    <div class="fog-ribbon bottom"></div>
 </div>
 
 <div class="container">
