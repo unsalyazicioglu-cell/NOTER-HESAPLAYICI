@@ -179,30 +179,35 @@ footer {
     max-width: 90vw;
     max-height: 75vh;
 
+    margin: 0 auto;
+
     object-fit: contain;
     object-position: center;
 
-    margin: 0 auto;
+    /* Üst kısmı uzun ve yumuşak şekilde arka plana erit */
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0,0,0,.25) 8%,
+        rgba(0,0,0,.65) 18%,
+        black 32%,
+        black 92%,
+        transparent 100%
+    );
 
-    -webkit-mask-image:
-        radial-gradient(
-            ellipse at center,
-            black 55%,
-            rgba(0,0,0,.85) 72%,
-            transparent 100%
-        );
-
-    mask-image:
-        radial-gradient(
-            ellipse at center,
-            black 55%,
-            rgba(0,0,0,.85) 72%,
-            transparent 100%
-        );
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0,0,0,.25) 8%,
+        rgba(0,0,0,.65) 18%,
+        black 32%,
+        black 92%,
+        transparent 100%
+    );
 
     filter:
-        drop-shadow(0 0 15px rgba(255,255,255,.12))
-        drop-shadow(0 0 40px rgba(255,255,255,.08));
+        drop-shadow(0 0 20px rgba(255,255,255,.10))
+        drop-shadow(0 0 45px rgba(255,255,255,.06));
 
     animation: logoAppear 1.8s ease-out both;
 }
