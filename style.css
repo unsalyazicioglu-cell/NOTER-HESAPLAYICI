@@ -172,26 +172,33 @@ footer {
 
 .brand-logo {
     position: fixed;
-    z-index: 10;
+    z-index: 20;
 
     left: 50%;
     top: 50%;
-
-    transform: translate(-50%, -50%);
 
     width: 84vw;
     max-width: 720px;
     height: auto;
 
-    pointer-events: none;
+    transform: translate3d(-50%, -50%, 0);
 
-    filter:
-        drop-shadow(0 4px 14px rgba(0,0,0,.8));
+    display: block;
+
+    pointer-events: none;
+    user-select: none;
+
+    background: transparent !important;
+
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,.7));
 }
 
 @media (max-width: 600px) {
     .brand-logo {
-        width: 88vw;
+        width: 86vw;
     }
 }
 
