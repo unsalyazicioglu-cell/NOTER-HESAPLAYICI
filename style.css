@@ -172,21 +172,18 @@ footer {
 
 .brand-logo {
     position: fixed;
-    z-index: 20;
+    z-index: 999;
+
+    width: 80vw;
+    max-width: 700px;
+    height: auto;
 
     left: 50%;
     top: 50%;
 
-    width: 86vw;
-    max-width: 720px;
-    aspect-ratio: 1 / 1;
-
     transform: translate(-50%, -50%);
 
-   background-image: url("./yzc69-logo-final.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    display: block;
 
     pointer-events: none;
 }
