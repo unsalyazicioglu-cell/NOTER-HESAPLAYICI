@@ -1,193 +1,163 @@
 <!DOCTYPE html>
 
 <html lang="tr">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+
+>
 
 <title>YZC69 Luxury</title>
 
-<!-- Premium + Script Fontlar -->
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Allura&display=swap" rel="stylesheet">
-
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html,
-body{
-    width:100%;
-    height:100%;
-    background:#000;
-    overflow:hidden;
+body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
 }
 
-body{
-    position:relative;
-}
 
 /* =========================
    VIDEO
 ========================= */
 
-.intro-video{
-    position:fixed;
-    inset:0;
+.intro-video {
 
-    width:100vw;
-    height:100dvh;
+    position: fixed;
 
-    display:block;
+    inset: 0;
 
-    object-fit:cover;
-    object-position:center;
+    width: 100vw;
+    height: 100dvh;
 
-    background:#000;
+    display: block;
 
-    z-index:1;
+    object-fit: cover;
+    object-position: center;
+
+    background: #000;
+
+    z-index: 1;
 }
 
 
 /* =========================
-   HAFİF KARARTMA
+   HAFİF VİDEO OVERLAY
+   Logonun okunmasını sağlar
 ========================= */
 
-.video-overlay{
-    position:fixed;
-    inset:0;
+.video-overlay {
+
+    position: fixed;
+
+    inset: 0;
 
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,0.18) 0%,
-            rgba(0,0,0,0.02) 45%,
-            rgba(0,0,0,0.28) 100%
+            rgba(0,0,0,0.12) 0%,
+            rgba(0,0,0,0.00) 45%,
+            rgba(0,0,0,0.18) 100%
         );
 
-    z-index:2;
+    z-index: 2;
 
-    pointer-events:none;
+    pointer-events: none;
 }
 
 
 /* =========================
-   MARKA YAZILARI
+   YZC69 PNG LOGO
 ========================= */
 
-.brand-container{
+.brand-logo {
 
-    position:fixed;
+    position: fixed;
 
-    left:50%;
-    top:50%;
+    z-index: 10;
 
-    transform:translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
 
-    width:92%;
+    transform: translate(-50%, -50%);
 
-    text-align:center;
+    width: 84vw;
 
-    color:#fff;
+    max-width: 720px;
 
-    z-index:3;
+    height: auto;
 
-    pointer-events:none;
+    display: block;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    /* Hafif sinematik gölge */
+    filter:
+        drop-shadow(0 4px 14px rgba(0,0,0,0.75))
+        drop-shadow(0 0 20px rgba(0,0,0,0.20));
+
+    /* Açılış animasyonu */
+    opacity: 0;
 
     animation:
-        brandAppear 2s ease-out forwards;
-
-}
-
-
-/* Ana marka */
-
-.brand-title{
-
-    font-family:
-        "Bodoni Moda",
-        "Times New Roman",
-        serif;
-
-    font-size:
-        clamp(18px, 2.15vw, 34px);
-
-    font-weight:500;
-
-    letter-spacing:
-        clamp(2px, 0.45vw, 6px);
-
-    line-height:1.25;
-
-    text-transform:uppercase;
-
-    white-space:normal;
-
-    text-shadow:
-        0 2px 12px rgba(0,0,0,0.8),
-        0 0 25px rgba(0,0,0,0.35);
-
-}
-
-
-/* EST 2021 ISTANBUL */
-
-.brand-subtitle{
-
-    margin-top:
-        clamp(8px, 1vw, 15px);
-
-    font-family:
-        "Allura",
-        cursive;
-
-    font-size:
-        clamp(25px, 3.2vw, 48px);
-
-    font-weight:400;
-
-    letter-spacing:
-        clamp(1px, 0.15vw, 3px);
-
-    line-height:1;
-
-    text-shadow:
-        0 2px 12px rgba(0,0,0,0.85);
+        logoAppear 1.8s ease-out forwards;
 
 }
 
 
 /* =========================
-   ANİMASYON
+   LOGO AÇILIŞ ANİMASYONU
 ========================= */
 
-@keyframes brandAppear{
+@keyframes logoAppear {
 
-    0%{
-        opacity:0;
+    0% {
+
+        opacity: 0;
+
         transform:
-            translate(-50%,-46%)
-            scale(0.97);
-        filter:blur(5px);
+            translate(-50%, -50%)
+            scale(0.96);
+
+        filter:
+            blur(4px)
+            drop-shadow(0 4px 14px rgba(0,0,0,0.75));
+
     }
 
-    60%{
-        opacity:1;
-        filter:blur(0);
-    }
+    100% {
 
-    100%{
-        opacity:1;
+        opacity: 1;
+
         transform:
-            translate(-50%,-50%)
+            translate(-50%, -50%)
             scale(1);
+
+        filter:
+            blur(0)
+            drop-shadow(0 4px 14px rgba(0,0,0,0.75))
+            drop-shadow(0 0 20px rgba(0,0,0,0.20));
+
     }
 
 }
@@ -197,31 +167,13 @@ body{
    MOBİL
 ========================= */
 
-@media (max-width:600px){
+@media (max-width: 600px) {
 
-    .brand-container{
+    .brand-logo {
 
-        width:90%;
+        width: 88vw;
 
-        top:48%;
-
-    }
-
-    .brand-title{
-
-        font-size:18px;
-
-        letter-spacing:2px;
-
-        line-height:1.35;
-
-    }
-
-    .brand-subtitle{
-
-        margin-top:9px;
-
-        font-size:31px;
+        max-width: none;
 
     }
 
@@ -229,21 +181,55 @@ body{
 
 
 /* =========================
-   YATAY MOBİL
+   ÇOK KÜÇÜK TELEFONLAR
 ========================= */
 
-@media (max-height:500px) and (orientation:landscape){
+@media (max-width: 380px) {
 
-    .brand-container{
-        top:50%;
+    .brand-logo {
+
+        width: 90vw;
+
     }
 
-    .brand-title{
-        font-size:17px;
+}
+
+
+/* =========================
+   YATAY TELEFON
+========================= */
+
+@media (
+    max-height: 500px
+) and (
+    orientation: landscape
+) {
+
+    .brand-logo {
+
+        width: 65vw;
+
     }
 
-    .brand-subtitle{
-        font-size:27px;
+}
+
+
+/* =========================
+   GÜVENLİ ALAN
+   iPhone Dynamic Island / Home bar
+========================= */
+
+@supports (
+    padding: env(safe-area-inset-top)
+) {
+
+    .brand-logo {
+
+        margin-top:
+            calc(
+                env(safe-area-inset-top) * 0.05
+            );
+
     }
 
 }
@@ -255,7 +241,7 @@ body{
 <body>
 
 <!-- =========================
-     VIDEO
+     ANA VİDEO
 ========================= -->
 
 <video
@@ -275,48 +261,50 @@ body{
 </video>
 
 <!-- =========================
-     VIDEO OVERLAY
+     HAFİF KARARTMA
 ========================= -->
 
 <div class="video-overlay"></div>
 
 <!-- =========================
-     MARKA
+     YZC69 LOGO
 ========================= -->
 
-<div class="brand-container">
+<img
+class="brand-logo"
+src="yzc69-logo.png"
+alt="YZC69 Luxury Car & Real Estate Boutique"
 
-```
-<div class="brand-title">
-    YZC69 LUXURY CAR &amp; REAL ESTATE BOUTIQUE
-</div>
-
-<div class="brand-subtitle">
-    EST 2021 İSTANBUL
-</div>
-```
-
-</div>
+>
 
 <!-- =========================
      ARKA PLAN MÜZİĞİ
 ========================= -->
 
 <iframe
-    style="
-        position:fixed;
-        width:1px;
-        height:1px;
-        left:-10px;
-        bottom:-10px;
-        opacity:0;
-        pointer-events:none;
-    "
-    src="https://www.youtube.com/embed/XMo6aye_6TA?autoplay=1&loop=1&playlist=XMo6aye_6TA&controls=0"
-    title="YZC69 Music"
-    frameborder="0"
-    allow="autoplay; encrypted-media">
+
+```
+style="
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    left: -10px;
+    bottom: -10px;
+    opacity: 0;
+    pointer-events: none;
+"
+
+src="https://www.youtube.com/embed/XMo6aye_6TA?autoplay=1&loop=1&playlist=XMo6aye_6TA&controls=0"
+
+title="YZC69 Music"
+
+frameborder="0"
+
+allow="autoplay; encrypted-media">
+```
+
 </iframe>
 
 </body>
+
 </html>
