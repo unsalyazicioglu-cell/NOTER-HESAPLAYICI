@@ -1,27 +1,307 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>YZC69</title>
+
+<title>YZC69 Luxury</title>
+
+<!-- Premium + Script Fontlar -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Allura&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#000;overflow:hidden}
-body{display:flex;align-items:center;justify-content:center}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
+}
+
+body{
+    position:relative;
+}
+
+/* =========================
+   VIDEO
+========================= */
+
 .intro-video{
+    position:fixed;
+    inset:0;
+
     width:100vw;
     height:100dvh;
+
     display:block;
+
     object-fit:cover;
     object-position:center;
+
     background:#000;
+
+    z-index:1;
 }
+
+
+/* =========================
+   HAFİF KARARTMA
+========================= */
+
+.video-overlay{
+    position:fixed;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.18) 0%,
+            rgba(0,0,0,0.02) 45%,
+            rgba(0,0,0,0.28) 100%
+        );
+
+    z-index:2;
+
+    pointer-events:none;
+}
+
+
+/* =========================
+   MARKA YAZILARI
+========================= */
+
+.brand-container{
+
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:92%;
+
+    text-align:center;
+
+    color:#fff;
+
+    z-index:3;
+
+    pointer-events:none;
+
+    animation:
+        brandAppear 2s ease-out forwards;
+
+}
+
+
+/* Ana marka */
+
+.brand-title{
+
+    font-family:
+        "Bodoni Moda",
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(18px, 2.15vw, 34px);
+
+    font-weight:500;
+
+    letter-spacing:
+        clamp(2px, 0.45vw, 6px);
+
+    line-height:1.25;
+
+    text-transform:uppercase;
+
+    white-space:normal;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,0.8),
+        0 0 25px rgba(0,0,0,0.35);
+
+}
+
+
+/* EST 2021 ISTANBUL */
+
+.brand-subtitle{
+
+    margin-top:
+        clamp(8px, 1vw, 15px);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size:
+        clamp(25px, 3.2vw, 48px);
+
+    font-weight:400;
+
+    letter-spacing:
+        clamp(1px, 0.15vw, 3px);
+
+    line-height:1;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,0.85);
+
+}
+
+
+/* =========================
+   ANİMASYON
+========================= */
+
+@keyframes brandAppear{
+
+    0%{
+        opacity:0;
+        transform:
+            translate(-50%,-46%)
+            scale(0.97);
+        filter:blur(5px);
+    }
+
+    60%{
+        opacity:1;
+        filter:blur(0);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================
+   MOBİL
+========================= */
+
+@media (max-width:600px){
+
+    .brand-container{
+
+        width:90%;
+
+        top:48%;
+
+    }
+
+    .brand-title{
+
+        font-size:18px;
+
+        letter-spacing:2px;
+
+        line-height:1.35;
+
+    }
+
+    .brand-subtitle{
+
+        margin-top:9px;
+
+        font-size:31px;
+
+    }
+
+}
+
+
+/* =========================
+   YATAY MOBİL
+========================= */
+
+@media (max-height:500px) and (orientation:landscape){
+
+    .brand-container{
+        top:50%;
+    }
+
+    .brand-title{
+        font-size:17px;
+    }
+
+    .brand-subtitle{
+        font-size:27px;
+    }
+
+}
+
 </style>
+
 </head>
+
 <body>
-<video class="intro-video" autoplay muted loop playsinline preload="auto">
-    <source src="yzc69-intro-loop.mp4" type="video/mp4">
+
+<!-- =========================
+     VIDEO
+========================= -->
+
+<video
+ class="intro-video"
+ autoplay
+ muted
+ loop
+ playsinline
+ preload="auto">
+
+```
+<source
+    src="yzc69-intro-loop.mp4"
+    type="video/mp4">
+```
+
 </video>
+
+<!-- =========================
+     VIDEO OVERLAY
+========================= -->
+
+<div class="video-overlay"></div>
+
+<!-- =========================
+     MARKA
+========================= -->
+
+<div class="brand-container">
+
+```
+<div class="brand-title">
+    YZC69 LUXURY CAR &amp; REAL ESTATE BOUTIQUE
+</div>
+
+<div class="brand-subtitle">
+    EST 2021 İSTANBUL
+</div>
+```
+
+</div>
+
+<!-- =========================
+     ARKA PLAN MÜZİĞİ
+========================= -->
+
 <iframe
     style="
         position:fixed;
@@ -37,5 +317,6 @@ body{display:flex;align-items:center;justify-content:center}
     frameborder="0"
     allow="autoplay; encrypted-media">
 </iframe>
+
 </body>
 </html>
