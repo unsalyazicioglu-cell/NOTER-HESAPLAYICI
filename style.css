@@ -171,83 +171,29 @@ footer {
    ===================================================== */
 
 .brand-logo {
-    display: block;
+    position: fixed;
+    z-index: 10;
 
-    width: auto;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 84vw;
+    max-width: 720px;
     height: auto;
 
-    max-width: 90vw;
-    max-height: 75vh;
-
-    margin: 0 auto;
-
-    object-fit: contain;
-    object-position: center;
-
-    /* Üst kısmı uzun ve yumuşak şekilde arka plana erit */
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0,0,0,.25) 8%,
-        rgba(0,0,0,.65) 18%,
-        black 32%,
-        black 92%,
-        transparent 100%
-    );
-
-    mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0,0,0,.25) 8%,
-        rgba(0,0,0,.65) 18%,
-        black 32%,
-        black 92%,
-        transparent 100%
-    );
+    pointer-events: none;
 
     filter:
-        drop-shadow(0 0 20px rgba(255,255,255,.10))
-        drop-shadow(0 0 45px rgba(255,255,255,.06));
-
-    animation: logoAppear 7s ease-out both;
+        drop-shadow(0 4px 14px rgba(0,0,0,.8));
 }
 
-@keyframes logoAppear {
-
-    from {
-        opacity: 0;
-        transform: scale(.94);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-
-/* =====================================================
-   MOBİL
-   ===================================================== */
-
-@media (max-width: 768px) {
-
+@media (max-width: 600px) {
     .brand-logo {
-        width: 100%;
-        max-width: 100%;
-
-        height: auto;
-
-        max-height: 60vh;
-
-        object-fit: contain;
-        object-position: center;
-
-        margin: 0 auto;
+        width: 88vw;
     }
-
 }
-
 
 /* =====================================================
    KÜÇÜK TELEFON
